@@ -1,30 +1,41 @@
 .footer {
-  background: #1c3b18;
+  background-color: #1c2b1f; /* Dark Green Background */
+  padding: 50px 0;
   color: white;
-  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-container {
   display: flex;
   justify-content: space-between;
+  align-items: stretch; /* Ensure both sections are the same height */
   max-width: 1200px;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  width: 90%;
 }
 
 .footer-left {
   flex: 1;
-  max-width: 300px;
+  background-color: #4b8f3c; /* Green Background */
+  padding: 30px;
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: -40px;
 }
 
 .footer-logo {
-  width: 180px;
+  width: 220px;
   margin-bottom: 15px;
 }
 
-.footer-left p {
+.footer-address {
   font-size: 14px;
-  margin-bottom: 10px;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .social-icons {
@@ -40,11 +51,22 @@
 }
 
 .social-icons a:hover {
-  color: #4CAF50;
+  color: #ddd;
 }
 
 .footer-right {
-  flex: 2;
+  flex: 1;
+  background-color: #d0ebae; /* Light Green */
+  padding: 30px;
+  border-radius: 12px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 40px;
+}
+
+.footer-links {
   display: flex;
   justify-content: space-between;
   gap: 40px;
@@ -52,7 +74,8 @@
 
 .footer-links h4 {
   font-size: 16px;
-  margin-bottom: 10px;
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
 .footer-links ul {
@@ -60,44 +83,52 @@
   padding: 0;
 }
 
-.footer-links li {
+.footer-links ul li {
   margin-bottom: 8px;
 }
 
-.footer-links a {
-  color: white;
+.footer-links ul li a {
+  color: black;
   text-decoration: none;
   font-size: 14px;
   transition: 0.3s;
 }
 
-.footer-links a:hover {
-  color: #4CAF50;
+.footer-links ul li a:hover {
+  text-decoration: underline;
 }
 
 .footer-cta {
-  text-align: right;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.footer-cta h4 {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .cta-btn {
-  background: black;
+  background-color: black;
   color: white;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
-  margin-top: 10px;
+  cursor: pointer;
   font-size: 14px;
-  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
 }
 
 .cta-btn:hover {
-  background: #333;
+  background-color: #333;
 }
 
 .footer-bottom {
   text-align: center;
-  margin-top: 20px;
   font-size: 14px;
-  opacity: 0.8;
+  margin-top: 20px;
+  color: white;
 }

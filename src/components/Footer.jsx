@@ -6,21 +6,24 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
+        {/* Left Section */}
         <div className="footer-left">
           <img src="/images/logo.png" alt="Barods Global" className="footer-logo" />
-          <p>
+          <p className="footer-address">
             Abeokuta Address: B104, Providence Mall, after OOPL entrance, Leme, Abeokuta, Ogun State.
           </p>
-          <p>
+          <p className="footer-address">
             Ibadan Address: 140, Fajuyi road, Adamasingba, Mokola, Ibadan, Oyo State.
           </p>
           <div className="social-icons">
             <a href="#"><i className="fab fa-facebook"></i></a>
             <a href="#"><i className="fab fa-twitter"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
             <a href="#"><i className="fab fa-linkedin"></i></a>
+            <a href="#"><i className="fab fa-instagram"></i></a>
           </div>
         </div>
+
+        {/* Right Section */}
         <div className="footer-right">
           <div className="footer-links">
             <div>
@@ -48,6 +51,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Bottom Section */}
       <p className="footer-bottom">&copy; Barods Global - All rights reserved</p>
     </footer>
   );
