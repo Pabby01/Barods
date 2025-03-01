@@ -1,0 +1,31 @@
+/* styles/hero.css */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+    background: url("../assets/hero-bg.jpg") center/cover no-repeat;
+    color: white;
+  }
+  
+  .search-bar {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .search-option {
+    background: green;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .search-btn {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  

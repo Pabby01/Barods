@@ -1,0 +1,54 @@
+.city-list {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .city-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #1c3b18;
+  }
+  
+  .city-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .city-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .city-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .city-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: brightness(0.7);
+  }
+  
+  .city-info {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    color: white;
+  }
+  
+  .city-info h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .city-info p {
+    font-size: 14px;
+  }
+  

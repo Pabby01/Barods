@@ -1,0 +1,76 @@
+.hot-deals {
+  text-align: center;
+  background: #4caf50;
+  padding: 40px 0;
+  color: white;
+}
+
+.slick-slider {
+  max-width: 90%;
+  margin: auto;
+}
+
+.slick-slide {
+  padding: 15px; /* Ensures spacing between slides */
+}
+
+.deal-card {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px; /* Creates space between cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.deal-card:hover {
+  transform: scale(1.05);
+}
+
+.deal-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.deal-card h3 {
+  font-size: 18px;
+  margin: 15px 0;
+}
+
+.deal-card p {
+  font-size: 16px;
+  font-weight: bold;
+  color: green;
+}
+
+.deal-card button {
+  background: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.next-arrow, .prev-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  color: black;
+  padding: 10px;
+  border-radius: 1000%;
+  cursor: pointer;
+  font-size: 10px;
+  z-index: 10;
+}
+
+.next-arrow {
+  right: -40px;
+}
+
+.prev-arrow {
+  left: -40px;
+}
