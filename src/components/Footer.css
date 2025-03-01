@@ -11,8 +11,8 @@
   display: flex;
   justify-content: space-between;
   align-items: stretch; /* Ensure both sections are the same height */
-  max-width: 1200px;
-  width: 90%;
+  max-width: 1400px; /* Increased width */
+  width: 95%;
 }
 
 .footer-left {
@@ -24,7 +24,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: -40px;
 }
 
 .footer-logo {
@@ -55,21 +54,21 @@
 }
 
 .footer-right {
-  flex: 1;
+  flex: 1.5; /* Increase width slightly */
   background-color: #d0ebae; /* Light Green */
   padding: 30px;
   border-radius: 12px;
   color: black;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-left: 40px;
+  justify-content: space-between; /* Align CTA with content */
+  align-items: flex-start;
 }
 
 .footer-links {
   display: flex;
   justify-content: space-between;
   gap: 40px;
+  flex-grow: 1; /* Allow links to take full width */
 }
 
 .footer-links h4 {
@@ -99,8 +98,13 @@
 }
 
 .footer-cta {
-  margin-top: 20px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
+  margin-left: 40px;
 }
 
 .footer-cta h4 {
