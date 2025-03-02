@@ -7,6 +7,7 @@ import HotDeals from "../components/HotDeals";
 import ExploreCities from "../components/CityList";
 import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
+import AdvertiseWithUs from "../components/AdvertiseWithus";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <HotDeals />
       <ExploreCities />
       <Testimonials />
+      <AdvertiseWithUs />
       <Footer />
     </div>
   );

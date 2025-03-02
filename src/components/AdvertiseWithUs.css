@@ -1,0 +1,36 @@
+.advertise-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 40px 60px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .advertise-content h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .advertise-content p {
+    color: #555;
+  }
+  
+  .advertise-button {
+    background: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+  }
+  
+  .advertise-button:hover {
+    background: #45a049;
+  }
+  

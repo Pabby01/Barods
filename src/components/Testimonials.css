@@ -1,53 +1,105 @@
 .testimonials {
-    padding: 50px 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .testimonials h2 {
-    font-size: 24px;
-    color: #1c3b18;
-    margin-bottom: 20px;
-  }
-  
-  .testimonial-swiper {
-    width: 100%;
-    padding-bottom: 40px;
-  }
-  
-  .testimonial-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .testimonial-card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 500px;
-  }
-  
-  .testimonial-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-  }
-  
-  .testimonial-review {
-    font-size: 16px;
-    color: #444;
-    margin-bottom: 10px;
-  }
-  
-  .testimonial-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #1c3b18;
-  }
-  
+  background-color: #e8f5d8;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.testimonial-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.business-info {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.company-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.rating {
+  color: gold;
+  font-size: 16px;
+}
+
+.review-btn {
+  background-color: #0073ff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.review-btn:hover {
+  background-color: #005bb5;
+}
+
+.testimonial-swiper {
+  padding: 20px 0;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.testimonial-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.testimonial-date {
+  font-size: 12px;
+  color: gray;
+}
+
+.testimonial-rating {
+  color: gold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.testimonial-review {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.read-more {
+  display: block;
+  font-size: 12px;
+  color: #0073ff;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
