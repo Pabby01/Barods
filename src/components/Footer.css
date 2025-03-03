@@ -5,17 +5,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  width: 100%;
 }
 
 .footer-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: stretch; /* Ensure both sections are the same height */
-  max-width: 1400px; /* Increased width */
+  max-width: 1400px;
   width: 95%;
+  gap: 20px;
 }
 
+/* Left Section */
 .footer-left {
   flex: 1;
   background-color: #4b8f3c; /* Green Background */
@@ -56,6 +59,7 @@
   color: #ddd;
 }
 
+/* Right Section */
 .footer-right {
   flex: 1.5; /* Increase width slightly */
   background-color: #d0ebae; /* Light Green */
@@ -63,6 +67,7 @@
   border-radius: 12px;
   color: black;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between; /* Align CTA with content */
   align-items: flex-start;
   margin-left: 40px;
@@ -140,4 +145,94 @@
   font-size: 14px;
   margin-top: 30px;
   color: rgb(7, 7, 7);
+}
+
+/* ================================= */
+/* MOBILE RESPONSIVENESS */
+/* ================================= */
+
+@media (max-width: 1024px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-right {
+    width: 90%;
+    margin: 20px 0;
+    padding: 20px;
+  }
+
+  .footer-left {
+    margin-left: 0;
+    padding-left: 20px;
+  }
+
+  .footer-right {
+    margin-left: 0;
+    padding-right: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer-links ul {
+    text-align: center;
+  }
+
+  .footer-cta {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-logo {
+    width: 180px;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .social-icons a {
+    font-size: 16px;
+  }
+
+  .cta-btn {
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .footer-left,
+  .footer-right {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .social-icons {
+    gap: 10px;
+  }
 }

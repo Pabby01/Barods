@@ -1,0 +1,158 @@
+/* General Page Styles */
+.about-container {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+  }
+  
+  /* Hero Section */
+  .about-hero {
+    background: url('/images/about-hero.jpg') center/cover no-repeat;
+    padding: 80px;
+    text-align: center;
+    color: white;
+  }
+  
+  .about-hero h1 {
+    font-size: 36px;
+    margin: 0;
+  }
+  
+  .about-hero p {
+    font-size: 16px;
+  }
+  
+  /* Our Story */
+  .our-story {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 20px;
+  }
+  
+  .story-text {
+    width: 50%;
+  }
+  
+  .story-images {
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .story-images img {
+    width: 48%;
+    border-radius: 10px;
+  }
+  
+  /* Our Values */
+  .our-values {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  /* Meet Our Team */
+  .team-section {
+    text-align: center;
+    padding: 40px;
+  }
+  
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+  
+  .team-member {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .team-member img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .team-member h3 {
+    margin: 10px 0 5px;
+  }
+  
+  .team-member p {
+    font-size: 14px;
+  }
+  
+  /* Footer */
+  .about-footer {
+    background: #1a2b33;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .footer-left {
+    width: 30%;
+  }
+  
+  .footer-left img {
+    width: 150px;
+  }
+  
+  .footer-center {
+    width: 20%;
+  }
+  
+  .footer-center h4 {
+    margin-bottom: 10px;
+  }
+  
+  .footer-center a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5px;
+  }
+  
+  .footer-right {
+    width: 20%;
+  }
+  
+  .become-agent {
+    background: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .our-story {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .story-text, .story-images {
+      width: 90%;
+    }
+  
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .about-footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  

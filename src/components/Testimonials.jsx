@@ -23,7 +23,7 @@ const testimonials = [
     avatar: "https://via.placeholder.com/50",
     date: "2024-09-28",
     rating: 5,
-    review: "From the very beginning, Lawrita made our home-buying experience seamless. From property viewings to making a...",
+    review: "From the very beginning, Lawrita made our home-buying experience seamless. From property viewings to making...",
   },
   {
     id: 3,

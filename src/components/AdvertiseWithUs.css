@@ -6,15 +6,24 @@
     padding: 40px 60px;
     border-radius: 8px;
     margin-top: 20px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+    gap: 20px;
+  }
+  
+  .advertise-content {
+    flex: 1;
+    min-width: 280px; /* Prevents text from shrinking too much */
   }
   
   .advertise-content h2 {
     font-size: 24px;
     color: #333;
+    margin-bottom: 10px;
   }
   
   .advertise-content p {
     color: #555;
+    font-size: 16px;
   }
   
   .advertise-button {
@@ -28,9 +37,78 @@
     align-items: center;
     gap: 5px;
     border-radius: 5px;
+    white-space: nowrap;
   }
   
   .advertise-button:hover {
     background: #45a049;
+  }
+  
+  /* ================================= */
+  /* MOBILE RESPONSIVENESS */
+  /* ================================= */
+  
+  @media (max-width: 1024px) {
+    .advertise-section {
+      flex-direction: column;
+      text-align: center;
+      padding: 30px 40px;
+    }
+  
+    .advertise-content h2 {
+      font-size: 22px;
+    }
+  
+    .advertise-content p {
+      font-size: 14px;
+    }
+  
+    .advertise-button {
+      width: 100%;
+      justify-content: center;
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .advertise-section {
+      padding: 20px;
+      border-radius: 5px;
+    }
+  
+    .advertise-content h2 {
+      font-size: 20px;
+    }
+  
+    .advertise-content p {
+      font-size: 13px;
+    }
+  
+    .advertise-button {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .advertise-section {
+      padding: 15px;
+      text-align: center;
+    }
+  
+    .advertise-content h2 {
+      font-size: 18px;
+    }
+  
+    .advertise-content p {
+      font-size: 12px;
+    }
+  
+    .advertise-button {
+      width: 100%;
+      font-size: 14px;
+      padding: 12px;
+    }
   }
   

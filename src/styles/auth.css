@@ -1,0 +1,158 @@
+/* Auth Modal Container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f7f7f7;
+  }
+  
+  .auth-modal {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  /* Logo */
+  .auth-logo {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+  
+  /* Headings */
+  .auth-form h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  
+  .auth-form p {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  /* Input Fields */
+  .input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Password Visibility Toggle */
+  .password-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .password-group span {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+  
+  /* Terms Checkbox */
+  .terms {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .terms input {
+    margin-right: 5px;
+  }
+  
+  .terms a {
+    color: green;
+    text-decoration: none;
+  }
+  
+  /* Buttons */
+  .auth-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .login {
+    background: green;
+  }
+  
+  .register {
+    background: green;
+  }
+  
+  .google-btn {
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .google-btn img {
+    width: 20px;
+  }
+  
+  /* Toggle Link */
+  .toggle-link {
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Forgot Password */
+  .forgot-password {
+    display: block;
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+  
+  /* Divider */
+  .divider {
+    margin: 15px 0;
+    font-size: 12px;
+    color: gray;
+    position: relative;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: "";
+    width: 40%;
+    height: 1px;
+    background: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    .auth-modal {
+      width: 90%;
+    }
+  }
+  
