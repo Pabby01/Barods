@@ -114,27 +114,32 @@
 @media (max-width: 480px) {
   .hero {
     height: auto;
-    padding-top: 40px;
+    padding-top: 90px;
+    
   }
 
   .search-container {
-    width: 95%;
-    padding: 15px;
+    width: 65%;
+    padding: 5px;
+    height: 20%;
   }
 
   .filter-options {
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+    width: 100%;
+    height: 50%;
+    padding: 3px;
   }
 
   .search-btn {
     width: 100%;
-    font-size: 14px;
-    padding: 10px;
+    font-size: 8px;
+    padding: 5px;
   }
 
   .search-input {
-    font-size: 14px;
-    padding: 10px;
+    font-size: 8px;
+    padding: 5px;
   }
 }

@@ -126,7 +126,8 @@ nav ul li a {
   .menu-icon {
     display: block;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
+    margin-left: 200px;
   }
 }
 
