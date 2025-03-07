@@ -1,3 +1,4 @@
+/* Hero Section */
 .hero {
   position: relative;
   width: 100%;
@@ -6,6 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 70px;
 }
 
 .hero-overlay {
@@ -15,6 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .search-container {
@@ -26,6 +29,7 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Search Input */
 .search-input {
   width: 100%;
   padding: 12px;
@@ -35,6 +39,7 @@
   font-size: 16px;
 }
 
+/* Filter Options */
 .filter-options {
   display: flex;
   justify-content: space-between;
@@ -59,6 +64,7 @@
   border-radius: 5px;
 }
 
+/* Search Button */
 .search-btn {
   background: #4CAF50;
   color: white;
@@ -81,4 +87,54 @@
 
 .search-btn:hover {
   background: #45a049;
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    padding-top: 50px;
+  }
+
+  .search-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .filter-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: auto;
+    padding-top: 40px;
+  }
+
+  .search-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .filter-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .search-input {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
