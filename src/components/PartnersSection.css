@@ -1,0 +1,68 @@
+.partners-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f8f8f8;
+  }
+  
+  .partners-section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: #333;
+  }
+  
+  /* Scrolling Container */
+  .partners-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Moving Logos */
+  .partners-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: calc(200px * 30); /* Enough width to cycle logos smoothly */
+    animation: scroll 20s linear infinite;
+  }
+  
+  /* Individual Logo */
+  .partner-logo {
+    width: 150px;
+    height: auto;
+    margin: 0 20px;
+    opacity: 0.8;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  
+  .partner-logo:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  
+  /* Infinite Scrolling Effect */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .partner-logo {
+      width: 100px;
+      margin: 0 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .partner-logo {
+      width: 80px;
+      margin: 0 5px;
+    }
+  }
+  

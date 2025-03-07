@@ -6,6 +6,7 @@ import HotDeals from "../components/HotDeals";
 import ExploreCities from "../components/CityList";
 import Testimonials from "../components/Testimonials";
 import AdvertiseWithUs from "../components/AdvertiseWithus";
+import PartnersSection from "../components/partnerSection";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <PropertyList />
       <HotDeals />
       <ExploreCities />
+      <PartnersSection />
       <Testimonials />
       <AdvertiseWithUs />
       
