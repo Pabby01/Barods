@@ -17,22 +17,36 @@ const HeroSection = () => {
               <label>Property Type</label>
               <select>
                 <option>All types</option>
+                <option>Apartment</option>
+                <option>House</option>
+                <option>Villa</option>
+                {/* Add more options */}
               </select>
             </div>
             <div className="filter">
               <label>Bedrooms</label>
               <select>
                 <option>Any</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3+</option>
+                {/* Add more options */}
               </select>
             </div>
             <div className="filter">
               <label>Price Range</label>
               <select>
                 <option>Any</option>
+                <option>$0 - $500,000</option>
+                <option>$500,000 - $1,000,000</option>
+                <option>$1,000,000+</option>
+                {/* Add more options */}
               </select>
             </div>
           </div>
-          <button className="search-btn">Search <i className="fas fa-search"></i></button>
+          <button className="search-btn">
+            Search <i className="fas fa-search"></i>
+          </button>
         </div>
       </div>
     </section>

@@ -1,145 +1,102 @@
-/* Hero Section */
 .hero {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  background: url('/images/Hero.png') no-repeat center center/cover;
+  background-image: url('https://i.postimg.cc/zDLyHbKM/Exterior-of-a-beautiful-house-in-Nigeria.png'); /* Replace with your image */
+  background-size: cover;
+  background-position: center;
+  height: 500px; /* Adjust as needed */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 70px;
+  position: relative; /* For overlay */
+  color: white;
+  text-align: center;
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 110px;
+  margin-bottom: 70px;
+  border-radius: 30px;
 }
 
 .hero-overlay {
-  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(42, 40, 40, 0.444); /* Semi-transparent overlay */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  border-radius: 30px;
 }
 
 .search-container {
-  background: white;
+  width: 80%; /* Adjust width as needed */
+  max-width: 800px;
+  background-color: white;
+  color: black;
   padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 900px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
 }
 
-/* Search Input */
 .search-input {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  font-size: 16px;
+  border-radius: 4px;
 }
 
-/* Filter Options */
 .filter-options {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
+  margin-bottom: 10px;
 }
 
 .filter {
-  display: flex;
-  flex-direction: column;
   flex: 1;
+  margin-right: 10px;
+}
+
+.filter:last-child {
+  margin-right: 0;
 }
 
 .filter label {
-  font-size: 14px;
+  display: block;
+  font-size: 0.9em;
   margin-bottom: 5px;
 }
 
 .filter select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #161616;
+  border-radius: 4px;
 }
 
-/* Search Button */
 .search-btn {
-  background: #4CAF50;
+  background-color: green; /* Replace with your primary color */
   color: white;
+  padding: 10px 20px;
   border: none;
-  padding: 12px 20px;
-  font-size: 16px;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
   width: 100%;
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
 }
 
-.search-btn i {
-  font-size: 18px;
-}
-
-.search-btn:hover {
-  background: #45a049;
-}
-
-/* 📱 Mobile Responsive */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .hero {
-    height: auto;
-    padding-top: 50px;
-  }
-
   .search-container {
-    width: 90%;
+    width: 95%; /* Adjust width for mobile */
     padding: 15px;
   }
 
   .filter-options {
     flex-direction: column;
-    gap: 10px;
   }
 
-  .search-btn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    height: auto;
-    padding-top: 90px;
-    
-  }
-
-  .search-container {
-    width: 65%;
-    padding: 5px;
-    height: 20%;
-  }
-
-  .filter-options {
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-    height: 50%;
-    padding: 3px;
-  }
-
-  .search-btn {
-    width: 100%;
-    font-size: 8px;
-    padding: 5px;
-  }
-
-  .search-input {
-    font-size: 8px;
-    padding: 5px;
+  .filter {
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 }

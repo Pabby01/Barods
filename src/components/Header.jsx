@@ -28,8 +28,7 @@ const Header = () => {
           <li><Link to="/rent">Rent</Link></li>
           <li><Link to="/services">Services</Link></li>
           <li><Link to="/aboutus">About Us</Link></li> {/* Fixed to match AboutUs.jsx */}
-          <li><Link to="/contactus">Contact Us</Link></li> {/* Fixed to match ContactUs.jsx */}
-          <li><Link to="/agents">Agents</Link></li>
+           <li><Link to="/agents">Agents</Link></li>
           <li><Link to="/blog">Blog</Link></li>
         </ul>
       </nav>
