@@ -1,76 +1,197 @@
-.hot-deals {
-  text-align: center;
-  background: #4caf50;
-  padding: 40px 0;
+.hot-deals-section {
+  background-color: #4CAF50;
+  background-image: linear-gradient(135deg, #4CAF50 25%, #388E3C 25%, #388E3C 50%, #4CAF50 50%, #4CAF50 75%, #388E3C 75%, #388E3C 100%);
+  background-size: 60px 60px;
+  padding: 60px 20px;
+}
+
+.hot-deals-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hot-deals-title {
   color: white;
-}
-
-.slick-slider {
-  max-width: 90%;
-  margin: auto;
-}
-
-.slick-slide {
-  padding: 15px; /* Ensures spacing between slides */
-}
-
-.deal-card {
-  background: white;
-  color: black;
-  padding: 20px;
-  border-radius: 10px;
+  font-size: 36px;
   text-align: center;
-  margin: 10px; /* Creates space between cards */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+  margin-bottom: 40px;
+  font-weight: 600;
 }
 
-.deal-card:hover {
+.hot-deals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.property-card {
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.property-image-container {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.property-card:hover .property-image {
   transform: scale(1.05);
 }
 
-.deal-card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.deal-card h3 {
-  font-size: 18px;
-  margin: 15px 0;
-}
-
-.deal-card p {
-  font-size: 16px;
-  font-weight: bold;
-  color: green;
-}
-
-.deal-card button {
-  background: green;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.next-arrow, .prev-arrow {
+.discount-badge {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  color: black;
-  padding: 10px;
-  border-radius: 1000%;
+  top: 12px;
+  right: 12px;
+  background-color: #FF5722;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.favorite-button {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 10px;
-  z-index: 10;
+  transition: background-color 0.2s ease;
 }
 
-.next-arrow {
-  right: -40px;
+.favorite-button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-.prev-arrow {
-  left: -40px;
+.favorite-button.active {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.property-details {
+  padding: 20px;
+}
+
+.property-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.property-location {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #666;
+  font-size: 14px;
+}
+
+.location-icon {
+  margin-right: 6px;
+}
+
+.property-price {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.current-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4CAF50;
+  margin-right: 10px;
+}
+
+.original-price {
+  font-size: 16px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.property-features {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.feature-icon {
+  margin-right: 6px;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .hot-deals-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .hot-deals-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  
+  .hot-deals-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .hot-deals-section {
+    padding: 40px 15px;
+  }
+  
+  .hot-deals-title {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+  
+  .hot-deals-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .property-image-container {
+    height: 180px;
+  }
+  
+  .property-title {
+    font-size: 18px;
+  }
+  
+  .current-price {
+    font-size: 20px;
+  }
 }
