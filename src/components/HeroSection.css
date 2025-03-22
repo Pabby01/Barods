@@ -1,19 +1,11 @@
-.hero {
-  background-image: url('https://i.postimg.cc/zDLyHbKM/Exterior-of-a-beautiful-house-in-Nigeria.png'); /* Replace with your image */
+/* HeroSection.css */
+.hero-section {
+  position: relative;
+  height: 600px;
+  background-image: url('./images/Hero.png'); /* Update with your image path */
   background-size: cover;
   background-position: center;
-  height: 500px; /* Adjust as needed */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative; /* For overlay */
-  color: white;
-  text-align: center;
-  margin-left: 70px;
-  margin-right: 70px;
-  margin-top: 110px;
-  margin-bottom: 70px;
-  border-radius: 30px;
+  background-repeat: no-repeat;
 }
 
 .hero-overlay {
@@ -22,81 +14,210 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(42, 40, 40, 0.444); /* Semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text visibility */
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
+  padding: 0 20px;
 }
 
+.hero-content {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+.hero-title {
+  color: white;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Tab Navigation */
+.search-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 25px;
+}
+
+.tab {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Search Box */
 .search-container {
-  width: 80%; /* Adjust width as needed */
-  max-width: 800px;
-  background-color: white;
-  color: black;
+  background: white;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.search-box {
+  display: flex;
+  margin-bottom: 15px;
 }
 
 .search-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.filter-options {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.filter {
   flex: 1;
-  margin-right: 10px;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px 0 0 5px;
+  font-size: 14px;
+  outline: none;
 }
 
-.filter:last-child {
-  margin-right: 0;
-}
-
-.filter label {
-  display: block;
-  font-size: 0.9em;
-  margin-bottom: 5px;
-}
-
-.filter select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #161616;
-  border-radius: 4px;
-}
-
-.search-btn {
-  background-color: green; /* Replace with your primary color */
+.search-button {
+  background-color: #4CAF50;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 0 6px 8px 0;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px;
+  height: 40px;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #3d9440;
+}
+
+/* Filters */
+.search-filters {
+  display: flex;
+  gap: 15px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filter-group label {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 5px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.filter-select {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* WhatsApp Button */
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .hero-section {
+    height: 500px;
+    margin-bottom: 30px;
+  }
+  
+  .hero-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .search-filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .search-tabs {
+    max-width: 100%;
+  }
+  
   .search-container {
-    width: 95%; /* Adjust width for mobile */
     padding: 15px;
   }
-
-  .filter-options {
+  
+  .search-box {
     flex-direction: column;
+    gap: 10px;
   }
+  
+  .search-input, 
+  .search-button {
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .search-button {
+    height: 40px;
+    justify-content: center;
+  }
+}
 
-  .filter {
-    margin-right: 0;
-    margin-bottom: 10px;
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .hero-section {
+    height: auto;
+    min-height: 450px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-title {
+    font-size: 24px;
+  }
+  
+  .search-container {
+    padding: 6px;
+    margin-bottom:80px;
+    margin-top: 50px;
   }
 }

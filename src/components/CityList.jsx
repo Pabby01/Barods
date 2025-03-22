@@ -48,7 +48,6 @@ const internationalCities = [
     image: "/images/abu-dahbi.png",
     properties: 264,
   },
-  
 ];
 
 const CityList = () => {

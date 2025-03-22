@@ -1,0 +1,52 @@
+/* Add this to your styles/privacy-policy.css file */
+
+/* Mobile-first approach */
+@media screen and (max-width: 640px) {
+    /* Adjustments for smaller screens */
+    .privacy-policy-container h1 {
+      font-size: 1.75rem;
+    }
+    
+    .privacy-policy-container section {
+      padding: 1rem;
+    }
+    
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Tablet screens */
+  @media screen and (min-width: 641px) and (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Hero banner - responsive text adjustments */
+  .hero-banner h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  
+  /* Footer social icons responsive styling */
+  .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  /* Ensure content readability on small screens */
+  .content-section p,
+  .content-section li {
+    font-size: clamp(0.875rem, 4vw, 1rem);
+    line-height: 1.6;
+  }
+  
+  /* Responsive table for mobile if needed */
+  @media screen and (max-width: 640px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }

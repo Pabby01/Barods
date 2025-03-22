@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import LoginRegisterModal from "./pages/ LoginRegisterModal";
+import BlogPage from "./pages/Blog";
 import "./styles/global.css";
 
 const App = () => {
@@ -17,7 +18,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/loginregistermodal" element={<LoginRegisterModal />} />
+        <Route path="/login" element={<LoginRegisterModal />} />
+        <Route path="/blog" element={<BlogPage />} />
       </Routes>
       <Footer /> {/* Persistent Footer */}
     </Router>

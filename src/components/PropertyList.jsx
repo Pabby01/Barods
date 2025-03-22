@@ -6,64 +6,124 @@ const properties = [
   {
     id: 1,
     image: "/images/Recent-1.png",
-    title: "Modern Apartment",
-    location: "Lekki, Lagos",
-    price: "$250,000",
+    title: "Diamond Family Home",
+    location: "2 bedroom flat, Ikeja, Lagos",
+    beds: 3,
+    baths: 2,
+    size: "300 Sqm",
+    price: "₦12,000,000",
+    saleType: "For Sale"
   },
   {
     id: 2,
     image: "/images/Recent-2.png",
-    title: "Luxury Villa",
-    location: "Ikoyi, Lagos",
-    price: "$1,200,000",
+    title: "Mountainview Villa",
+    location: "3 bedroom flat, Ikeja, Lagos",
+    beds: 4,
+    baths: 3,
+    size: "350 Sqm",
+    price: "₦12,000,000",
+    saleType: "For Sale"
   },
   {
     id: 3,
     image: "/images/Recent-3.png",
-    title: "Cozy Studio",
-    location: "Victoria Island, Lagos",
-    price: "$150,000",
+    title: "Seaside Cottage",
+    location: "4 bedroom flat, Ikeja, Lagos",
+    beds: 4,
+    baths: 3,
+    size: "380 Sqm",
+    price: "₦12,000,000",
+    saleType: "For Sale"
   },
   {
-    id: 1,
+    id: 4,
     image: "/images/Recent-1.png",
-    title: "Modern Apartment",
-    location: "Lekki, Lagos",
-    price: "$250,000",
+    title: "Diamond Family Home",
+    location: "2 bedroom flat, Ikeja, Lagos",
+    beds: 3,
+    baths: 2,
+    size: "300 Sqm",
+    price: "₦12,000,000",
+    saleType: "For Sale"
   },
   {
-    id: 2,
+    id: 5,
     image: "/images/Recent-2.png",
-    title: "Luxury Villa",
-    location: "Ikoyi, Lagos",
-    price: "$1,200,000",
+    title: "Mountainview Villa",
+    location: "3 bedroom flat, Ikeja, Lagos",
+    beds: 4,
+    baths: 3,
+    size: "350 Sqm",
+    price: "₦12,000,000",
+    saleType: "For Sale"
   },
   {
-    id: 3,
+    id: 6,
     image: "/images/Recent-3.png",
-    title: "Cozy Studio",
-    location: "Victoria Island, Lagos",
-    price: "$150,000",
+    title: "Seaside Cottage",
+    location: "4 bedroom flat, Ikeja, Lagos",
+    beds: 4,
+    baths: 3,
+    size: "380 Sqm",
+    price: "₦12,000,000",
+    saleType: "For Sale"
   },
 ];
 
 const PropertyList = () => {
   return (
-    <section className="property-list">
-      <h2>Recent Properties</h2>
+    <div className="property-list-container">
+      <h2 className="section-title">Recent Properties</h2>
+      
       <div className="property-grid">
         {properties.map((property) => (
           <div key={property.id} className="property-card">
-            <img src={property.image} alt={property.title} />
-            <div className="property-details">
-              <h3>{property.title}</h3>
-              <p>{property.location}</p>
-              <p className="property-price">{property.price}</p>
+            <div className="property-image-container">
+              <img src={property.image} alt={property.title} className="property-image" />
+              <div className="image-overlay">
+                <button className="image-button">
+                  <i className="fa fa-heart"></i>
+                </button>
+                <button className="image-button">
+                  <i className="fa fa-expand"></i>
+                </button>
+              </div>
             </div>
+            
+            <div className="property-details">
+              <h3 className="property-title">{property.title}</h3>
+              <p className="property-location">{property.location}</p>
+              
+              <div className="property-features">
+                <div className="feature">
+                  <i className="fa fa-bed"></i>
+                  <span>{property.beds} Beds</span>
+                </div>
+                <div className="feature-divider"></div>
+                <div className="feature">
+                  <i className="fa fa-bath"></i>
+                  <span>{property.baths} Baths</span>
+                </div>
+                <div className="feature-divider"></div>
+                <div className="feature">
+                  <i className="fa fa-expand"></i>
+                  <span>{property.size}</span>
+                </div>
+              </div>
+              
+              <div className="property-pricing">
+                <button className="sale-button">{property.saleType}</button>
+                <span className="property-price">{property.price}</span>
+              </div>
+            </div>
+            
+            {/* Clickable overlay for the entire card */}
+            <a href={`/property/${property.id}`} className="card-link" aria-label={`View details for ${property.title}`}></a>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
