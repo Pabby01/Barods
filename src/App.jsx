@@ -10,6 +10,8 @@ import LoginRegisterModal from "./pages/ LoginRegisterModal";
 import BlogPage from "./pages/Blog";
 import "./styles/global.css";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Properties from "./pages/pro-buy";
+import Properties2 from "./pages/pro-rent";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/login" element={<LoginRegisterModal />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/buy" element={<Properties />} />
+        <Route path="/rent" element={<Properties2 />} />
       </Routes>
       <Footer /> {/* Persistent Footer */}
     </Router>
