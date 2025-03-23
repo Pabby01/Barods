@@ -226,7 +226,7 @@ const Header = () => {
                 <MobileNavItem to="/login" label="Login" />
               )}
               
-              <Link to="/contact" className="mobile-contact-btn">
+              <Link to="/contactus" className="mobile-contact-btn">
                 Contact Us
               </Link>
             </div>
