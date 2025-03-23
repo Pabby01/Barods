@@ -1,52 +1,253 @@
-/* Add this to your styles/privacy-policy.css file */
+/* PrivacyPolicy.css */
 
-/* Mobile-first approach */
-@media screen and (max-width: 640px) {
-    /* Adjustments for smaller screens */
-    .privacy-policy-container h1 {
-      font-size: 1.75rem;
-    }
-    
-    .privacy-policy-container section {
-      padding: 1rem;
-    }
-    
-    .footer-grid {
-      grid-template-columns: 1fr;
-    }
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Hero Banner */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin-top: 80px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 2;
+}
+
+.banner-content h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.banner-content p {
+  font-size: 0.875rem;
+}
+
+/* Main Content */
+.main-content {
+  background-color: #f3f4f6;
+  padding: 2rem 1rem;
+  flex-grow: 1;
+}
+
+.content-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.policy-section {
+  margin-bottom: 2rem;
+}
+
+.policy-section h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #16a34a;
+  margin-bottom: 1rem;
+}
+
+.policy-section p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.rights-list {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.rights-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+.site-footer {
+  background-color: #1f2937;
+  color: white;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+}
+
+.footer-logo img {
+  height: 4rem;
+}
+
+.footer-address {
+  font-style: normal;
+  font-size: 0.875rem;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.footer-address p {
+  margin-bottom: 0.25rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #16a34a;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.social-icon:hover {
+  color: #4ade80;
+}
+
+.footer-column h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #4ade80;
+}
+
+.agent-button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background-color: #16a34a;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.3s;
+}
+
+.agent-button:hover {
+  background-color: #15803d;
+}
+
+.copyright {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #374151;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+/* Media Queries for Responsive Design */
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  /* Tablet screens */
-  @media screen and (min-width: 641px) and (max-width: 1024px) {
-    .footer-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .content-container {
+    padding: 2rem;
   }
   
-  /* Hero banner - responsive text adjustments */
-  .hero-banner h1 {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  .banner-content h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
   
-  /* Footer social icons responsive styling */
-  .social-icons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .hero-banner {
+    height: 300px;
   }
   
-  /* Ensure content readability on small screens */
-  .content-section p,
-  .content-section li {
-    font-size: clamp(0.875rem, 4vw, 1rem);
-    line-height: 1.6;
+  .content-container {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-banner {
+    height: 200px;
   }
   
-  /* Responsive table for mobile if needed */
-  @media screen and (max-width: 640px) {
-    table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
+  .banner-content h1 {
+    font-size: 1.75rem;
   }
+  
+  .policy-section h2 {
+    font-size: 1.125rem;
+  }
+}

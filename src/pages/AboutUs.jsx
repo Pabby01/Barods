@@ -1,206 +1,123 @@
-/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import "../styles/about.css";
-
-const teamMembers = [
-  { name: "Batosandeko Denton", role: "CEO", img: "/images/team-1.png" },
-  { name: "James Smith", role: "CFO", img: "/images/team-2.png" },
-  { name: "Sarah Johnson", role: "Property Manager", img: "/images/team-3.png" },
-  { name: "Michael Brown", role: "Sales Director", img: "/images/team-4.png" },
-  { name: "Jennifer Davis", role: "Marketing Manager", img: "/images/team-5.png" },
-  { name: "Robert Wilson", role: "Legal Advisor", img: "/images/team-6.png" },
-  { name: "Elizabeth Miller", role: "Customer Relations", img: "/images/team-7.png" },
-  { name: "David Taylor", role: "Property Analyst", img: "/images/team-8.png" },
-];
 
 const AboutUs = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      
+    <div className="about-page">
       {/* Hero Section */}
-      <div className="hero-section relative w-full h-64 bg-gray-800 mt-20">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <img 
-          src="/images/team-group.jpg" 
-          alt="Team banner" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Our Vision</h1>
-          <p className="text-lg md:text-xl max-w-3xl">"To revolutionize the real estate industry by delivering high-quality and innovative solutions."</p>
+      <div className="hero-section">
+        <div className="hero-content">
+          <h1>Our Values</h1>
+          <p>We are committed to helping individuals and businesses achieve their goals through our comprehensive range of services.</p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="bg-white py-12 px-4 md:px-8 flex-grow">
-        <div className="max-w-6xl mx-auto">
-          
-          {/* Our Story Section */}
-          <section className="story-section mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="story-text">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Story</h2>
-                <p className="text-gray-600 mb-4">
-                  Barods Global Limited is a leading real estate company 
-                  specializing in property sales, rentals, and management.
-                  Founded on strong values and integrity, we provide seamless property solutions.
-                </p>
-                <p className="text-gray-600 mb-4">
-                  The journey began when two friends with a passion for real estate
-                  recognized the need for a more personal approach to property transactions.
-                  Since then, we've grown to become one of the region's most trusted names 
-                  in real estate.
-                </p>
-                <p className="text-gray-600">
-                  Over the years, we have successfully completed several projects, 
-                  providing clients with exceptional properties across various categories.
-                  Our company's growth reflects our commitment to excellence and customer satisfaction.
-                </p>
-              </div>
-              
-              <div className="story-images grid grid-cols-2 gap-4">
-                <img 
-                  src="/images/team-lead.png" 
-                  alt="CEO Portrait" 
-                  className="col-span-1 row-span-1 w-full h-full object-cover rounded-md shadow"
-                />
-                <div className="col-span-1 space-y-4">
-                  <img 
-                    src="/images/team-ladies.png" 
-                    alt="Team meeting" 
-                    className="w-full h-48 object-cover rounded-md shadow"
-                  />
-                  <img 
-                    src="/images/barods-team2.png" 
-                    alt="Office meeting" 
-                    className="w-full h-48 object-cover rounded-md shadow"
-                  />
-                </div>
-              </div>
+      {/* Our Story Section */}
+      <div className="container">
+        <div className="story-section">
+          <div className="story-text">
+            <h2>Our Story</h2>
+            <p>
+              BARODS GLOBAL VENTURES LTD was founded with a singular vision to provide expert financial guidance and support to individuals and businesses across Nigeria. Our journey began with a small team of dedicated professionals who shared a passion for excellence in service delivery.
+            </p>
+            <p>
+              Our varied and complementary expertise has enabled us to build a robust platform offering comprehensive solutions tailored to meet the diverse needs of our clients. From personal financial management to corporate advisory services, we&apos;ve continually expanded our offerings to address emerging challenges.
+            </p>
+            <p>
+              The values that guide our business include integrity, professionalism, innovation, and exceptional customer service. We believe in building lasting relationships with our clients based on trust and mutual respect. Our success is measured not just by our financial performance, but by the positive impact we make in the lives of those we serve.
+            </p>
+            <p>
+              Today, we stand as a trusted partner to numerous individuals and organizations, helping them navigate complex financial landscapes and achieve their goals. Our commitment to excellence remains unwavering as we continue to evolve and adapt to the changing needs of our clients.
+            </p>
+          </div>
+          <div className="story-images">
+            <div className="main-image">
+              <img src="/images/team-lead.png" alt="Company Director" />
             </div>
-          </section>
-          
-          {/* Our Values Section */}
-          <section className="values-section mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="values-text order-2 lg:order-1">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Values</h2>
-                <p className="text-gray-600 mb-4">
-                  We are committed to excellence, innovation, and customer satisfaction. 
-                  Our company operates with integrity and a customer-centric approach 
-                  to ensure that every client receives the best service.
-                </p>
-                <p className="text-gray-600">
-                  At Barods Global Limited, we pride ourselves in our attention to detail and 
-                  our ability to understand exactly what our clients need. We work tirelessly to 
-                  match people with properties that fulfill both their practical requirements and 
-                  emotional desires.
-                </p>
-              </div>
-              
-              <div className="values-image order-1 lg:order-2">
-                <img 
-                  src="/images/team-collaboration.jpg" 
-                  alt="Team Collaboration" 
-                  className="w-full h-auto rounded-md shadow"
-                />
-              </div>
-            </div>
-          </section>
-          
-          {/* Meet Our Team Section */}
-          <section className="team-section mb-16">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-2">Meet Our Team</h2>
-              <p className="text-gray-600">Meet the professionals behind our success who are dedicated to providing exceptional service.</p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="team-member bg-white rounded-lg shadow-sm overflow-hidden text-center">
-                  <img 
-                    src={member.img} 
-                    alt={member.name} 
-                    className="w-full h-52 object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-800">{member.name}</h3>
-                    <p className="text-green-600 text-sm">{member.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white">
-        <div className="container mx-auto px-4 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Logo and Address */}
-            <div className="bg-green-700 p-6 rounded-lg">
-              <div className="mb-4">
-                <img 
-                  src="/images/bardos-footer-logo.png" 
-                  alt="Bardos Global Limited" 
-                  className="h-16"
-                />
-              </div>
-              <address className="not-italic text-sm text-white mb-4">
-                <p>Aberdare Gardens 87B, Providence Mall, First CCTV</p>
-                <p>Ebimpe, Lekki, Adjamé, Agbogbloshie</p>
-              </address>
-              <div className="flex space-x-3 mt-2">
-                <a href="#" className="text-white hover:text-green-400 bg-green-800 rounded-full p-2">
-                  <FaFacebook size={18} />
-                </a>
-                <a href="#" className="text-white hover:text-green-400 bg-green-800 rounded-full p-2">
-                  <FaTwitter size={18} />
-                </a>
-                <a href="#" className="text-white hover:text-green-400 bg-green-800 rounded-full p-2">
-                  <FaInstagram size={18} />
-                </a>
-                <a href="#" className="text-white hover:text-green-400 bg-green-800 rounded-full p-2">
-                  <FaLinkedin size={18} />
-                </a>
-                <a href="#" className="text-white hover:text-green-400 bg-green-800 rounded-full p-2">
-                  <FaYoutube size={18} />
-                </a>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="bg-green-100 p-6 rounded-lg">
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-gray-800 text-sm font-medium mb-1">Name</label>
-                  <input type="text" className="w-full px-3 py-2 border border-gray-300 rounded-md" />
-                </div>
-                <div>
-                  <label className="block text-gray-800 text-sm font-medium mb-1">Email</label>
-                  <input type="email" className="w-full px-3 py-2 border border-gray-300 rounded-md" />
-                </div>
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-800 text-sm font-medium mb-1">Your Message</label>
-                <textarea rows="4" className="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
-              </div>
-              <div className="text-right">
-                <button className="px-6 py-2 bg-green-700 text-white rounded-md hover:bg-green-800">
-                  Send Message
-                </button>
-              </div>
+            <div className="small-images">
+              <img src="/images/team-1.png" alt="Team Members" />
+              <img src="/images/team-ladies.png" alt="Office Space" />
             </div>
           </div>
         </div>
-      </footer>
+
+        {/* Our Values Section */}
+        <div className="values-section">
+          <div className="values-images">
+            <img src="/images/team-male.png" alt="Team Meeting" />
+          </div>
+          <div className="values-text">
+            <h2>Our Values</h2>
+            <p>
+              At BARODS GLOBAL VENTURES, our foundation is built upon strong core values that guide every aspect of our business. We are committed to integrity in all our dealings, ensuring transparency and honesty in every interaction with our clients and partners.
+            </p>
+            <p>
+              Excellence is not just a goal but a standard we uphold in all our services. We consistently strive to exceed expectations and deliver superior results that make a meaningful difference in our clients&apos; lives and businesses.
+            </p>
+            <p>
+              Innovation drives our approach to problem-solving. We embrace creative thinking and leverage cutting-edge technologies to develop solutions that address complex challenges effectively and efficiently.
+            </p>
+            <p>
+              Our client-centric focus ensures that we prioritize understanding and meeting the unique needs of each individual and organization we serve. We believe in building lasting relationships based on trust, respect, and mutual success.
+            </p>
+          </div>
+        </div>
+
+        {/* Meet Our Team Section */}
+        <div className="team-section">
+          <h2>Meet Our Team</h2>
+          <p className="team-intro">
+            Our company boasts a remarkable team of professionals with diverse skills and a shared vision. From financial experts to customer service specialists, each member brings unique talents that contribute to our success and your positive experience.
+          </p>
+          
+          <div className="team-grid">
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>John Doe</h3>
+              <p>CEO & Founder</p>
+            </div>
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>Michael Smith</h3>
+              <p>Financial Director</p>
+            </div>
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>Sarah Johnson</h3>
+              <p>Operations Manager</p>
+            </div>
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>David Williams</h3>
+              <p>Client Relations</p>
+            </div>
+            
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>Robert Brown</h3>
+              <p>Investment Advisor</p>
+            </div>
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>James Wilson</h3>
+              <p>Strategy Director</p>
+            </div>
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>Emily Davis</h3>
+              <p>Customer Support</p>
+            </div>
+            <div className="team-member">
+              <img src="/images/team-1.png" alt="Team Member" />
+              <h3>Thomas Clark</h3>
+              <p>Marketing Lead</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
     </div>
   );
 };

@@ -9,6 +9,7 @@ import ContactUs from "./pages/ContactUs";
 import LoginRegisterModal from "./pages/ LoginRegisterModal";
 import BlogPage from "./pages/Blog";
 import "./styles/global.css";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const App = () => {
   return (
@@ -16,10 +17,11 @@ const App = () => {
       <Header /> {/* Persistent Header */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/about/company" element={<AboutUs />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/login" element={<LoginRegisterModal />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
       <Footer /> {/* Persistent Footer */}
     </Router>
