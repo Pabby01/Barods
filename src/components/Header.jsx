@@ -99,8 +99,8 @@ const Header = () => {
               
               {aboutUsOpen && (
                 <div className="dropdown-menu">
-                  <NavItem to="/about/company" label="Who we Are!" dropdown />
-                  <NavItem to="/about/gallery" label="Events And Gallery" dropdown />
+                  <NavItem to="/about" label="Who we Are!" dropdown />
+                  <NavItem to="/Event" label="Events And Gallery" dropdown />
                   <NavItem to="/about/foundation" label="Barods Empowerment foundation" dropdown />
                 </div>
               )}

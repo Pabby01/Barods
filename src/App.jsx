@@ -16,7 +16,8 @@ import AgentsPage from "./pages/Agentspage";
 import AgentDetailPage from "./pages/Agent-Details";
 import FAQPage from "./pages/FAQ";
 import PropertyView from "./pages/properties-Detail";
-import BlogDetailPage from "./pages/Blogdetailpage"
+import BlogDetailPage from "./pages/Blogdetailpage";
+import EventsGallery from "./pages/Event";
 
 const App = () => {
   return (
@@ -24,7 +25,8 @@ const App = () => {
       <Header /> {/* Persistent Header */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about/company" element={<AboutUs />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/Event" element={<EventsGallery />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/login" element={<LoginRegisterModal />} />
         <Route path="/blog" element={<BlogPage />} />
