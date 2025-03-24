@@ -28,10 +28,10 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="hero-section">
-      <div className="hero-overlay">
-        <div className="hero-content">
-          <h1 className="hero-title">Find Your Dream Home</h1>
+    <section className="hero-section1">
+      <div className="hero-overlay1">
+        <div className="hero-content1">
+          <h1 className="hero-title1">Find Your Dream Home</h1>
           
           {/* Tab Navigation */}
           <div className="search-tabs">

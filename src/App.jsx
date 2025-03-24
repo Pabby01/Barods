@@ -12,6 +12,10 @@ import "./styles/global.css";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Properties from "./pages/pro-buy";
 import Properties2 from "./pages/pro-rent";
+import AgentsPage from "./pages/Agentspage"; 
+import AgentDetailPage from "./pages/Agent-Details";
+import FAQPage from "./pages/FAQ";
+import PropertyView from "./pages/properties-Detail";
 
 const App = () => {
   return (
@@ -26,6 +30,10 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/buy" element={<Properties />} />
         <Route path="/rent" element={<Properties2 />} />
+        <Route path="/agents" element={<AgentsPage />} />
+        <Route path="/agent-ID" element={<AgentDetailPage />} />
+        <Route path="/property-ID" element={<PropertyView />} />
+        <Route path="/faq" element={<FAQPage />} />
       </Routes>
       <Footer /> {/* Persistent Footer */}
     </Router>

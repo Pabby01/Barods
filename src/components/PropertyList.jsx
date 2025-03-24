@@ -76,9 +76,9 @@ const PropertyList = () => {
     <div className="property-list-container">
       <h2 className="section-title">Recent Properties</h2>
       
-      <div className="property-grid">
+      <div className="property-grid2">
         {properties.map((property) => (
-          <div key={property.id} className="property-card">
+          <div key={property.id} className="property-card2">
             <div className="property-image-container">
               <img src={property.image} alt={property.title} className="property-image" />
               <div className="image-overlay">
@@ -91,7 +91,7 @@ const PropertyList = () => {
               </div>
             </div>
             
-            <div className="property-details">
+            <div className="property-details2">
               <h3 className="property-title">{property.title}</h3>
               <p className="property-location">{property.location}</p>
               
@@ -114,12 +114,12 @@ const PropertyList = () => {
               
               <div className="property-pricing">
                 <button className="sale-button">{property.saleType}</button>
-                <span className="property-price">{property.price}</span>
+                <span className="property-price4">{property.price}</span>
               </div>
             </div>
             
             {/* Clickable overlay for the entire card */}
-            <a href={`/property/${property.id}`} className="card-link" aria-label={`View details for ${property.title}`}></a>
+            <a href={`/property-ID`} className="card-link" aria-label={`View details for ${property.title}`}></a>
           </div>
         ))}
       </div>

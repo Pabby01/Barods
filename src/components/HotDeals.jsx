@@ -68,10 +68,10 @@ const HotDeals = () => {
           {hotDeals.map((deal) => (
             <div 
               key={deal.id} 
-              className="property-card"
+              className="property-cards"
               onClick={() => viewPropertyDetails(deal.id)}
             >
-              <div className="property-image-container">
+              <div className="property-image-containers">
                 <img src={deal.img} alt={deal.title} className="property-image" />
                 <div className="discount-badge">{deal.discount}</div>
                 <button 
@@ -83,14 +83,14 @@ const HotDeals = () => {
                 </button>
               </div>
               
-              <div className="property-details">
+              <div className="property-details1">
                 <h3 className="property-title">{deal.title}</h3>
                 <div className="property-location">
                   <span className="location-icon">📍</span>
                   <span>{deal.location}</span>
                 </div>
                 
-                <div className="property-price">
+                <div className="property-price1">
                   <span className="current-price">{deal.currentPrice}</span>
                   <span className="original-price">{deal.originalPrice}</span>
                 </div>

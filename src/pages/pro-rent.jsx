@@ -159,7 +159,7 @@ const Properties2 = () => {
                   <button className="action-btn heart"><FaHeart /></button>
                 </div>
               </div>
-              <div className="property-details">
+              <div className="property-details9">
                 <h3 className="property-title">{property.title}</h3>
                 <p className="property-location">{property.location}</p>
                 <div className="property-features">

@@ -11,13 +11,13 @@
   font-weight: 600;
 }
 
-.property-grid {
+.property-grid2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-.property-card {
+.property-card2 {
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -26,7 +26,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.property-card:hover {
+.property-card2:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -74,7 +74,7 @@
   background-color: white;
 }
 
-.property-details {
+.property-details2 {
   padding: 15px;
 }
 
@@ -133,7 +133,7 @@
   cursor: pointer;
 }
 
-.property-price {
+.property-price4 {
   font-weight: 700;
   font-size: 18px;
   color: #2c6e49;

@@ -1,0 +1,269 @@
+/* AgentDetailPage.css */
+
+.agent-detail-page {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+  }
+  .hold {
+    text-decoration: none;
+    color: aliceblue;
+  }
+  .hero-background {
+    height: 12rem;
+    background-color: rgba(31, 41, 55, 0.5);
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+  }
+  
+  /* Main Content */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .date-display {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+  
+  /* Agent Profile Section */
+  .agent-profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  @media (min-width: 768px) {
+    .agent-profile-section {
+      flex-direction: row;
+    }
+    
+    .agent-sidebar {
+      width: 33.333333%;
+    }
+    
+    .agent-listings-section {
+      width: 66.666667%;
+    }
+  }
+  
+  .agent-sidebar {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 0.375rem;
+  }
+  
+  .agent-profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 640px) and (max-width: 767px) {
+    .agent-profile-card {
+      flex-direction: row;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .agent-profile-card {
+      flex-direction: column;
+    }
+  }
+  
+  .agent-profile-image {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  
+  .agent-profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .agent-profile-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .agent-profile-position, .agent-profile-contact {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .agent-contact-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .email-button, .call-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #16a34a;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .call-button {
+    background-color: #1f2937;
+  }
+  
+  .email-button:hover {
+    background-color: #15803d;
+  }
+  
+  .call-button:hover {
+    background-color: #111827;
+  }
+  
+  .button-icon {
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.25rem;
+  }
+  
+  /* Listings Section */
+  .listings-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  /* Properties Grid */
+  .properties-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .properties-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .properties-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Property Card */
+  .property-card {
+    background-color: white;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .property-image-container {
+    position: relative;
+  }
+  
+  .property-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+  }
+  
+  .property-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #16a34a;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .property-info {
+    padding: 1rem;
+  }
+  
+  .property-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .property-location {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .property-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.75rem 0;
+  }
+  
+  .property-specs {
+    display: flex;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .property-spec {
+    margin-right: 0.5rem;
+  }
+  
+  .property-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .property-price5 {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .details-button {
+    background-color: #1f2937;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .details-button:hover {
+    background-color: #111827;
+  }

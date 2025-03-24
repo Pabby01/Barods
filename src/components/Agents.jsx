@@ -63,21 +63,21 @@ const agents = [
 
 const Agents = () => {
   return (
-    <div className="agents-container">
-      <h2 className="agents-title">Meet Our Agents</h2>
+    <div className="agents-container5">
+      <h2 className="agents-title5">Meet Our Agents</h2>
       
-      <div className="agents-grid">
+      <div className="agents-grid5">
         {agents.map((agent) => (
-          <div key={agent.id} className="agent-card">
-            <div className="agent-image-container">
-              <img src={agent.image} alt={agent.name} className="agent-image" />
+          <div key={agent.id} className="agent-card5">
+            <div className="agent-image-container5">
+              <img src={agent.image} alt={agent.name} className="agent-image5" />
             </div>
-            <div className="agent-info">
-              <h3 className="agent-name">{agent.name}</h3>
-              <p className="agent-company">{agent.company}</p>
-              <p className="agent-email">{agent.email}</p>
+            <div className="agent-info5">
+              <h3 className="agent-name5">{agent.name}</h3>
+              <p className="agent-company5">{agent.company}</p>
+              <p className="agent-email5">{agent.email}</p>
             </div>
-            <a href={`/agent/${agent.id}`} className="agent-link" aria-label={`View profile of ${agent.name}`}></a>
+            <a href={`/agent/${agent.id}`} className="agent-link5" aria-label={`View profile of ${agent.name}`}></a>
           </div>
         ))}
       </div>
