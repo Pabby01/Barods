@@ -1,5 +1,5 @@
 /* HeroSection.css */
-.hero-section1 {
+.hero-section10 {
   position: relative;
   height: 600px;
   background-image: url('./images/Hero.png'); /* Update with your image path */
@@ -8,7 +8,7 @@
   background-repeat: no-repeat;
 }
 
-.hero-overlay1 {
+.hero-overlay10 {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,13 +21,13 @@
   padding: 0 20px;
 }
 
-.hero-content1 {
+.hero-content10 {
   width: 100%;
   max-width: 1000px;
   text-align: center;
 }
 
-.hero-title1 {
+.hero-title10 {
   color: white;
   font-size: 42px;
   font-weight: 700;
