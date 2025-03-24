@@ -16,6 +16,7 @@ import AgentsPage from "./pages/Agentspage";
 import AgentDetailPage from "./pages/Agent-Details";
 import FAQPage from "./pages/FAQ";
 import PropertyView from "./pages/properties-Detail";
+import BlogDetailPage from "./pages/Blogdetailpage"
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/login" element={<LoginRegisterModal />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog-ID" element={<BlogDetailPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/buy" element={<Properties />} />
         <Route path="/rent" element={<Properties2 />} />

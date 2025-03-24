@@ -207,7 +207,7 @@
 @media (max-width: 480px) {
   .hero-section10 {
     height: auto;
-    min-height: 550px;
+    min-height: 800px;
     margin-bottom: 20px;
   }
   
@@ -217,7 +217,7 @@
   
   .search-container {
     padding: 6px;
-    margin-bottom:120px;
+    margin-bottom:5px;
     margin-top: 50px;
   }
 }

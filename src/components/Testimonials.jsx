@@ -12,7 +12,7 @@ const testimonials = [
   {
     id: 1,
     name: "Atigbo Chinonso",
-    avatar: "https://via.placeholder.com/50", // Replace with actual avatar
+    avatar: "/images/team-1.png", // Replace with actual avatar
     date: "2024-11-05",
     rating: 5,
     review: "I bought my house from them, and they are reliable and credible. It took me three months to completely trust...",
@@ -20,7 +20,7 @@ const testimonials = [
   {
     id: 2,
     name: "Christiana Alagbe",
-    avatar: "https://via.placeholder.com/50",
+    avatar: "/images/team-1.png",
     date: "2024-09-28",
     rating: 5,
     review: "From the very beginning, Lawrita made our home-buying experience seamless. From property viewings to making...",
@@ -28,9 +28,25 @@ const testimonials = [
   {
     id: 3,
     name: "Kehinde Opemipo",
-    avatar: "https://via.placeholder.com/50",
+    avatar: "/images/team-1.png",
     date: "2024-09-27",
     rating: 5,
+    review: "Hands down the best real estate company in Abeokuta you could ask for.",
+  },
+  {
+    id: 4,
+    name: "Kehinde Opemipo",
+    avatar: "/images/team-1.png",
+    date: "2024-09-27",
+    rating: 5,
+    review: "Hands down the best real estate company in Abeokuta you could ask for.",
+  },
+  {
+    id: 5,
+    name: "Kehinde Opemipo",
+    avatar: "/images/team-1.png",
+    date: "2024-09-27",
+    rating: 4,
     review: "Hands down the best real estate company in Abeokuta you could ask for.",
   },
 ];
@@ -40,7 +56,7 @@ const Testimonials = () => {
     <section className="testimonials">
       <div className="testimonial-header">
         <div className="business-info">
-          <img src="/images/company-logo.jpg" alt="Barods Global" className="company-logo" />
+          <img src="/images/barods-logo.png" alt="Barods Global" className="company-logo" />
           <div>
             <h4>Barods Global</h4>
             <div className="rating">

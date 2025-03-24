@@ -80,9 +80,9 @@ const Header = () => {
               
               {servicesOpen && (
                 <div className="dropdown-menu">
-                  <NavItem to="/services/property-management" label="Property Management" dropdown />
-                  <NavItem to="/services/valuation" label="Valuation" dropdown />
-                  <NavItem to="/services/consulting" label="Consulting" dropdown />
+                  <NavItem to="/services/Architectural" label="Architechtural Designs" dropdown />
+                  <NavItem to="/services/Construction" label="Construction Projects" dropdown />
+                  
                 </div>
               )}
             </div>
@@ -99,9 +99,9 @@ const Header = () => {
               
               {aboutUsOpen && (
                 <div className="dropdown-menu">
-                  <NavItem to="/about/company" label="Our Company" dropdown />
-                  <NavItem to="/about/team" label="Our Team" dropdown />
-                  <NavItem to="/about/testimonials" label="Testimonials" dropdown />
+                  <NavItem to="/about/company" label="Who we Are!" dropdown />
+                  <NavItem to="/about/gallery" label="Events And Gallery" dropdown />
+                  <NavItem to="/about/foundation" label="Barods Empowerment foundation" dropdown />
                 </div>
               )}
             </div>

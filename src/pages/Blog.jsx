@@ -85,7 +85,7 @@ const BlogPage = () => {
           <div className="blog-grid">
             {blogs.map(blog => (
               <div key={blog.id} className="blog-card">
-                <Link to={`/blog/${blog.id}`} className="blog-card-image-link">
+                <Link to={`/blog-ID`} className="blog-card-image-link">
                   <img 
                     src={blog.image} 
                     alt={blog.title} 
@@ -93,7 +93,7 @@ const BlogPage = () => {
                   />
                 </Link>
                 <div className="blog-card-content">
-                  <Link to={`/blog/${blog.id}`} className="blog-card-title-link">
+                  <Link to={`/blog-ID`} className="blog-card-title-link">
                     <h2 className="blog-card-title">{blog.title}</h2>
                   </Link>
                   <p className="blog-card-summary">{blog.summary}</p>
