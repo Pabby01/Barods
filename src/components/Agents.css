@@ -76,37 +76,37 @@
   
   /* Responsive Styles */
   @media (max-width: 1024px) {
-    .agents-grid {
+    .agents-grid5 {
       grid-template-columns: repeat(3, 1fr);
     }
   }
   
   @media (max-width: 768px) {
-    .agents-grid {
+    .agents-grid5 {
       grid-template-columns: repeat(2, 1fr);
     }
     
-    .agent-image-container {
+    .agent-image-container5 {
       height: 180px;
     }
   }
   
   @media (max-width: 480px) {
-    .agents-grid {
+    .agents-grid5 {
       grid-template-columns: 1fr;
       gap: 15px;
     }
     
-    .agents-title {
+    .agents-title5 {
       font-size: 24px;
       margin-bottom: 25px;
     }
     
-    .agent-image-container {
+    .agent-image-container5 {
       height: 220px;
     }
     
-    .agent-info {
+    .agent-info5 {
       padding: 12px;
     }
   }
