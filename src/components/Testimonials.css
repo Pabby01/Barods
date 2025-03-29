@@ -232,6 +232,7 @@
   .business-info {
     flex-direction: column;
     text-align: center;
+    margin-left: 0;
   }
   
   .company-logo {
