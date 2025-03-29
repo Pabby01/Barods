@@ -197,7 +197,7 @@ const Header = () => {
               
               {aboutUsOpen && (
                 <div className="mobile-dropdown-menu">
-                  <MobileNavItem to="/about" label="Who we are!" />
+                  <NavItem to="/about" label="Who we Are!" />
                   <MobileNavItem to="/Event" label="Events and Gallery" />
                   <MobileNavItem to="/about/testimonials" label="Testimonials" />
                 </div>
