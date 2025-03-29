@@ -30,7 +30,19 @@ const Header = () => {
     localStorage.removeItem("userToken");
     setIsLoggedIn(false);
     setProfileOpen(false);
+    setMenuOpen(false);
     alert("You have been logged out.");
+  };
+
+  const closeAllMenus = () => {
+    setMenuOpen(false);
+    setServicesOpen(false);
+    setAboutUsOpen(false);
+    setProfileOpen(false);
+  };
+
+  const handleNavItemClick = () => {
+    closeAllMenus();
   };
 
   useEffect(() => {
@@ -55,21 +67,51 @@ const Header = () => {
     };
   }, []);
 
+  // Navigation items shared between desktop and mobile
+  const navigationItems = [
+    { to: "/buy", label: "Buy" },
+    { to: "/rent", label: "Rent" }
+  ];
+
+  const serviceItems = [
+    { to: "/Architectural", label: "Architectural Designs" },
+    { to: "/services/Construction", label: "Construction Projects" }
+  ];
+
+  const aboutUsItems = [
+    { to: "/about", label: "Who we Are!" },
+    { to: "/Event", label: "Events And Gallery" },
+    { to: "/about/foundation", label: "Barods Empowerment Foundation" }
+  ];
+
+  const profileItems = isLoggedIn ? [
+    { to: "/profile", label: "My Profile" },
+    { to: "/favorites", label: "Saved Properties" },
+    { to: "/appointments", label: "My Appointments" },
+    { to: "/settings", label: "Account Settings" }
+  ] : [];
+
   return (
     <header className="header">
       <div className="container">
         <div className="header-content">
           {/* Logo */}
           <div className="logo">
-            <Link to="/">
+            <Link to="/" onClick={handleNavItemClick}>
               <img src="/images/barods-logo.png" alt="Barods Global Limited" />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="main-nav">
-            <NavItem to="/buy" label="Buy" />
-            <NavItem to="/rent" label="Rent" />
+            {navigationItems.map((item, index) => (
+              <NavItem 
+                key={`nav-${index}`} 
+                to={item.to} 
+                label={item.label} 
+                onClick={handleNavItemClick}
+              />
+            ))}
 
             {/* Services Dropdown */}
             <div className="dropdown" ref={servicesRef}>
@@ -83,16 +125,15 @@ const Header = () => {
 
               {servicesOpen && (
                 <div className="dropdown-menu">
-                  <NavItem
-                    to="/Architectural"
-                    label="Architectural Designs"
-                    dropdown
-                  />
-                  <NavItem
-                    to="/services/Construction"
-                    label="Construction Projects"
-                    dropdown
-                  />
+                  {serviceItems.map((item, index) => (
+                    <NavItem
+                      key={`service-${index}`}
+                      to={item.to}
+                      label={item.label}
+                      dropdown
+                      onClick={handleNavItemClick}
+                    />
+                  ))}
                 </div>
               )}
             </div>
@@ -109,19 +150,21 @@ const Header = () => {
 
               {aboutUsOpen && (
                 <div className="dropdown-menu">
-                  <NavItem to="/about" label="Who we Are!" dropdown />
-                  <NavItem to="/Event" label="Events And Gallery" dropdown />
-                  <NavItem
-                    to="/about/foundation"
-                    label="Barods Empowerment Foundation"
-                    dropdown
-                  />
+                  {aboutUsItems.map((item, index) => (
+                    <NavItem
+                      key={`about-${index}`}
+                      to={item.to}
+                      label={item.label}
+                      dropdown
+                      onClick={handleNavItemClick}
+                    />
+                  ))}
                 </div>
               )}
             </div>
 
-            <NavItem to="/agents" label="Agents" />
-            <NavItem to="/blog" label="Blog" />
+            <NavItem to="/agents" label="Agents" onClick={handleNavItemClick} />
+            <NavItem to="/blog" label="Blog" onClick={handleNavItemClick} />
           </nav>
 
           {/* User Profile/Authentication */}
@@ -137,14 +180,15 @@ const Header = () => {
 
                 {profileOpen && (
                   <div className="dropdown-menu profile-menu">
-                    <NavItem to="/profile" label="My Profile" dropdown />
-                    <NavItem to="/favorites" label="Saved Properties" dropdown />
-                    <NavItem
-                      to="/appointments"
-                      label="My Appointments"
-                      dropdown
-                    />
-                    <NavItem to="/settings" label="Account Settings" dropdown />
+                    {profileItems.map((item, index) => (
+                      <NavItem
+                        key={`profile-${index}`}
+                        to={item.to}
+                        label={item.label}
+                        dropdown
+                        onClick={handleNavItemClick}
+                      />
+                    ))}
                     <button className="logout-btn" onClick={handleLogout}>
                       <FaSignOutAlt />
                       <span>Logout</span>
@@ -153,12 +197,12 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login" className="login-icon">
+              <Link to="/login" className="login-icon" onClick={handleNavItemClick}>
                 Login
               </Link>
             )}
 
-            <Link to="/contactus" className="contact-btn">
+            <Link to="/contactus" className="contact-btn" onClick={handleNavItemClick}>
               Contact Us
             </Link>
           </div>
@@ -178,8 +222,14 @@ const Header = () => {
       {menuOpen && (
         <div className="mobile-menu" ref={menuRef}>
           <div className="mobile-menu-content">
-            <MobileNavItem to="/buy" label="Buy" />
-            <MobileNavItem to="/rent" label="Rent" />
+            {navigationItems.map((item, index) => (
+              <MobileNavItem 
+                key={`mobile-nav-${index}`} 
+                to={item.to} 
+                label={item.label} 
+                onClick={handleNavItemClick}
+              />
+            ))}
 
             {/* Mobile Services Dropdown */}
             <div className="mobile-dropdown">
@@ -193,12 +243,14 @@ const Header = () => {
 
               {servicesOpen && (
                 <div className="mobile-dropdown-menu">
-                  <MobileNavItem
-                    to="/services/property-management"
-                    label="Property Management"
-                  />
-                  <MobileNavItem to="/services/valuation" label="Valuation" />
-                  <MobileNavItem to="/services/consulting" label="Consulting" />
+                  {serviceItems.map((item, index) => (
+                    <MobileNavItem
+                      key={`mobile-service-${index}`}
+                      to={item.to}
+                      label={item.label}
+                      onClick={handleNavItemClick}
+                    />
+                  ))}
                 </div>
               )}
             </div>
@@ -215,29 +267,32 @@ const Header = () => {
 
               {aboutUsOpen && (
                 <div className="mobile-dropdown-menu">
-                  <NavItem to="/about" label="Who we Are!" />
-                  <MobileNavItem to="/Event" label="Events and Gallery" />
-                  <MobileNavItem
-                    to="/about/testimonials"
-                    label="Testimonials"
-                  />
+                  {aboutUsItems.map((item, index) => (
+                    <MobileNavItem
+                      key={`mobile-about-${index}`}
+                      to={item.to}
+                      label={item.label}
+                      onClick={handleNavItemClick}
+                    />
+                  ))}
                 </div>
               )}
             </div>
 
-            <MobileNavItem to="/agents" label="Agents" />
-            <MobileNavItem to="/blog" label="Blog" />
+            <MobileNavItem to="/agents" label="Agents" onClick={handleNavItemClick} />
+            <MobileNavItem to="/blog" label="Blog" onClick={handleNavItemClick} />
 
             <div className="mobile-auth">
               {isLoggedIn ? (
                 <>
-                  <MobileNavItem to="/profile" label="My Profile" />
-                  <MobileNavItem to="/favorites" label="Saved Properties" />
-                  <MobileNavItem
-                    to="/appointments"
-                    label="My Appointments"
-                  />
-                  <MobileNavItem to="/settings" label="Account Settings" />
+                  {profileItems.map((item, index) => (
+                    <MobileNavItem
+                      key={`mobile-profile-${index}`}
+                      to={item.to}
+                      label={item.label}
+                      onClick={handleNavItemClick}
+                    />
+                  ))}
                   <button
                     className="mobile-logout-btn"
                     onClick={handleLogout}
@@ -247,10 +302,10 @@ const Header = () => {
                   </button>
                 </>
               ) : (
-                <MobileNavItem to="/login" label="Login" />
+                <MobileNavItem to="/login" label="Login" onClick={handleNavItemClick} />
               )}
 
-              <Link to="/contactus" className="mobile-contact-btn">
+              <Link to="/contactus" className="mobile-contact-btn" onClick={handleNavItemClick}>
                 Contact Us
               </Link>
             </div>
@@ -262,15 +317,23 @@ const Header = () => {
 };
 
 // Desktop navigation item component
-const NavItem = ({ to, label, dropdown = false }) => (
-  <Link to={to} className={dropdown ? "dropdown-item" : "nav-item"}>
+const NavItem = ({ to, label, dropdown = false, onClick }) => (
+  <Link 
+    to={to} 
+    className={dropdown ? "dropdown-item" : "nav-item"}
+    onClick={onClick}
+  >
     {label}
   </Link>
 );
 
 // Mobile navigation item component
-const MobileNavItem = ({ to, label }) => (
-  <Link to={to} className="mobile-nav-item">
+const MobileNavItem = ({ to, label, onClick }) => (
+  <Link 
+    to={to} 
+    className="mobile-nav-item"
+    onClick={onClick}
+  >
     {label}
   </Link>
 );

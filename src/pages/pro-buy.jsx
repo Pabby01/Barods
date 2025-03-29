@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart, FaSearch, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import Header from "../components/Header";
 import "./Properties.css";
 
 const Properties = () => {
@@ -116,7 +115,7 @@ const Properties = () => {
   
   return (
     <div className="properties-page">
-      <Header />
+      
       
       {/* Hero Banner */}
       <div className="properties-banner">
