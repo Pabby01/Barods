@@ -73,46 +73,49 @@ const AboutUs = () => {
           
           <div className="team-grid">
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>John Doe</h3>
+              <img src="/images/CEO.jpg" alt="Team Member" />
+              <h3>Babatunde Denton</h3>
               <p>CEO & Founder</p>
+              <p><a className="update" href="mailto:tunde@barodsglobal.com">tunde@barodsglobal.com</a></p>
             </div>
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>Michael Smith</h3>
-              <p>Financial Director</p>
+              <img src="/images/ajibola.jpg" alt="Team Member" />
+              <h3>ESV Ajibola Akinwande ANIVS, RSV</h3>
+              <p>General Manager</p>
+              <p><a className="update" href="mailto:ajibola@barodsglobal.com">ajibola@barodsglobal.com</a></p>
             </div>
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>Sarah Johnson</h3>
-              <p>Operations Manager</p>
+              <img src="/images/lawrita.jpg" alt="Team Member" />
+              <h3>Lawrita C. Agbor</h3>
+              <p>HR/Senior Property Consultant</p>
+              <p><a className="update" href="mailto:lawrita@barodsglobal.com">lawrita@barodsglobal.com</a></p>
             </div>
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>David Williams</h3>
-              <p>Client Relations</p>
+              <img src="/images/solomon.jpg" alt="Team Member" />
+              <h3> ESV Solomon Olayimika Emmanuel ANIVS, RSV</h3>
+              <p>Media Lead/Property Consultant</p>
+              <p><a className="update" href="mailto: olayinka@barodsglobal.com">olayinka@barodsglobal.com</a></p>
             </div>
             
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>Robert Brown</h3>
-              <p>Investment Advisor</p>
+              <img src="/images/lolade.jpg" alt="Team Member" />
+              <h3>Lolade Ogundimu</h3>
+              <p> Executive Secretary</p>
+              <p><a className="update" href="mailto: lolade@barodsglobal.com">lolade@barodsglobal.com</a></p>
             </div>
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>James Wilson</h3>
-              <p>Strategy Director</p>
+              <img src="/images/kehinde.jpg" alt="Team Member" />
+              <h3>Kehinde Oregbesan</h3>
+              <p>Lead Architect</p>
+              <p><a className="update" href="mailto:kehinde@barodsglobal.com">kehinde@barodsglobal.com</a></p>
             </div>
             <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>Emily Davis</h3>
-              <p>Customer Support</p>
+              <img src="/images/toyosi.jpg" alt="Team Member" />
+              <h3>Toyosi Akinbobola</h3>
+              <p>Property Consultant</p>
+              <p><a className="update" href="mailto:toyosi@barodsglobal.com">toyosi@barodsglobal.com</a></p>
             </div>
-            <div className="team-member">
-              <img src="/images/team-1.png" alt="Team Member" />
-              <h3>Thomas Clark</h3>
-              <p>Marketing Lead</p>
-            </div>
+            
           </div>
         </div>
       </div>
