@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: calc(200px * 30); /* Enough width to cycle logos smoothly */
+    width: calc(100px * 30); /* Enough width to cycle logos smoothly */
     animation: scroll 20s linear infinite;
   }
   
