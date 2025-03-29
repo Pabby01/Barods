@@ -85,7 +85,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
       <div className="auth-container">
         <div className="auth-content">
           <div className="auth-logo-container">
-            <img src="/images/barods-logo.png" alt="Barods Global Limited" className="auth-logo" />
+            <img src="/images/barods-logo.png" alt="Barods Global Limited" className="auth-logo2" />
           </div>
           
           {isRegister ? (
@@ -155,7 +155,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
           ) : (
             // Login Form
             <>
-              <h2 className="auth-title">Log In</h2>
+              <h2 className="auth-title2">Log In</h2>
               <p className="auth-switch-text">
                 Don't have an account? <a href="#" className="auth-link" onClick={(e) => { e.preventDefault(); setIsRegister(true); }}>Register</a>.
               </p>

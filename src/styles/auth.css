@@ -20,17 +20,18 @@
   margin-bottom: 25px;
 }
 
-.auth-logo {
+.auth-logo2 {
   height: 60px;
   width: auto;
 }
 
-.auth-title {
+.auth-title2 {
   font-size: 24px;
   font-weight: 600;
   margin: 0 0 5px;
-  text-align: left;
+  text-align: center;
   color: #333;
+  margin-bottom: 20px;
 }
 
 .auth-switch-text {
@@ -220,7 +221,7 @@
     gap: 15px;
   }
   
-  .auth-title {
+  .auth-title2 {
     font-size: 20px;
   }
   

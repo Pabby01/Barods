@@ -177,7 +177,7 @@ const Properties2 = () => {
                 </div>
                 <div className="property-price-container">
                   <Link  to={`/property-ID`} className="for-sale-btn">
-                    For Rent
+                    Rent Now
                   </Link>
                   <span className="property-price">{property.price}</span>
                 </div>

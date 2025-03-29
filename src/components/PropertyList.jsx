@@ -74,7 +74,7 @@ const properties = [
 const PropertyList = () => {
   return (
     <div className="property-list-container">
-      <h2 className="section-title">Recent Properties</h2>
+      <h2 className="section-title2">Recent Properties</h2>
       
       <div className="property-grid2">
         {properties.map((property) => (
