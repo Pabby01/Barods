@@ -152,7 +152,7 @@ const Properties2 = () => {
               <div className="property-image-container">
                 <img src={property.image} alt={property.title} className="property-image" />
                 <div className="property-badges">
-                  <span className="badge">For Sale</span>
+                  <span className="badge">For Rent</span>
                 </div>
                 <div className="property-actions">
                   <button className="action-btn search"><FaSearch /></button>
@@ -176,7 +176,9 @@ const Properties2 = () => {
                   </div>
                 </div>
                 <div className="property-price-container">
-                  <button className="for-sale-btn">For Sale</button>
+                  <Link  to={`/property-ID`} className="for-sale-btn">
+                    For Rent
+                  </Link>
                   <span className="property-price">{property.price}</span>
                 </div>
               </div>

@@ -237,7 +237,7 @@ const PropertyView = ({ property }) => {
           <div className="map-container">
             {/* This would be your actual map component */}
             <div className="map-placeholder">
-              <img src="/images/Recent-1.png" alt="Property Location Map" />
+              <img src="/images/maps.jpeg" alt="Property Location Map" />
             </div>
           </div>
         </div>

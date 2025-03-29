@@ -175,10 +175,12 @@ const Properties = () => {
                     <span className="feature-value">{property.area}</span>
                   </div>
                 </div>
-                <div className="property-price-container">
-                  <button className="for-sale-btn">For Sale</button>
-                  <span className="property-price">{property.price}</span>
-                </div>
+                 <div className="property-price-container">
+                                  <Link  to={`/property-ID`} className="for-sale-btn">
+                                    For Sale
+                                  </Link>
+                                  <span className="property-price">{property.price}</span>
+                                </div>
               </div>
             </div>
           ))}
