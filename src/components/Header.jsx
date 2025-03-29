@@ -59,7 +59,7 @@ const Header = () => {
           {/* Logo */}
           <div className="logo">
             <Link to="/">
-              <img src="./images/barods-logo.png" alt="Barods Global Limited" />
+              <img src="/images/barods-logo.png" alt="Barods Global Limited" />
             </Link>
           </div>
 
@@ -197,8 +197,8 @@ const Header = () => {
               
               {aboutUsOpen && (
                 <div className="mobile-dropdown-menu">
-                  <MobileNavItem to="/about/company" label="Our Company" />
-                  <MobileNavItem to="/about/team" label="Our Team" />
+                  <MobileNavItem to="/about" label="Who we are!" />
+                  <MobileNavItem to="/Event" label="Events and Gallery" />
                   <MobileNavItem to="/about/testimonials" label="Testimonials" />
                 </div>
               )}
