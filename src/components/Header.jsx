@@ -84,7 +84,7 @@ const Header = () => {
               {servicesOpen && (
                 <div className="dropdown-menu">
                   <NavItem
-                    to="/services/Architectural"
+                    to="/Architectural"
                     label="Architectural Designs"
                     dropdown
                   />

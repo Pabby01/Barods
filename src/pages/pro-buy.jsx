@@ -127,7 +127,7 @@ const Properties = () => {
           className="banner-image"
         />
         <div className="banner-content">
-          <h1>Properties For Sale</h1>
+          <h1 className="sick">Properties For Sale</h1>
           <p>Home / Properties</p>
         </div>
       </div>

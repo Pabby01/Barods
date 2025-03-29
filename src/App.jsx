@@ -18,6 +18,7 @@ import FAQPage from "./pages/FAQ";
 import PropertyView from "./pages/properties-Detail";
 import BlogDetailPage from "./pages/Blogdetailpage";
 import EventsGallery from "./pages/Event";
+import ArchitecturalLandingPage from "./pages/Architect"; // Import the new page
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/agent-ID" element={<AgentDetailPage />} />
         <Route path="/property-ID" element={<PropertyView />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/Architectural" element={<ArchitecturalLandingPage />} />
       </Routes>
       <Footer /> {/* Persistent Footer */}
     </Router>
