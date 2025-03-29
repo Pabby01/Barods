@@ -79,6 +79,90 @@ const LoginRegister = ({ initialMode = "login" }) => {
       setIsGoogleLoading(false);
     }
   };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    const firstName = document.querySelector('input[placeholder="First Name"]').value;
+    const lastName = document.querySelector('input[placeholder="Last Name"]').value;
+    const email = document.querySelector('input[placeholder="Email"]').value;
+    const password = document.querySelector('input[placeholder="Password"]').value;
+
+    if (!firstName || !lastName || !email || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://barods-global.onrender.com/api/v1/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Account created successfully!");
+        setIsRegister(false); // Switch to login mode after successful sign-up
+      } else {
+        alert(data.message || "Failed to create account. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during sign-up:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const email = document.querySelector('input[placeholder="Email"]').value;
+    const password = document.querySelector('input[placeholder="Password"]').value;
+
+    if (!email || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://barods-global.onrender.com/api/v1/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Save the token to localStorage
+        localStorage.setItem("userToken", data.token);
+
+        // Show a success notification
+        alert("Login successful!");
+
+        // Redirect to the homepage
+        window.location.href = "/";
+      } else {
+        alert(data.message || "Failed to log in. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
   
   return (
     <div className="auth-page">
@@ -130,7 +214,9 @@ const LoginRegister = ({ initialMode = "login" }) => {
                   <label htmlFor="terms">I agree to the <a href="#" className="terms-link">Terms & Conditions</a></label>
                 </div>
                 
-                <button className="auth-button create-account-btn">Create account</button>
+                <button className="auth-button create-account-btn" onClick={handleSignUp}>
+                  Create account
+                </button>
                 
                 <div className="auth-divider">
                   <span>or sign up with</span>
@@ -182,7 +268,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
                 
                 <a href="#" className="forgot-password">Forgot Password?</a>
                 
-                <button className="auth-button login-btn">Log in</button>
+                <button className="auth-button login-btn" onClick={handleLogin}>Log in</button>
                 
                 <div className="auth-divider">
                   <span>or log in with</span>
