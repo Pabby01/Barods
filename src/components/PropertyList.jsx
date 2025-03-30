@@ -124,7 +124,7 @@ const PropertyList = () => {
               {/* See More Button */}
               <div className="see-more-container">
                 <a
-                  href={`/property-ID`}
+                  href="/property-ID" // All properties lead to the same page
                   className="see-more-button"
                   aria-label={`View details for ${property.title}`}
                 >
