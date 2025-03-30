@@ -37,7 +37,7 @@ const PartnersSection = () => {
 
   return (
     <section className="partners-section">
-      <h2>OUR TRUSTED PARTNERS</h2>
+      <h3>OUR TRUSTED PARTNERS</h3>
       <div className="partners-slider">
         <div className="partners-track">
           {partners.map((partner, index) => (

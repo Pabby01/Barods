@@ -152,7 +152,7 @@ const Testimonials = () => {
           </div>
         </div>
 
-        <h2 className="testimonials-title">What Our Clients Are Saying</h2>
+        <h3 className="testimonials-title">What Our Clients Are Saying</h3>
 
         {loading ? (
           <div className="loading-reviews">Loading reviews...</div>

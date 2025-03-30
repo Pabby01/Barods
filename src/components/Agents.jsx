@@ -5,52 +5,52 @@ import "./Agents.css";
 const agents = [
   {
     id: 1,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/CTO.jpg",
+    name: "Babatunde Denton",
+    company: "Barods Global Limited",
+    email: "Mail: tunde@barodsglobal.com"
   },
   {
     id: 2,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/ajibola2.jpg",
+    name: "Ajibola Akinwande",
+    company: "Barods Global Limited",
+    email: "Mail: ajibola@barodsglobal.com"
   },
   {
     id: 3,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/law.jpg",
+    name: "Lawrita C. Agbor",
+    company: "Barods Global Limited",
+    email: "Mail: lawrita@barodsglobal.com"
   },
   {
     id: 4,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/solo.jpg",
+    name: "Solomon Olayimika",
+    company: "Barods Global Limited",
+    email: "Mail: olayinka@barodsglobal.com"
   },
   {
     id: 5,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/ken.jpg",
+    name: "Kehinde Oregbesan",
+    company: "Barods Global Limited",
+    email: "Mail: kehinde@barodsglobal.com"
   },
   {
     id: 6,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/lola.jpg",
+    name: "Lolade Ogundimu",
+    company: "Barods Global Limited",
+    email: "Mail: lolade@barodsglobal.com"
   },
   {
     id: 7,
-    image: "/images/team-1.png",
-    name: "Name Surname",
-    company: "Barush Global Limited",
-    email: "Mail: ababahe@mail.com"
+    image: "/images/toyo.jpg",
+    name: "Toyosi Akinbobola",
+    company: "Barods Global Limited",
+    email: "Mail: toyosi@barodsglobal.com"
   },
   {
     id: 8,
@@ -77,7 +77,6 @@ const Agents = () => {
               <p className="agent-company5">{agent.company}</p>
               <p className="agent-email5">{agent.email}</p>
             </div>
-            <a href={`/agent/${agent.id}`} className="agent-link5" aria-label={`View profile of ${agent.name}`}></a>
           </div>
         ))}
       </div>

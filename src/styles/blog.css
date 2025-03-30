@@ -39,10 +39,11 @@
   z-index: 1;
 }
 
-.blog-hero-title {
+.blog-hero-title2 {
   font-size: 1.875rem; /* text-3xl */
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #f9fafb;
 }
 
 .blog-hero-breadcrumb {
@@ -194,7 +195,7 @@
 
 /* Media Queries */
 @media (min-width: 768px) {
-  .blog-hero-title {
+  .blog-hero-title2 {
     font-size: 2.25rem; /* text-4xl */
   }
   

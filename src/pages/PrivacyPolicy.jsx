@@ -28,7 +28,7 @@ const PrivacyPolicy = () => {
       <div className="main-content">
         <div className="content-container">
           <section className="policy-section">
-            <h2>Introduction</h2>
+            <h3>Introduction</h3>
             <p>
               Welcome to Bardos Global Limited. Your privacy is important to us. This Privacy Policy explains how we collect, use, 
               disclose, and safeguard your information when you visit our website, use our services, or interact with us.
@@ -40,7 +40,7 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="policy-section">
-            <h2>Information We Collect</h2>
+            <h3>Information We Collect</h3>
             <p>
               To enhance your experience while using our Service, we may ask you to provide certain personally identifiable 
               information, such as your name, address, location, and pictures. The information we collect will be used and stored in 
@@ -61,7 +61,7 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="policy-section">
-            <h2>Data Security</h2>
+            <h3>Data Security</h3>
             <p>
               We implement security measures to protect your information from unauthorized access, alteration, or loss. However, 
               no method of transmission over the internet is 100% secure. We advise users to take precautions when sharing 
@@ -70,7 +70,7 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="policy-section">
-            <h2>Cookies and Tracking Technologies</h2>
+            <h3>Cookies and Tracking Technologies</h3>
             <p>
               Our website uses cookies and tracking technologies to improve user experience. You may manage or disable cookies 
               through your browser settings. However, this may affect website functionality.
@@ -78,7 +78,7 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="policy-section">
-            <h2>Your Rights and Choices</h2>
+            <h3>Your Rights and Choices</h3>
             <p>
               Depending on your location, you may have the following rights regarding your data:
             </p>
@@ -93,7 +93,7 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="policy-section">
-            <h2>Third-Party Links</h2>
+            <h3>Third-Party Links</h3>
             <p>
               Our website may contain links to third-party websites. We are not responsible for their privacy practices and encourage 
               you to review their privacy policies.
@@ -101,7 +101,7 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="policy-section">
-            <h2>Changes to This Privacy Policy</h2>
+            <h3>Changes to This Privacy Policy</h3>
             <p>
               We may update this policy from time to time. Any changes will be posted on this page with an updated date. Your 
               continued use of our website after changes indicate acceptance of the revised policy.

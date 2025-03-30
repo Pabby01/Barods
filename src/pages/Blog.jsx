@@ -74,7 +74,7 @@ const BlogPage = () => {
           className="blog-hero-image"
         />
         <div className="blog-hero-content">
-          <h1 className="blog-hero-title">Blog</h1>
+          <h1 className="blog-hero-title2">Blog</h1>
           <p className="blog-hero-breadcrumb">Home / Blog</p>
         </div>
       </div>
@@ -94,7 +94,7 @@ const BlogPage = () => {
                 </Link>
                 <div className="blog-card-content">
                   <Link to={`/blog-ID`} className="blog-card-title-link">
-                    <h2 className="blog-card-title">{blog.title}</h2>
+                    <h3 className="blog-card-title">{blog.title}</h3>
                   </Link>
                   <p className="blog-card-summary">{blog.summary}</p>
                   <div className="blog-card-meta">
