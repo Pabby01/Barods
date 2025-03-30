@@ -41,7 +41,7 @@ export default function ArchitecturalLandingPage() {
       {/* Latest Projects Section */}
       <section className="latest-projects bg-green-600 text-white">
         <div className="latest-projects-header container p-6">
-          <h2 className="text-3xl font-bold text-white">Latest Projects</h2>
+          <h3 className="text-3xl font-bold text-white">Latest Projects</h3>
           <p className="md:w-1/2 mt-2 md:mt-0">
             Our professionally designed plans are ready for construction, giving you
             flexible purchase options to simplify your dream home journey.
@@ -92,7 +92,7 @@ export default function ArchitecturalLandingPage() {
               />
             </div>
             <div className="md:w-1/2 p-8">
-              <h2 className="text-4xl font-bold text-gray-800 mb-6">Why we are the Best!</h2>
+              <h3 className="text-4xl font-bold text-gray-800 mb-6">Why we are the Best!</h3>
               <p className="text-gray-700">
                 Our professionally designed plans are ready for construction, giving you flexible purchase
                 options to simplify your dream home journey.
@@ -107,7 +107,7 @@ export default function ArchitecturalLandingPage() {
         <div className="container p-6">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2 p-4">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Satisfied Clients</h2>
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">Satisfied Clients</h3>
               
               <div className="client-testimonial flex items-start mb-4">
                 <div className="client-image w-16 h-16 mr-4">
