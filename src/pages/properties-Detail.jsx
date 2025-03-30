@@ -25,7 +25,7 @@ const PropertyView = ({ property }) => {
     price: "₦12,000,000",
     agent: {
       name: "Jude Ogundare",
-      phone: "08012345678",
+      phone: "+234 902 025 0260",
       email: "jude@example.com",
       image: "/images/team-1.png"
     },
