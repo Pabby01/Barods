@@ -153,6 +153,40 @@
   position: relative;
 }
 
+/* See More Button Container */
+.see-more-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* See More Button Styling */
+.see-more-button {
+  display: inline-block;
+  padding: 7px 10px;
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  text-decoration: none; /* Remove underline */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Hover Effect for See More Button */
+.see-more-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Active State for See More Button */
+.see-more-button:active {
+  background-color: #3e8e41; /* Even darker green when clicked */
+  transform: translateY(0); /* Reset lift */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reset shadow */
+}
+
 /* Responsive styles */
 @media (max-width: 992px) {
   .property-grid2 {
@@ -186,5 +220,10 @@
   
   .feature-divider {
     margin: 0 10px;
+  }
+  
+  .see-more-button {
+    padding: 8px 16px; /* Smaller padding for small screens */
+    font-size: 12px; /* Smaller font size */
   }
 }

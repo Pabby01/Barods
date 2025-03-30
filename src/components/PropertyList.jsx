@@ -12,7 +12,7 @@ const properties = [
     baths: 2,
     size: "300 Sqm",
     price: "₦12,000,000",
-    saleType: "For Sale"
+    saleType: "For Sale",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const properties = [
     baths: 3,
     size: "350 Sqm",
     price: "₦12,000,000",
-    saleType: "For Sale"
+    saleType: "For Sale",
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const properties = [
     baths: 3,
     size: "380 Sqm",
     price: "₦12,000,000",
-    saleType: "For Sale"
+    saleType: "For Sale",
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ const properties = [
     baths: 2,
     size: "300 Sqm",
     price: "₦12,000,000",
-    saleType: "For Sale"
+    saleType: "For Sale",
   },
   {
     id: 5,
@@ -56,7 +56,7 @@ const properties = [
     baths: 3,
     size: "350 Sqm",
     price: "₦12,000,000",
-    saleType: "For Sale"
+    saleType: "For Sale",
   },
   {
     id: 6,
@@ -67,7 +67,7 @@ const properties = [
     baths: 3,
     size: "380 Sqm",
     price: "₦12,000,000",
-    saleType: "For Sale"
+    saleType: "For Sale",
   },
 ];
 
@@ -75,12 +75,16 @@ const PropertyList = () => {
   return (
     <div className="property-list-container">
       <h2 className="section-title2">Recent Properties</h2>
-      
+
       <div className="property-grid2">
         {properties.map((property) => (
           <div key={property.id} className="property-card2">
             <div className="property-image-container">
-              <img src={property.image} alt={property.title} className="property-image" />
+              <img
+                src={property.image}
+                alt={property.title}
+                className="property-image"
+              />
               <div className="image-overlay">
                 <button className="image-button">
                   <i className="fa fa-heart"></i>
@@ -90,11 +94,11 @@ const PropertyList = () => {
                 </button>
               </div>
             </div>
-            
+
             <div className="property-details2">
               <h3 className="property-title">{property.title}</h3>
               <p className="property-location">{property.location}</p>
-              
+
               <div className="property-features">
                 <div className="feature">
                   <i className="fa fa-bed"></i>
@@ -111,15 +115,23 @@ const PropertyList = () => {
                   <span>{property.size}</span>
                 </div>
               </div>
-              
+
               <div className="property-pricing">
                 <button className="sale-button">{property.saleType}</button>
                 <span className="property-price4">{property.price}</span>
               </div>
+
+              {/* See More Button */}
+              <div className="see-more-container">
+                <a
+                  href={`/property-ID`}
+                  className="see-more-button"
+                  aria-label={`View details for ${property.title}`}
+                >
+                  See More
+                </a>
+              </div>
             </div>
-            
-            {/* Clickable overlay for the entire card */}
-            <a href={`/property-ID`} className="card-link" aria-label={`View details for ${property.title}`}></a>
           </div>
         ))}
       </div>
