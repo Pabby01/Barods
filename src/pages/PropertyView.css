@@ -452,7 +452,8 @@
   }
   
   .modal-body .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+
   }
   
   .modal-body input, .modal-body select, .modal-body textarea {
@@ -464,7 +465,7 @@
   }
   
   .modal-body textarea {
-    resize: vertical;
+    resize: none;
     min-height: 100px;
   }
   

@@ -15,7 +15,7 @@ const ContactUs = () => {
       <div className="contact-content">
         {/* Contact Info Box */}
         <div className="contact-info">
-          <h2>Our Contact Information</h2>
+          <h3>Our Contact Information</h3>
           <p>Need to talk to someone? Kindly reach out via our communication channels.</p>
 
           <h3>Address</h3>
@@ -38,7 +38,7 @@ const ContactUs = () => {
 
         {/* Contact Form */}
         <div className="contact-form">
-          <h2>Get in Touch</h2>
+          <h3>Get in Touch</h3>
           <p>Your email address will not be published. Required fields are marked *</p>
 
           <form>
@@ -48,7 +48,7 @@ const ContactUs = () => {
             </div>
             <input type="tel" placeholder="Phone No *" required />
             <input type="text" placeholder="Subject *" required />
-            <textarea placeholder="Your Message *" rows="5" required></textarea>
+            <textarea className="bum" placeholder="Your Message *" rows="5" required></textarea>
 
             <button type="submit" className="submit-btn">Send Message</button>
           </form>
