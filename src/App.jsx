@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"; // Added Navigate import
 import Header from "./components/Header";  // Import Header
 import Footer from "./components/Footer";  // Import Footer
 import Home from "./pages/Home";
@@ -18,7 +18,10 @@ import FAQPage from "./pages/FAQ";
 import PropertyView from "./pages/properties-Detail";
 import BlogDetailPage from "./pages/Blogdetailpage";
 import EventsGallery from "./pages/Event";
-import ArchitecturalLandingPage from "./pages/Architect"; // Import the new page
+import ArchitecturalLandingPage from "./pages/Architect"; 
+import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
+import CreatePassword from './components/CreatePassword';
 
 const App = () => {
   return (
@@ -40,6 +43,10 @@ const App = () => {
         <Route path="/property-ID" element={<PropertyView />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/Architectural" element={<ArchitecturalLandingPage />} />
+        <Route path="/become-agent" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<CreatePassword />} />
+        <Route path="/dashboard" element={<Navigate to="/" />} /> {/* Fixed Navigate */}
       </Routes>
       <Footer /> {/* Persistent Footer */}
     </Router>
