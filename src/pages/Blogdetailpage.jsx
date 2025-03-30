@@ -9,48 +9,34 @@ import {
   FaLinkedin, 
   FaYoutube, 
   FaCalendarAlt, 
-  FaChevronRight 
+  FaChevronRight, 
+  FaEdit, 
+  FaTrash 
 } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify"; // Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "../styles/blog-detail.css";
 
 const BlogDetailPage = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
+  const [comments, setComments] = useState([]);
   const [comment, setComment] = useState({
     name: "",
     email: "",
     message: ""
   });
+  const [editingCommentId, setEditingCommentId] = useState(null);
 
   useEffect(() => {
     const blogData = {
       id: parseInt(id),
       title: "The Ultimate Guide to Off-Plan Property Investments: Challenges and Solutions",
       image: "/images/Recent-3.png",
-      content:  `
-      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <h2>Lorem Ipsum dolor sit</h2>
-      
-      <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <h2>Lorem ipsum dolor sit amet</h2>
-      
-      <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    `,
+      content: `
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit...</p>
+      `,
       author: "James Kofi",
       date: "Nov 15, 2024",
       comments: 8,
@@ -58,7 +44,7 @@ const BlogDetailPage = () => {
     };
 
     const relatedPostsData = [
-      { id: 2, title: "Getting the best Nigerian Prperty", image: "/images/team-ladies.png", date: "Nov 15, 2024" },
+      { id: 2, title: "Getting the best Nigerian Property", image: "/images/team-ladies.png", date: "Nov 15, 2024" },
       { id: 3, title: "Qualities of a very good property", image: "/images/team-male.png", date: "Nov 10, 2024" }
     ];
 
@@ -73,15 +59,46 @@ const BlogDetailPage = () => {
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
-    console.log("Comment submitted:", comment);
+
+    if (editingCommentId !== null) {
+      // Edit existing comment
+      setComments(prev =>
+        prev.map(c =>
+          c.id === editingCommentId ? { ...c, ...comment } : c
+        )
+      );
+      toast.success("Comment updated successfully!");
+      setEditingCommentId(null);
+    } else {
+      // Add new comment
+      const newComment = {
+        id: Date.now(),
+        ...comment
+      };
+      setComments(prev => [...prev, newComment]);
+      toast.success("Comment added successfully!");
+    }
+
+    // Reset the comment form
     setComment({ name: "", email: "", message: "" });
-    alert("Comment submitted successfully!");
+  };
+
+  const handleEditComment = (id) => {
+    const commentToEdit = comments.find(c => c.id === id);
+    setComment(commentToEdit);
+    setEditingCommentId(id);
+  };
+
+  const handleDeleteComment = (id) => {
+    setComments(prev => prev.filter(c => c.id !== id));
+    toast.success("Comment deleted successfully!");
   };
 
   if (!blog) return <div className="loading"><div className="spinner"></div></div>;
 
   return (
     <div className="page-container">
+      <ToastContainer /> {/* Add ToastContainer for notifications */}
       <Header />
       <div className="main-content">
         <div className="content-wrapper">
@@ -97,6 +114,26 @@ const BlogDetailPage = () => {
           <div className="blog-content" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
 
           <div className="comments-section">
+            <h3>Comments</h3>
+            <ul className="comments-list">
+              {comments.map(c => (
+                <li key={c.id} className="comment-item">
+                  <div className="comment-header">
+                    <strong>{c.name}</strong> <span>({c.email})</span>
+                  </div>
+                  <p>{c.message}</p>
+                  <div className="comment-actions">
+                    <button onClick={() => handleEditComment(c.id)} className="edit-btn">
+                      <FaEdit /> Edit
+                    </button>
+                    <button onClick={() => handleDeleteComment(c.id)} className="delete-btn">
+                      <FaTrash /> Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
             <h3>Leave a comment</h3>
             <form onSubmit={handleSubmitComment} className="comment-form">
               <div className="form-grid">
@@ -134,7 +171,7 @@ const BlogDetailPage = () => {
                   required
                 ></textarea>
               </div>
-              <button type="submit">Submit</button>
+              <button type="submit">{editingCommentId ? "Update Comment" : "Submit"}</button>
             </form>
           </div>
 
@@ -148,7 +185,7 @@ const BlogDetailPage = () => {
                   </Link>
                   <div className="card-content">
                     <Link to={`/blog/${post.id}`}>
-                      <h2>{post.title}</h2>
+                      <h3>{post.title}</h3>
                     </Link>
                     <div className="post-meta">
                       <FaCalendarAlt /> {post.date}
@@ -160,8 +197,7 @@ const BlogDetailPage = () => {
           </div>
         </div>
       </div>
-
-         </div>
+    </div>
   );
 };
 
