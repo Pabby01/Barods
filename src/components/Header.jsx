@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaUserCircle, FaAngleDown, FaSignOutAlt } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify"; // Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "../styles/header.css";
 
 const Header = () => {
@@ -31,7 +33,9 @@ const Header = () => {
     setIsLoggedIn(false);
     setProfileOpen(false);
     setMenuOpen(false);
-    alert("You have been logged out.");
+
+    // Show a success notification
+    toast.success("You have been logged out successfully!");
   };
 
   const closeAllMenus = () => {
@@ -93,6 +97,7 @@ const Header = () => {
 
   return (
     <header className="header">
+      <ToastContainer /> {/* Add ToastContainer for notifications */}
       <div className="container">
         <div className="header-content">
           {/* Logo */}

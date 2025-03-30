@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify"; // Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
 import "../styles/auth.css";
 
 const LoginRegister = ({ initialMode = "login" }) => {
@@ -89,7 +91,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
     const password = document.querySelector('input[placeholder="Password"]').value;
 
     if (!firstName || !lastName || !email || !password) {
-      alert("Please fill in all fields.");
+      toast.error("Please fill in all fields."); // Show error notification
       return;
     }
 
@@ -110,14 +112,18 @@ const LoginRegister = ({ initialMode = "login" }) => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Account created successfully!");
-        setIsRegister(false); // Switch to login mode after successful sign-up
+        // Show a success notification
+        toast.success("Account created successfully!");
+
+        // Switch to login mode after successful sign-up
+        setIsRegister(false);
       } else {
-        alert(data.message || "Failed to create account. Please try again.");
+        // Show an error notification
+        toast.error(data.message || "Failed to create account. Please try again.");
       }
     } catch (error) {
       console.error("Error during sign-up:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later."); // Show error notification
     }
   };
 
@@ -128,7 +134,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
     const password = document.querySelector('input[placeholder="Password"]').value;
 
     if (!email || !password) {
-      alert("Please fill in all fields.");
+      toast.error("Please fill in all fields."); // Show error notification
       return;
     }
 
@@ -151,21 +157,24 @@ const LoginRegister = ({ initialMode = "login" }) => {
         localStorage.setItem("userToken", data.token);
 
         // Show a success notification
-        alert("Login successful!");
+        toast.success("Login successful!");
 
-        // Redirect to the homepage
-        window.location.href = "/";
+        // Redirect to the homepage after a short delay
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1500);
       } else {
-        alert(data.message || "Failed to log in. Please try again.");
+        toast.error(data.message || "Failed to log in. Please try again."); // Show error notification
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later."); // Show error notification
     }
   };
   
   return (
     <div className="auth-page">
+      <ToastContainer /> {/* Add ToastContainer for notifications */}
       <div className="auth-container">
         <div className="auth-content">
           <div className="auth-logo-container">
