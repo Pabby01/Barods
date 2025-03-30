@@ -9,7 +9,7 @@ const AgentDetailPage = () => {
   // Sample agent data - replace with your actual data
   const agent = {
     id: id,
-    name: 'Name Surname',
+    name: 'Michael Smith',
     position: 'Real Estate Agent',
     email: 'mail@example.com',
     phone: '+123 456 7890',
@@ -107,7 +107,7 @@ const AgentDetailPage = () => {
                 className="agent-profile-image"
               />
               <div className="agent-profile-info">
-                <h2 className="agent-profile-name">{agent.name}</h2>
+                <h3 className="agent-profile-name">{agent.name}</h3>
                 <p className="agent-profile-position">{agent.position}</p>
                 <p className="agent-profile-contact">Phone: {agent.phone}</p>
                 <p className="agent-profile-contact">Mail: {agent.email}</p>

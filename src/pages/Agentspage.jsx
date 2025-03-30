@@ -89,7 +89,7 @@ const AgentsPage = () => {
     <div className="agents-page">
       {/* Hero Section */}
       <div className="hero-section">
-        <h1>Agents</h1>
+        <h3>Agents</h3>
       </div>
       <div className="container">
         <h1 className="section-title">Meet Our Agents</h1>

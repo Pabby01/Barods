@@ -114,7 +114,7 @@ const CreatePassword = () => {
         <div className="logo-container">
           <img src={logo} alt="Barods Global Limited" className="logo" />
         </div>
-        <h2>Create New Password</h2>
+        <h3>Create New Password</h3>
         <p>Input a new password to reset.</p>
         
         <form onSubmit={handleSubmit}>
