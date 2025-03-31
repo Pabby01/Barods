@@ -8,59 +8,59 @@ const AgentsPage = () => {
   const agents = [
     {
       id: 1,
-      name: 'Name Surname',
+      name: 'Babatunde Denton',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'tunde@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/CTO.jpg'
     },
     {
       id: 2,
-      name: 'Name Surname',
+      name: 'Ajibola Akinwande',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'ajibola@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/ajibola2.jpg'
     },
     {
       id: 3,
-      name: 'Name Surname',
+      name: 'Lawrita C. Agbor',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'lawrita@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/law.jpg'
     },
     {
       id: 4,
-      name: 'Name Surname',
+      name: 'Solomon Olayimika',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'olayinka@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/solo.jpg'
     },
     {
       id: 5,
-      name: 'Name Surname',
+      name: 'Kehinde Oregbesan',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'kehinde@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/ken.jpg'
     },
     {
       id: 6,
-      name: 'Name Surname',
+      name: 'Lolade Ogundimu',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'lolade@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/lola.jpg'
     },
     {
       id: 7,
-      name: 'Name Surname',
+      name: 'Toyosi Akinbobola',
       position: 'Real Estate Agent',
-      email: 'mail@example.com',
+      email: 'toyosi@barodsglobal.com',
       phone: '+123 456 7890',
-      image: '/images/team-1.png'
+      image: '/images/toyo.jpg'
     },
     {
       id: 8,

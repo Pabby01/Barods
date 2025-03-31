@@ -73,7 +73,7 @@ const CityList = () => {
   return (
     <div className="city-list-container">
       <section className="city-section">
-        <h2 className="section-title">Explore Our Cities</h2>
+        <h3 className="section-title">Explore Our Cities</h3>
         <div className="carousel-container">
           <button 
             className="nav-button prev-button" 
@@ -114,7 +114,7 @@ const CityList = () => {
       </section>
 
       <section className="city-section">
-        <h2 className="section-title">International Cities</h2>
+        <h3 className="section-title">International Cities</h3>
         <div className="carousel-container">
           <button 
             className="nav-button prev-button" 

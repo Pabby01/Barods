@@ -33,9 +33,11 @@ const BlogDetailPage = () => {
     const blogData = {
       id: parseInt(id),
       title: "The Ultimate Guide to Off-Plan Property Investments: Challenges and Solutions",
-      image: "/images/Recent-3.png",
+      image: "/images/arch-1.png",
       content: `
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit...</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum incidunt voluptatem reprehenderit explicabo ullam, praesentium rerum facere veritatis officia cum temporibus dolor necessitatibus, tenetur quia. Facilis soluta incidunt molestias dolorem doloribus quidem quas voluptatem vero tempora, illo eius earum repellat ducimus iste odio quibusdam quisquam impedit veritatis cum saepe.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum incidunt voluptatem reprehenderit explicabo ullam, praesentium rerum facere veritatis officia cum temporibus dolor necessitatibus, tenetur quia. Facilis soluta incidunt molestias dolorem doloribus quidem quas voluptatem vero tempora, illo eius earum repellat ducimus iste odio quibusdam quisquam impedit veritatis cum saepe.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum incidunt voluptatem reprehenderit explicabo ullam, praesentium rerum facere veritatis officia cum temporibus dolor necessitatibus, tenetur quia. Facilis soluta incidunt molestias dolorem doloribus quidem quas voluptatem vero tempora, illo eius earum repellat ducimus iste odio quibusdam quisquam impedit veritatis cum saepe.</p>
       `,
       author: "James Kofi",
       date: "Nov 15, 2024",
@@ -169,6 +171,7 @@ const BlogDetailPage = () => {
                   value={comment.message}
                   onChange={handleInputChange}
                   required
+                  className="name"
                 ></textarea>
               </div>
               <button type="submit">{editingCommentId ? "Update Comment" : "Submit"}</button>

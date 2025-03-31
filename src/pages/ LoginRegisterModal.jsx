@@ -184,7 +184,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
           {isRegister ? (
             // Register Form
             <>
-              <h2 className="auth-title">Create an Account</h2>
+              <h3 className="auth-title">Create an Account</h3>
               <p className="auth-switch-text">
                 Already have an account? <a href="#" className="auth-link" onClick={(e) => { e.preventDefault(); setIsRegister(false); }}>Login</a>
               </p>
@@ -250,7 +250,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
           ) : (
             // Login Form
             <>
-              <h2 className="auth-title2">Log In</h2>
+              <h3 className="auth-title2">Log In</h3>
               <p className="auth-switch-text">
                 Don't have an account? <a href="#" className="auth-link" onClick={(e) => { e.preventDefault(); setIsRegister(true); }}>Register</a>.
               </p>
@@ -292,7 +292,7 @@ const LoginRegister = ({ initialMode = "login" }) => {
                     "Processing..."
                   ) : (
                     <>
-                      <img src="/images/google-icon.png" alt="Google" className="google-icon" />
+                      <img src="/images/google.png" alt="Google" className="google-icon" />
                       Google
                     </>
                   )}

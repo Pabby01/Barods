@@ -62,7 +62,7 @@ const HotDeals = () => {
   return (
     <section className="hot-deals-section">
       <div className="hot-deals-container">
-        <h2 className="hot-deals-title">Hot Deals</h2>
+        <h3 className="hot-deals-title">Hot Deals</h3>
         
         <div className="hot-deals-grid">
           {hotDeals.map((deal) => (

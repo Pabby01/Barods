@@ -15,7 +15,7 @@
   .faq-hero-background {
     height: 12rem;
     background-color: rgba(31, 41, 55, 0.5);
-    background-image: url('/hero-background.jpg');
+    background-image: url('/images/Hero.png');
     background-size: cover;
     background-position: center;
   }

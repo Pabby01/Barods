@@ -50,37 +50,37 @@ const EventsGallery = () => {
   const galleryImages = [
     {
       id: 1,
-      src: "/images/Recent-2.png", // Replace with your actual image path
+      src: "/images/south-africa.png", // Replace with your actual image path
       alt: "Group of professional realtors in suits"
     },
     {
       id: 2,
-      src: "/images/Recent-3.png",
+      src: "/images/lagos.jpeg",
       alt: "Office opening ceremony"
     },
     {
       id: 3,
-      src: "/images/team-1.png",
+      src: "/images/image.png",
       alt: "Team building activity"
     },
     {
       id: 4,
-      src: "/images/Recent-1.png",
+      src: "/images/ibadan.png",
       alt: "Award ceremony"
     },
     {
       id: 5,
-      src: "/images/team-ladies.png",
+      src: "/images/Abeokuta.jpeg",
       alt: "Client meeting"
     },
     {
       id: 6,
-      src: "/images/team-male.png",
+      src: "/images/abu-dahbi.png",
       alt: "Property tour"
     },
     {
       id: 7,
-      src: "/images/team-1.png",
+      src: "/images/barod-team.jpeg",
       alt: "Community outreach"
     }
   ];

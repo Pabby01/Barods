@@ -10,7 +10,7 @@ const BlogPage = () => {
     {
       id: 1,
       title: "Top Tips For Selling Your Property In Ghana",
-      image: "/images/Hero.png",
+      image: "/images/abu-dahbi.png",
       summary: "Explore the best strategies for selling your property in Ghana's competitive real estate market. Learn how to attract buyers and maximize your property value.",
       author: "James Kofi",
       date: "March 15, 2025",
@@ -19,7 +19,7 @@ const BlogPage = () => {
     {
       id: 2,
       title: "Understanding The Process Of A Property Transaction",
-      image: "/images/Hero.png",
+      image: "/images/Abeokuta.jpeg",
       summary: "Navigate the complexities of property transactions with our comprehensive guide. From paperwork to closing, understand every step of the process.",
       author: "Sarah Men",
       date: "March 10, 2025",
@@ -28,7 +28,7 @@ const BlogPage = () => {
     {
       id: 3,
       title: "Top Tips For Selling Your Property In Ghana",
-      image: "/images/Hero.png",
+      image: "/images/image-2.png",
       summary: "Explore the best strategies for selling your property in Ghana's competitive real estate market. Learn how to attract buyers and maximize your property value.",
       author: "James Kofi",
       date: "March 15, 2025",
@@ -37,7 +37,7 @@ const BlogPage = () => {
     {
       id: 4,
       title: "Understanding The Process Of A Property Transaction",
-      image: "/images/Hero.png",
+      image: "/images/image-4.png",
       summary: "Navigate the complexities of property transactions with our comprehensive guide. From paperwork to closing, understand every step of the process.",
       author: "Sarah Mensah",
       date: "March 10, 2025",
@@ -46,7 +46,7 @@ const BlogPage = () => {
     {
       id: 5,
       title: "Top Tips For Selling Your Property In Ghana",
-      image: "/images/Hero.png",
+      image: "/images/image 3.png",
       summary: "Explore the best strategies for selling your property in Ghana's competitive real estate market. Learn how to attract buyers and maximize your property value.",
       author: "James Kofi",
       date: "March 15, 2025",
@@ -55,7 +55,7 @@ const BlogPage = () => {
     {
       id: 6,
       title: "Understanding The Process Of A Property Transaction",
-      image: "/images/Hero.png",
+      image: "/images/arch-1.png",
       summary: "Navigate the complexities of property transactions with our comprehensive guide. From paperwork to closing, understand every step of the process.",
       author: "Sarah Mensah",
       date: "March 10, 2025",

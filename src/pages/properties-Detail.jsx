@@ -34,10 +34,10 @@ const PropertyView = ({ property }) => {
     area: "350 sqm",
     description: "This is a beautifully designed 4 bedroom semi-detached duplex in a serene environment. Perfect for a modern family, this property features spacious rooms, quality finishes, and is located in a secure estate with 24/7 security.",
     images: [
-      "/images/Recent-1.png",
-      "/images/Recent-2.png",
-      "/images/Recent-3.png",
-      "/images/ibadan.png"
+      "/images/image.png",
+      "/images/lagos.jpeg",
+      "/images/image-2.png",
+      "/images/akure.jpeg"
     ],
     videoUrl: "/videos/web5.mp4",
     location: {
@@ -54,8 +54,8 @@ const PropertyView = ({ property }) => {
     ],
     relatedProperties: [
       { id: 2, title: "Modern Villa", price: "₦15,000,000", image: "/images/Recent-1.png" },
-      { id: 3, title: "Luxury Apartment", price: "₦9,500,000", image: "/images/Recent-1.png" },
-      { id: 4, title: "Family Bungalow", price: "₦7,200,000", image: "/images/Recent-1.png" }
+      { id: 3, title: "Luxury Apartment", price: "₦9,500,000", image: "/images/image.png" },
+      { id: 4, title: "Family Bungalow", price: "₦7,200,000", image: "/images/image-2.png" }
     ]
   };
 
