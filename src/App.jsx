@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"; // Added Navigate import
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"; // Removed useLocation
 import Header from "./components/Header";  // Import Header
 import Footer from "./components/Footer";  // Import Footer
 import Home from "./pages/Home";
@@ -22,11 +22,28 @@ import ArchitecturalLandingPage from "./pages/Architect";
 import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import CreatePassword from './components/CreatePassword';
+import Dashboard from './pages/Agent-dashboard'; // Assuming you have a Dashboard component
+import Properties3 from './pages/Agent-properties'
 
 const App = () => {
   return (
     <Router>
-      <Header /> {/* Persistent Header */}
+      <AppContent /> {/* Move the logic into a child component */}
+    </Router>
+  );
+};
+
+const AppContent = () => {
+  const location = useLocation(); // Now useLocation is inside the Router context
+
+  // Define routes where Header and Footer should not be displayed
+  const noHeaderFooterRoutes = ["/dashboard", "/properties3"];
+
+  const shouldShowHeaderFooter = !noHeaderFooterRoutes.includes(location.pathname);
+
+  return (
+    <>
+      {shouldShowHeaderFooter && <Header />} {/* Render Header conditionally */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
@@ -46,10 +63,11 @@ const App = () => {
         <Route path="/become-agent" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<CreatePassword />} />
-        <Route path="/dashboard" element={<Navigate to="/" />} /> {/* Fixed Navigate */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/properties3" element={<Properties3 />} />
       </Routes>
-      <Footer /> {/* Persistent Footer */}
-    </Router>
+      {shouldShowHeaderFooter && <Footer />} {/* Render Footer conditionally */}
+    </>
   );
 };
 
