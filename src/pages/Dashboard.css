@@ -371,3 +371,163 @@
 .user-dropdown button:last-child {
   border-top: 1px solid #f0f0f0;
 }
+
+/* General Responsive Styles */
+@media (max-width: 768px) {
+  /* Dashboard Layout */
+  .dashboard-container {
+    flex-direction: column; /* Stack sidebar and main content vertically */
+    height: auto; /* Allow height to adjust dynamically */
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 100%; /* Full width on small screens */
+    height: auto;
+    position: static; /* Remove fixed positioning */
+    border-bottom: 1px solid #ddd; /* Add a bottom border for separation */
+  }
+
+  .sidebar-menu {
+    display: flex;
+    flex-wrap: wrap; /* Wrap menu items */
+    justify-content: space-around; /* Center menu items */
+    padding: 10px 0;
+  }
+
+  .menu-item {
+    flex: 1 1 45%; /* Allow menu items to take up 45% of the width */
+    margin: 5px;
+    text-align: center;
+  }
+
+  /* Main Content */
+  .main-content {
+    margin-left: 0; /* Remove left margin */
+    width: 100%; /* Full width */
+    padding: 10px; /* Add padding for better spacing */
+  }
+
+  /* Top Bar */
+  .top-bar {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .page-title {
+    font-size: 1.25rem; /* Reduce font size */
+    margin-bottom: 10px;
+  }
+
+  .user-section {
+    width: 100%; /* Full width */
+    justify-content: space-between; /* Space out elements */
+  }
+
+  .notification-icon {
+    margin-right: 0;
+  }
+
+  /* Stats Cards */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); /* Show 2 cards per row */
+    gap: 10px;
+  }
+
+  .stats-card {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .stats-value {
+    font-size: 1.5rem; /* Reduce font size */
+  }
+
+  /* Chart Section */
+  .chart-section {
+    padding: 10px; /* Reduce padding */
+  }
+
+  .chart-title {
+    font-size: 1rem; /* Reduce font size */
+  }
+
+  .timeframe-selector {
+    padding: 5px 10px; /* Reduce padding */
+  }
+
+  /* Notifications Dropdown */
+  .notifications-dropdown {
+    width: 90%; /* Adjust width for smaller screens */
+    right: 5%; /* Center it horizontally */
+  }
+
+  /* User Dropdown */
+  .user-dropdown {
+    width: 90%; /* Adjust width for smaller screens */
+    right: 5%; /* Center it horizontally */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Sidebar */
+  .sidebar {
+    display: none; /* Hide sidebar on very small screens */
+  }
+
+  /* Top Bar */
+  .top-bar {
+    padding: 10px;
+  }
+
+  .page-title {
+    font-size: 1rem; /* Further reduce font size */
+  }
+
+  .user-section {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start;
+  }
+
+  .notification-icon {
+    margin-bottom: 10px;
+  }
+
+  /* Stats Cards */
+  .stats-grid {
+    grid-template-columns: 1fr; /* Show 1 card per row */
+  }
+
+  .stats-card {
+    padding: 8px; /* Further reduce padding */
+  }
+
+  .stats-value {
+    font-size: 1.25rem; /* Further reduce font size */
+  }
+
+  /* Chart Section */
+  .chart-section {
+    padding: 8px; /* Further reduce padding */
+  }
+
+  .chart-title {
+    font-size: 0.875rem; /* Further reduce font size */
+  }
+
+  .timeframe-selector {
+    padding: 5px; /* Further reduce padding */
+  }
+
+  /* Notifications Dropdown */
+  .notifications-dropdown {
+    width: 100%; /* Full width for very small screens */
+    right: 0;
+  }
+
+  /* User Dropdown */
+  .user-dropdown {
+    width: 100%; /* Full width for very small screens */
+    right: 0;
+  }
+}
