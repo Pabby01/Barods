@@ -679,14 +679,14 @@ export default function Properties3() {
         
         <div className="property-list">
           {properties.map((property) => (
-            <div className="property-card" key={property.id}>
-              <div className="property-image">
+            <div className="property-card3" key={property.id}>
+              <div className="property-image3">
                 <img src="/images/image.png" alt={property.title} />
               </div>
               
-              <div className="property-details">
-                <h3 className="property-title">{property.title}</h3>
-                <div className="property-location">
+              <div className="property-details3">
+                <h3 className="property-title3">{property.title}</h3>
+                <div className="property-location3">
                   {property.street}, {property.area} {property.state}
                 </div>
                 <div className="property-price">

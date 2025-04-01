@@ -398,7 +398,7 @@
     padding: 20px;
   }
   
-  .property-card {
+  .property-card3 {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -406,15 +406,15 @@
     transition: var(--transition);
   }
   
-  .property-card:hover {
+  .property-card3:hover {
     background-color: var(--light-gray);
   }
   
-  .property-card:last-child {
+  .property-card3:last-child {
     border-bottom: none;
   }
   
-  .property-image {
+  .property-image3 {
     margin-right: 20px;
     width: 100px;
     height: 100px;
@@ -422,23 +422,23 @@
     overflow: hidden;
   }
   
-  .property-image img {
+  .property-image3 img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   
-  .property-details {
+  .property-details3 {
     flex: 1;
   }
   
-  .property-title {
+  .property-title3 {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 5px;
   }
   
-  .property-location {
+  .property-location3 {
     font-size: 14px;
     color: var(--dark-gray);
     margin-bottom: 5px;
@@ -808,19 +808,19 @@
       display: none;
     }
     
-    .property-card {
+    .property-card3 {
       flex-direction: column;
       align-items: flex-start;
     }
     
-    .property-image {
+    .property-image3 {
       width: 100%;
       height: 200px;
       margin-right: 0;
       margin-bottom: 15px;
     }
     
-    .property-details, .property-status, .property-actions {
+    .property-details3, .property-status, .property-actions {
       width: 100%;
       margin: 10px 0;
     }
