@@ -168,7 +168,7 @@
   .notifications-dropdown {
     position: absolute;
     top: 100%;
-    right: -10px;
+    right: 0; /* Align to the left by default */
     width: 300px;
     background-color: var(--white);
     border-radius: var(--border-radius);
@@ -477,7 +477,7 @@
     color: #ff9800;
   }
   
-  .property-actions {
+  .property-actions3 {
     display: flex;
     gap: 10px;
   }
@@ -776,7 +776,7 @@
   
   /* Responsive Styles */
   @media (max-width: 1024px) {
-    .property-actions {
+    .property-actions3 {
       flex-direction: column;
     }
     
@@ -820,12 +820,12 @@
       margin-bottom: 15px;
     }
     
-    .property-details3, .property-status, .property-actions {
+    .property-details3, .property-status, .property-actions3 {
       width: 100%;
       margin: 10px 0;
     }
     
-    .property-actions {
+    .property-actions3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 5px;
@@ -861,15 +861,26 @@
     .form-actions button {
       width: 100%;
     }
+    
+    .notifications-dropdown {
+      left: auto; /* Remove left alignment */
+      left: 0; /* Align to the right */ 
+      margin-right: 10px; /* Add some spacing from the edge */
+    }
   }
   
   @media (max-width: 480px) {
-    .property-actions {
+    .property-actions3 {
       grid-template-columns: 1fr;
     }
     
     .pagination {
       flex-wrap: wrap;
+    }
+
+    .notifications-dropdown {
+      width: 60vw;
+      right: -50%;
     }
     
     .pagination-number {

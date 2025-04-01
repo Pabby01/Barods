@@ -252,8 +252,12 @@ export default function Properties3() {
   };
 
   const handleShareProperty = (property) => {
-    // In a real app, this would open a share dialog or copy link to clipboard
-    alert(`Share link for ${property.title} copied to clipboard!`);
+    // Simulate sharing functionality
+    navigator.clipboard.writeText(`Share link for ${property.title}`).then(() => {
+      toast.success(`Share link for "${property.title}" copied to clipboard!`);
+    }).catch(() => {
+      toast.error("Failed to copy the share link to clipboard.");
+    });
   };
 
   const handleSaveChanges = (e) => {
@@ -700,7 +704,7 @@ export default function Properties3() {
                 </span>
               </div>
               
-              <div className="property-actions">
+              <div className="property-actions3">
                 <button className="action-btn share-btn" onClick={() => handleShareProperty(property)}>
                   <Share size={18} />
                   <span>Share</span>
