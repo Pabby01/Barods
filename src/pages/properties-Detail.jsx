@@ -3,6 +3,12 @@
 import React, { useState } from 'react';
 import { FaWhatsapp, FaEnvelope, FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaChevronLeft, FaChevronRight, FaPlay, FaPause } from 'react-icons/fa';
 import './PropertyView.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+
 
 const PropertyView = ({ property }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -26,7 +32,7 @@ const PropertyView = ({ property }) => {
     agent: {
       name: "Jude Ogundare",
       phone: "+234 902 025 0260",
-      email: "jude@example.com",
+      email: "adeolalasisi6@gmail.com",
       image: "/images/team-1.png"
     },
     beds: 4,
@@ -124,6 +130,116 @@ const PropertyView = ({ property }) => {
     handleCloseModals();
   };
 
+  const ScheduleTour = ({ agentEmail, propertyTitle }) => {
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
+  
+    const handleScheduleTour = () => {
+      if (!selectedDate || !selectedTime) {
+        toast.error("Please select a date and time for the tour.");
+        return;
+      }
+  
+      const formattedDate = selectedDate.toLocaleDateString();
+      const formattedTime = selectedTime.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+  
+      // Send email to the agent
+      const subject = `Tour Request for ${propertyTitle}`;
+      const body = `Hello,\n\nA client has requested a tour for the property "${propertyTitle}" on ${formattedDate} at ${formattedTime}.\n\nPlease confirm the booking.\n\nThank you.`;
+      window.open(`mailto:${agentEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_blank");
+  
+      // Generate calendar event links
+      const eventTitle = `Tour for ${propertyTitle}`;
+      const eventDescription = `Tour for the property "${propertyTitle}" with the agent.`;
+      const startDateTime = new Date(selectedDate);
+      startDateTime.setHours(selectedTime.getHours(), selectedTime.getMinutes());
+      const endDateTime = new Date(startDateTime);
+      endDateTime.setHours(startDateTime.getHours() + 1); // Assume 1-hour tour
+  
+      const googleCalendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startDateTime.toISOString().replace(/-|:|\.\d+/g, "")}/${endDateTime.toISOString().replace(/-|:|\.\d+/g, "")}&details=${encodeURIComponent(eventDescription)}`;
+      const appleCalendarLink = `data:text/calendar;charset=utf8,BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${eventTitle}\nDESCRIPTION:${eventDescription}\nDTSTART:${startDateTime.toISOString().replace(/-|:|\.\d+/g, "")}\nDTEND:${endDateTime.toISOString().replace(/-|:|\.\d+/g, "")}\nEND:VEVENT\nEND:VCALENDAR`;
+      const microsoftCalendarLink = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(eventTitle)}&startdt=${startDateTime.toISOString()}&enddt=${endDateTime.toISOString()}&body=${encodeURIComponent(eventDescription)}`;
+  
+      // Show success message
+      toast.success("Tour scheduled successfully! Add it to your calendar below.");
+  
+      // Display calendar links
+      window.open(googleCalendarLink, "_blank");
+      window.open(appleCalendarLink, "_blank");
+      window.open(microsoftCalendarLink, "_blank");
+    };
+  
+    return (
+      <div className="schedule-tour">
+        <h4>Schedule a Tour</h4>
+        <div className="tour-date-picker">
+          <label>Select Date:</label>
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="MMMM d, yyyy"
+            placeholderText="Choose a date"
+          />
+        </div>
+        <div className="tour-time-picker">
+          <label>Select Time:</label>
+          <DatePicker
+            selected={selectedTime}
+            onChange={(time) => setSelectedTime(time)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15}
+            timeCaption="Time"
+            dateFormat="h:mm aa"
+            placeholderText="Choose a time"
+          />
+        </div>
+        <button className="schedule-button" onClick={handleScheduleTour}>
+          Request a Tour
+        </button>
+      </div>
+    );
+  };
+
+  const MapSection = () => {
+    // Coordinates for Abeokuta, Ogun State, Nigeria
+    const location = {
+      lat: 7.1475, // Latitude
+      lng: 3.3619, // Longitude
+    };
+  
+    const mapContainerStyle = {
+      width: "100%",
+      height: "400px",
+    };
+  
+    const mapOptions = {
+      zoom: 14,
+      center: location,
+    };
+  
+    return (
+      <div className="property-map">
+        <h3>Location</h3>
+        <div className="map-container">
+          <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={location}
+              zoom={mapOptions.zoom}
+            >
+              {/* Marker for the company's location */}
+              <Marker position={location} />
+            </GoogleMap>
+          </LoadScript>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="property-view-container">
       {/* Property Images Carousel */}
@@ -187,15 +303,7 @@ const PropertyView = ({ property }) => {
         </div>
 
         {/* Schedule a Tour Section */}
-        <div className="schedule-tour">
-          <h3>Schedule a Tour</h3>
-          <div className="tour-date-options">
-            <button className="date-button">Today</button>
-            <button className="date-button">Tomorrow</button>
-            <button className="date-button">Fri, Mar 25</button>
-          </div>
-          <button className="schedule-button">Request a Tour</button>
-        </div>
+        <ScheduleTour agentEmail={sampleProperty.agent.email} propertyTitle={sampleProperty.title} />
 
         {/* Description */}
         <div className="property-description">
@@ -232,44 +340,10 @@ const PropertyView = ({ property }) => {
         </div>
 
         {/* Location Map */}
-        <div className="property-map">
-          <h3>Location</h3>
-          <div className="map-container">
-            {/* This would be your actual map component */}
-            <div className="map-placeholder">
-              <img src="/images/maps.jpeg" alt="Property Location Map" />
-            </div>
-          </div>
-        </div>
+        <MapSection />
 
         {/* Mortgage Calculator */}
-        <div className="mortgage-calculator">
-          <h3>Mortgage Calculator</h3>
-          <div className="calculator-form">
-            <div className="form-group">
-              <label>Purchase Price</label>
-              <input type="text" value={sampleProperty.price} readOnly />
-            </div>
-            <div className="form-group">
-              <label>Down Payment</label>
-              <input type="text" placeholder="20%" />
-            </div>
-            <div className="form-group">
-              <label>Loan Term</label>
-              <select>
-                <option>30 Years</option>
-                <option>20 Years</option>
-                <option>15 Years</option>
-                <option>10 Years</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Interest Rate</label>
-              <input type="text" placeholder="3.5%" />
-            </div>
-            <button className="calculate-button">Calculate</button>
-          </div>
-        </div>
+        <MortgageCalculator propertyPrice={12000000} />
 
         {/* Related Properties */}
         <div className="related-properties">
@@ -284,6 +358,12 @@ const PropertyView = ({ property }) => {
                 </div>
               </div>
             ))}
+          </div>
+          {/* See More Button */}
+          <div className="see-more-container">
+            <a href="/buy" className="see-more-button">
+              See More Properties
+            </a>
           </div>
         </div>
       </div>
@@ -410,6 +490,84 @@ const PropertyView = ({ property }) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const MortgageCalculator = ({ propertyPrice }) => {
+  const [downPayment, setDownPayment] = useState("");
+  const [loanTerm, setLoanTerm] = useState(30); // Default to 30 years
+  const [interestRate, setInterestRate] = useState("");
+  const [monthlyPayment, setMonthlyPayment] = useState(null);
+
+  const calculateMortgage = () => {
+    if (!downPayment || !interestRate || !loanTerm) {
+      toast.error("Please fill in all fields to calculate the mortgage.");
+      return;
+    }
+
+    const loanAmount = propertyPrice - (propertyPrice * parseFloat(downPayment)) / 100;
+    const monthlyInterestRate = parseFloat(interestRate) / 100 / 12;
+    const numberOfPayments = loanTerm * 12;
+
+    // Mortgage formula: M = P[r(1+r)^n]/[(1+r)^n - 1]
+    const monthlyPayment =
+      (loanAmount *
+        monthlyInterestRate *
+        Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+      (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+    setMonthlyPayment(monthlyPayment.toFixed(2));
+  };
+
+  return (
+    <div className="mortgage-calculator">
+      <h3>Mortgage Calculator</h3>
+      <div className="calculator-form">
+        <div className="form-group">
+          <label>Purchase Price</label>
+          <input type="text" value={`₦${propertyPrice}`} readOnly />
+        </div>
+        <div className="form-group">
+          <label>Down Payment (%)</label>
+          <input
+            type="number"
+            placeholder="20"
+            value={downPayment}
+            onChange={(e) => setDownPayment(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Loan Term (Years)</label>
+          <select
+            value={loanTerm}
+            onChange={(e) => setLoanTerm(parseInt(e.target.value))}
+          >
+            <option value={30}>30 Years</option>
+            <option value={20}>20 Years</option>
+            <option value={15}>15 Years</option>
+            <option value={10}>10 Years</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Interest Rate (%)</label>
+          <input
+            type="number"
+            placeholder="3.5"
+            value={interestRate}
+            onChange={(e) => setInterestRate(e.target.value)}
+          />
+        </div>
+        <button className="calculate-button" onClick={calculateMortgage}>
+          Calculate
+        </button>
+        {monthlyPayment && (
+          <div className="result">
+            <h4>Estimated Monthly Payment:</h4>
+            <p>₦{monthlyPayment}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
