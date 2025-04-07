@@ -37,7 +37,7 @@ const AppContent = () => {
   const location = useLocation(); // Now useLocation is inside the Router context
 
   // Define routes where Header and Footer should not be displayed
-  const noHeaderFooterRoutes = ["/dashboard", "/properties3"];
+  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password"];
 
   const shouldShowHeaderFooter = !noHeaderFooterRoutes.includes(location.pathname);
 
