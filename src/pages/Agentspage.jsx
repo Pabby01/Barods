@@ -16,7 +16,7 @@ const AgentsPage = () => {
     },
     {
       id: 2,
-      name: 'Ajibola Akinwande',
+      name: 'ESV Ajibola Akinwande ANIVS, RSV',
       position: 'Real Estate Agent',
       email: 'ajibola@barodsglobal.com',
       phone: '+123 456 7890',
@@ -32,7 +32,7 @@ const AgentsPage = () => {
     },
     {
       id: 4,
-      name: 'Solomon Olayimika',
+      name: 'ESV Solomon Olayimika Emmanuel ANIVS, RSV',
       position: 'Real Estate Agent',
       email: 'olayinka@barodsglobal.com',
       phone: '+123 456 7890',

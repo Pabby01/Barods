@@ -70,7 +70,7 @@ const ForgotPassword = () => {
         
         <div className="go-back">
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/become-agent')}
             className="btn-link"
           >
             Go back

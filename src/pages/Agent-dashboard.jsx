@@ -113,7 +113,7 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
-    navigate("/login");
+    navigate("/become-agen");
   };
 
   const toggleNotifications = () => {

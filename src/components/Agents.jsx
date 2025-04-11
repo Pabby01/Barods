@@ -13,7 +13,7 @@ const agents = [
   {
     id: 2,
     image: "/images/ajibola2.jpg",
-    name: "Ajibola Akinwande",
+    name: "ESV Ajibola Akinwande ANIVS, RSV",
     company: "Barods Global Limited",
     email: "Mail: ajibola@barodsglobal.com"
   },
@@ -27,7 +27,7 @@ const agents = [
   {
     id: 4,
     image: "/images/solo.jpg",
-    name: "Solomon Olayimika",
+    name: "ESV Solomon Olayimika Emmanuel ANIVS, RSV",
     company: "Barods Global Limited",
     email: "Mail: olayinka@barodsglobal.com"
   },
