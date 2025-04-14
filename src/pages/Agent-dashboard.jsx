@@ -131,7 +131,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
-      <div className="sidebar">
+      <div className="sidebar2" style={{ marginTop: '-0px' }}>
         <div className="logo-container">
           <div className="logo">
             <img src="/images/logo.png" alt="Barods Global Limited" />
