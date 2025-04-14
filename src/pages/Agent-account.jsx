@@ -1,36 +1,37 @@
 // AccountPage.jsx
-import React, { useState, useEffect } from 'react';
-import './AccountPage.css';
-import { FaUpload, FaArrowRight, FaBars, FaBell, FaUserCircle } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import "./AccountPage.css";
+import { FaUpload, FaArrowRight, FaBars, FaBell, FaUserCircle } from "react-icons/fa";
 
 const AccountPage = () => {
   const [userInfo, setUserInfo] = useState({
-    accountId: '',
-    fullName: '',
-    email: '',
-    phoneNumber: '',
-    profileImage: null
+    accountId: "",
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    profileImage: null,
   });
 
   const [passwords, setPasswords] = useState({
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: ''
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [notification, setNotification] = useState({
     show: false,
-    message: '',
-    type: 'success'
+    message: "",
+    type: "success",
   });
-  
+
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const handleInfoChange = (e) => {
     const { name, value } = e.target;
     setUserInfo({
       ...userInfo,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -38,7 +39,7 @@ const AccountPage = () => {
     const { name, value } = e.target;
     setPasswords({
       ...passwords,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -49,24 +50,64 @@ const AccountPage = () => {
       reader.onloadend = () => {
         setUserInfo({
           ...userInfo,
-          profileImage: reader.result
+          profileImage: reader.result,
         });
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const validateProfile = () => {
+    const newErrors = {};
+    if (!userInfo.fullName.trim()) {
+      newErrors.fullName = "Full name is required.";
+    }
+    if (!userInfo.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(userInfo.email)) {
+      newErrors.email = "Invalid email format.";
+    }
+    if (!userInfo.phoneNumber.trim()) {
+      newErrors.phoneNumber = "Phone number is required.";
+    } else if (!/^\d+$/.test(userInfo.phoneNumber)) {
+      newErrors.phoneNumber = "Phone number must contain only digits.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validatePassword = () => {
+    const newErrors = {};
+    if (!passwords.oldPassword.trim()) {
+      newErrors.oldPassword = "Old password is required.";
+    }
+    if (!passwords.newPassword.trim()) {
+      newErrors.newPassword = "New password is required.";
+    } else if (passwords.newPassword.length < 6) {
+      newErrors.newPassword = "Password must be at least 6 characters.";
+    }
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const saveChanges = () => {
-    // Here you would typically make an API call to save the user info
-    console.log('Saving user info:', userInfo);
-    
+    if (!validateProfile()) {
+      return;
+    }
+
+    // Simulate API call to save user info
+    console.log("Saving user info:", userInfo);
+
     // Show notification
     setNotification({
       show: true,
-      message: 'Profile information updated successfully!',
-      type: 'success'
+      message: "Profile information updated successfully!",
+      type: "success",
     });
-    
+
     // Hide notification after 3 seconds
     setTimeout(() => {
       setNotification({ ...notification, show: false });
@@ -74,47 +115,26 @@ const AccountPage = () => {
   };
 
   const updatePassword = () => {
-    // Validate passwords
-    if (passwords.newPassword !== passwords.confirmPassword) {
-      setNotification({
-        show: true,
-        message: 'New passwords do not match!',
-        type: 'error'
-      });
-      setTimeout(() => {
-        setNotification({ ...notification, show: false });
-      }, 3000);
+    if (!validatePassword()) {
       return;
     }
 
-    if (passwords.newPassword.length < 6) {
-      setNotification({
-        show: true,
-        message: 'Password must be at least 6 characters!',
-        type: 'error'
-      });
-      setTimeout(() => {
-        setNotification({ ...notification, show: false });
-      }, 3000);
-      return;
-    }
+    // Simulate API call to update password
+    console.log("Updating password");
 
-    // Here you would make an API call to update the password
-    console.log('Updating password');
-    
     // Clear password fields and show success notification
     setPasswords({
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: ''
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     });
-    
+
     setNotification({
       show: true,
-      message: 'Password updated successfully!',
-      type: 'success'
+      message: "Password updated successfully!",
+      type: "success",
     });
-    
+
     setTimeout(() => {
       setNotification({ ...notification, show: false });
     }, 3000);
@@ -138,10 +158,7 @@ const AccountPage = () => {
 
         <div className="sidebar-menu">
           {/* Dashboard */}
-          <div
-            className="menu-item"
-            onClick={() => handleNavigation("/dashboard")}
-          >
+          <div className="menu-item" onClick={() => handleNavigation("/dashboard")}>
             <div className="menu-icon">
               <svg
                 width="20"
@@ -192,10 +209,7 @@ const AccountPage = () => {
           </div>
 
           {/* Properties */}
-          <div
-            className="menu-item"
-            onClick={() => handleNavigation("/properties3")}
-          >
+          <div className="menu-item" onClick={() => handleNavigation("/properties3")}>
             <div className="menu-icon">
               <svg
                 width="20"
@@ -224,10 +238,7 @@ const AccountPage = () => {
           </div>
 
           {/* Account */}
-          <div
-            className="menu-item active"
-            onClick={() => handleNavigation("/account")}
-          >
+          <div className="menu-item active" onClick={() => handleNavigation("/account")}>
             <div className="menu-icon">
               <svg
                 width="20"
@@ -256,24 +267,23 @@ const AccountPage = () => {
           </div>
         </div>
         {/* Cityscape silhouette */}
-      <div className="cityscape">
-        <svg width="100%" height="150" viewBox="0 0 300 150" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="0" y="60" width="15" height="90" fill="#004D00" />
-          <rect x="20" y="80" width="15" height="70" fill="#004D00" />
-          <rect x="40" y="100" width="15" height="50" fill="#004D00" />
-          <rect x="60" y="70" width="15" height="80" fill="#004D00" />
-          <rect x="80" y="90" width="15" height="60" fill="#004D00" />
-          <rect x="100" y="50" width="25" height="100" fill="#004D00" />
-          <rect x="130" y="70" width="20" height="80" fill="#004D00" />
-          <rect x="155" y="90" width="15" height="60" fill="#004D00" />
-          <rect x="180" y="60" width="30" height="90" fill="#004D00" />
-          <rect x="215" y="80" width="25" height="70" fill="#004D00" />
-          <rect x="245" y="100" width="15" height="50" fill="#004D00" />
-          <rect x="265" y="70" width="35" height="80" fill="#004D00" />
-        </svg>
+        <div className="cityscape">
+          <svg width="100%" height="150" viewBox="0 0 300 150" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="60" width="15" height="90" fill="#004D00" />
+            <rect x="20" y="80" width="15" height="70" fill="#004D00" />
+            <rect x="40" y="100" width="15" height="50" fill="#004D00" />
+            <rect x="60" y="70" width="15" height="80" fill="#004D00" />
+            <rect x="80" y="90" width="15" height="60" fill="#004D00" />
+            <rect x="100" y="50" width="25" height="100" fill="#004D00" />
+            <rect x="130" y="70" width="20" height="80" fill="#004D00" />
+            <rect x="155" y="90" width="15" height="60" fill="#004D00" />
+            <rect x="180" y="60" width="30" height="90" fill="#004D00" />
+            <rect x="215" y="80" width="25" height="70" fill="#004D00" />
+            <rect x="245" y="100" width="15" height="50" fill="#004D00" />
+            <rect x="265" y="70" width="35" height="80" fill="#004D00" />
+          </svg>
+        </div>
       </div>
-      </div>
-      
 
       {/* Main Content */}
       <div className="main-content">
@@ -307,14 +317,11 @@ const AccountPage = () => {
               {notification.message}
             </div>
           )}
-          
+
           <div className="account-sections-container">
+            {/* Profile Section */}
             <div className="account-section">
               <h3 className="section-title">My Account</h3>
-              <div className="account-id-container">
-                <p>Account ID: {userInfo.accountId}</p>
-              </div>
-              
               <div className="form-group">
                 <label htmlFor="fullName">Full name</label>
                 <input
@@ -324,8 +331,9 @@ const AccountPage = () => {
                   value={userInfo.fullName}
                   onChange={handleInfoChange}
                 />
+                {errors.fullName && <p className="error-message">{errors.fullName}</p>}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -335,8 +343,9 @@ const AccountPage = () => {
                   value={userInfo.email}
                   onChange={handleInfoChange}
                 />
+                {errors.email && <p className="error-message">{errors.email}</p>}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <input
@@ -346,43 +355,28 @@ const AccountPage = () => {
                   value={userInfo.phoneNumber}
                   onChange={handleInfoChange}
                 />
+                {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}</p>}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="profileImage">Image</label>
-                <div className="image-upload-container">
-                  {userInfo.profileImage ? (
-                    <div className="profile-image-preview">
-                      <img src={userInfo.profileImage} alt="Profile" />
-                    </div>
-                  ) : (
-                    <div className="image-upload-placeholder">
-                      <div className="upload-icon-container">
-                        <FaUpload className="upload-icon" />
-                      </div>
-                      <p>Click to upload.</p>
-                      <p className="file-formats">jpg/png/gif. 5MB</p>
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    id="profileImage"
-                    name="profileImage"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="file-input"
-                  />
-                </div>
+                <input
+                  type="file"
+                  id="profileImage"
+                  name="profileImage"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
               </div>
-              
+
               <button className="save-button" onClick={saveChanges}>
                 Save Changes <FaArrowRight className="button-icon" />
               </button>
             </div>
-            
+
+            {/* Password Section */}
             <div className="account-section">
               <h3 className="section-title">Change Password</h3>
-              
               <div className="form-group">
                 <label htmlFor="oldPassword">Old Password</label>
                 <input
@@ -393,8 +387,9 @@ const AccountPage = () => {
                   value={passwords.oldPassword}
                   onChange={handlePasswordChange}
                 />
+                {errors.oldPassword && <p className="error-message">{errors.oldPassword}</p>}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="newPassword">New Password</label>
                 <input
@@ -405,8 +400,9 @@ const AccountPage = () => {
                   value={passwords.newPassword}
                   onChange={handlePasswordChange}
                 />
+                {errors.newPassword && <p className="error-message">{errors.newPassword}</p>}
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
@@ -417,8 +413,9 @@ const AccountPage = () => {
                   value={passwords.confirmPassword}
                   onChange={handlePasswordChange}
                 />
+                {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
               </div>
-              
+
               <button className="change-password-button" onClick={updatePassword}>
                 Change Password <FaArrowRight className="button-icon" />
               </button>
