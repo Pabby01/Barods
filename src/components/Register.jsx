@@ -147,7 +147,7 @@ const Register = () => {
       <Success
         message="Account created successfully! You can now log in."
         buttonText="Proceed to Login"
-        onAction={() => navigate("/")}
+        onAction={() => navigate("/become-agent")}
       />
     );
   }

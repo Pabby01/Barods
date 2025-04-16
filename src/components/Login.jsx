@@ -25,6 +25,7 @@ const Login = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, password }),
+          // This bypasses CORS but limits the response data
         }
       );
 
