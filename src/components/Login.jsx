@@ -15,7 +15,7 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('https://api.barodsglobal.com/login', {
+      const response = await fetch('https://barods-global-eight.vercel.app/api/v1/agent/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

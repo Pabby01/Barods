@@ -22,7 +22,7 @@ const Success = ({ message, buttonText, onAction }) => {
           />
         </svg>
       </div>
-      <h2 className="success-title">Success!</h2>
+      <h3 className="success-title">Success!</h3>
       <p className="success-message">{message}</p>
       <button className="success-button" onClick={onAction}>
         {buttonText}
