@@ -99,7 +99,7 @@ const Register = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('https://api.barodsglobal.com/register', {
+      const response = await fetch('https://barods-global.onrender.com/api/v1/agent/signup', { // Fixed URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
