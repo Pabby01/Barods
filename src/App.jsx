@@ -25,6 +25,7 @@ import CreatePassword from './components/CreatePassword';
 import Dashboard from './pages/Agent-dashboard'; // Assuming you have a Dashboard component
 import Properties3 from './pages/Agent-properties'
 import AccountPage from './pages/Agent-account'; // Assuming you have an AccountPage component
+import Register from './components/Register'; // Assuming you have a Register component
 
 const App = () => {
   return (
@@ -38,7 +39,7 @@ const AppContent = () => {
   const location = useLocation(); // Now useLocation is inside the Router context
 
   // Define routes where Header and Footer should not be displayed
-  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password","/account"];
+  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password","/account", "/register"];
 
   const shouldShowHeaderFooter = !noHeaderFooterRoutes.includes(location.pathname);
 
@@ -67,6 +68,7 @@ const AppContent = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/properties3" element={<Properties3 />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/register" element={<Register />} /> {/* Added Register route */}
       </Routes>
       {shouldShowHeaderFooter && <Footer />} {/* Render Footer conditionally */}
     </>
