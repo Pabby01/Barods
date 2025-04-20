@@ -18,7 +18,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://barods-global-eight.vercel.app/api/v1/agent/login",
+        "https://barods-global.onrender.com/api/v1/agent/login",
         {
           method: "POST",
           headers: {
