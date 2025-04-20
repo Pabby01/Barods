@@ -381,7 +381,11 @@ body {
     justify-content: center;
     margin-top: 20px;
 }
-
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
 .pagination button {
     padding: 8px 12px;
     margin: 0 5px;

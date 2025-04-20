@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios"; // Import Axios for API requests
+import { toast as hotToast } from "react-hot-toast";
 import "./prop.css";
 
 export default function Properties3() {
@@ -50,9 +51,10 @@ export default function Properties3() {
       "CCTV": false,
     },
     description: "",
-    image: null,
+    images: [], // Array to hold multiple images
   });
   const [editPropertyId, setEditPropertyId] = useState(null);
+  const [errors, setErrors] = useState({}); // State to track field-specific errors
   const navigate = useNavigate();
   const notificationsRef = useRef(null);
   const userDropdownRef = useRef(null);
@@ -147,40 +149,53 @@ export default function Properties3() {
   );
   
   const renderPropertyForm = () => (
-      <form onSubmit={handleSaveChanges} className="property-form">
-        {/* Title */}
+    <form onSubmit={handleSaveChanges} className="property-form">
+      {/* Title */}
+      <div className="form-group">
         <input
           type="text"
           placeholder="Title"
           value={propertyForm.title}
           onChange={(e) => setPropertyForm({ ...propertyForm, title: e.target.value })}
         />
+        {errors.title && <p className="error-message">{errors.title}</p>}
+      </div>
 
-        {/* Street */}
+      {/* Street */}
+      <div className="form-group">
         <input
           type="text"
           placeholder="Street"
           value={propertyForm.street}
           onChange={(e) => setPropertyForm({ ...propertyForm, street: e.target.value })}
         />
+        {errors.street && <p className="error-message">{errors.street}</p>}
+      </div>
 
-        {/* Area */}
+      {/* Area */}
+      <div className="form-group">
         <input
           type="text"
           placeholder="Area"
           value={propertyForm.area}
           onChange={(e) => setPropertyForm({ ...propertyForm, area: e.target.value })}
         />
+        {errors.area && <p className="error-message">{errors.area}</p>}
+      </div>
 
-        {/* State */}
+      {/* State */}
+      <div className="form-group">
         <input
           type="text"
           placeholder="State"
           value={propertyForm.state}
           onChange={(e) => setPropertyForm({ ...propertyForm, state: e.target.value })}
         />
+        {errors.state && <p className="error-message">{errors.state}</p>}
+      </div>
 
-        {/* Status */}
+      {/* Status */}
+      <div className="form-group">
         <select
           value={propertyForm.status}
           onChange={(e) => setPropertyForm({ ...propertyForm, status: e.target.value })}
@@ -189,8 +204,11 @@ export default function Properties3() {
           <option value="For Sale">For Sale</option>
           <option value="For Rent">For Rent</option>
         </select>
+        {errors.status && <p className="error-message">{errors.status}</p>}
+      </div>
 
-        {/* Type */}
+      {/* Type */}
+      <div className="form-group">
         <select
           value={propertyForm.type}
           onChange={(e) => setPropertyForm({ ...propertyForm, type: e.target.value })}
@@ -200,8 +218,11 @@ export default function Properties3() {
           <option value="House">House</option>
           <option value="Land">Land</option>
         </select>
+        {errors.type && <p className="error-message">{errors.type}</p>}
+      </div>
 
-        {/* Category */}
+      {/* Category */}
+      <div className="form-group">
         <select
           value={propertyForm.category}
           onChange={(e) => setPropertyForm({ ...propertyForm, category: e.target.value })}
@@ -210,8 +231,11 @@ export default function Properties3() {
           <option value="Residential">Residential</option>
           <option value="Commercial">Commercial</option>
         </select>
+        {errors.category && <p className="error-message">{errors.category}</p>}
+      </div>
 
-        {/* Currency */}
+      {/* Currency */}
+      <div className="form-group">
         <select
           value={propertyForm.currency}
           onChange={(e) => setPropertyForm({ ...propertyForm, currency: e.target.value })}
@@ -219,98 +243,104 @@ export default function Properties3() {
           <option value="">Select Currency</option>
           <option value="₦">₦</option>
           <option value="$">$</option>
+          <option value="€">€</option>
         </select>
+        {errors.currency && <p className="error-message">{errors.currency}</p>}
+      </div>
 
-        {/* Price */}
+      {/* Price */}
+      <div className="form-group">
         <input
           type="number"
           placeholder="Price"
           value={propertyForm.price}
           onChange={(e) => setPropertyForm({ ...propertyForm, price: e.target.value })}
         />
+        {errors.price && <p className="error-message">{errors.price}</p>}
+      </div>
 
-        {/* Payment Frequency */}
+      {/* Payment Frequency */}
+      <div className="form-group">
         <select
           value={propertyForm.paymentFrequency}
-          onChange={(e) => setPropertyForm({ ...propertyForm, paymentFrequency: e.target.value })}
+          onChange={(e) =>
+            setPropertyForm({ ...propertyForm, paymentFrequency: e.target.value })
+          }
         >
           <option value="">Select Payment Frequency</option>
           <option value="Monthly">Monthly</option>
           <option value="Yearly">Yearly</option>
+          <option value="One-Time">One-Time</option>
         </select>
+        {errors.paymentFrequency && <p className="error-message">{errors.paymentFrequency}</p>}
+      </div>
 
-        {/* Bedrooms */}
+      {/* Bedrooms */}
+      <div className="form-group">
         <input
           type="number"
           placeholder="Bedrooms"
           value={propertyForm.bedrooms}
           onChange={(e) => setPropertyForm({ ...propertyForm, bedrooms: e.target.value })}
         />
+        {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
+      </div>
 
-        {/* Bathrooms */}
+      {/* Bathrooms */}
+      <div className="form-group">
         <input
           type="number"
           placeholder="Bathrooms"
           value={propertyForm.bathrooms}
           onChange={(e) => setPropertyForm({ ...propertyForm, bathrooms: e.target.value })}
         />
+        {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
+      </div>
 
-        {/* Toilets */}
+      {/* Toilets */}
+      <div className="form-group">
         <input
           type="number"
           placeholder="Toilets"
           value={propertyForm.toilets}
           onChange={(e) => setPropertyForm({ ...propertyForm, toilets: e.target.value })}
         />
+        {errors.toilets && <p className="error-message">{errors.toilets}</p>}
+      </div>
 
-        {/* Parking */}
+      {/* Parking */}
+      <div className="form-group">
         <input
           type="number"
-          placeholder="Parking"
+          placeholder="Parking Spaces"
           value={propertyForm.parking}
           onChange={(e) => setPropertyForm({ ...propertyForm, parking: e.target.value })}
         />
+        {errors.parking && <p className="error-message">{errors.parking}</p>}
+      </div>
 
-        {/* Amenities */}
-        <div className="amenities">
-          <h4>Amenities</h4>
-          {Object.keys(propertyForm.amenities).map((amenity) => (
-            <label key={amenity}>
-              <input
-                type="checkbox"
-                checked={propertyForm.amenities[amenity]}
-                onChange={(e) =>
-                  setPropertyForm({
-                    ...propertyForm,
-                    amenities: {
-                      ...propertyForm.amenities,
-                      [amenity]: e.target.checked,
-                    },
-                  })
-                }
-              />
-              {amenity}
-            </label>
-          ))}
-        </div>
-
-        {/* Description */}
+      {/* Description */}
+      <div className="form-group">
         <textarea
-        className="prof"
           placeholder="Description"
           value={propertyForm.description}
           onChange={(e) => setPropertyForm({ ...propertyForm, description: e.target.value })}
         />
+        {errors.description && <p className="error-message">{errors.description}</p>}
+      </div>
 
-        {/* Image */}
-        <input className="put" type="file" onChange={handleImageUpload} />
+      {/* Images */}
+      <div className="form-group">
+        <input className="put" type="file" multiple onChange={handleImageUpload} />
+        {errors.images && <p className="error-message">{errors.images}</p>}
+      </div>
 
-        {/* Buttons */}
-        <button type="submit">{view === "add" ? "Add Property" : "Save Changes"}</button>
-        <button type="button" onClick={() => setView("list")}>
-          Cancel
-        </button>
-      </form>
+      {/* Buttons */}
+      <button type="submit">{view === "add" ? "Add Property" : "Save Changes"}</button>
+      <button type="button" onClick={() => setView("list")}>
+        Cancel
+      </button>
+    </form>
   );
 
   const fetchProperties = async () => {
@@ -324,10 +354,15 @@ export default function Properties3() {
         },
       });
 
+      // Log the response for debugging
+      console.log("GET Response from Backend:", response.data);
+
       setProperties(response.data.properties || []);
       setTotalPages(Math.ceil((response.data.properties || []).length / 10)); // Assuming 10 properties per page
       setLoading(false);
     } catch (error) {
+      console.error("Error fetching properties:", error.response || error.message);
+
       if (error.response && error.response.status === 401) {
         toast.error("Unauthorized! Please log in again.");
         navigate("/login"); // Redirect to login if unauthorized
@@ -350,85 +385,109 @@ export default function Properties3() {
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
-    if (!propertyForm.title || !propertyForm.price) {
-      toast.error("Please fill in all required fields!");
+
+    // Validation: Check for required fields
+    const requiredFields = [
+      "title",
+      "street",
+      "area",
+      "state",
+      "status",
+      "type",
+      "category",
+      "currency",
+      "price",
+      "paymentFrequency",
+      "bedrooms",
+      "bathrooms",
+      "toilets",
+      "parking",
+      "description",
+    ];
+
+    const newErrors = {};
+    requiredFields.forEach((field) => {
+      if (!propertyForm[field]) {
+        newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`;
+      }
+    });
+
+    if (!propertyForm.images || propertyForm.images.length === 0) {
+      newErrors.images = "Please upload at least one image.";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      hotToast.error("Please fix the errors in the form.");
       return;
     }
 
     try {
       const token = localStorage.getItem("userToken"); // Retrieve the token from localStorage
 
-      if (view === "add") {
-        const formData = new FormData();
-        Object.keys(propertyForm).forEach((key) => {
-          if (key === "amenities") {
-            formData.append(key, JSON.stringify(propertyForm[key]));
-          } else {
-            formData.append(key, propertyForm[key]);
-          }
-        });
+      const formData = new FormData();
 
-        if (propertyForm.image) {
-          formData.append("image", propertyForm.image);
-        }
+      // Map frontend fields to backend fields
+      formData.append("Title", propertyForm.title);
+      formData.append("StreetAddress", propertyForm.street);
+      formData.append("Area", propertyForm.area);
+      formData.append("State", propertyForm.state);
+      formData.append("Status", propertyForm.status);
+      formData.append("Type", propertyForm.type);
+      formData.append("Category", propertyForm.category);
+      formData.append("Currency", propertyForm.currency);
+      formData.append("Price", propertyForm.price);
+      formData.append("Bedroom", propertyForm.bedrooms);
+      formData.append("Bathroom", propertyForm.bathrooms);
+      formData.append("Toilet", propertyForm.toilets);
+      formData.append("parking", propertyForm.parking);
+      formData.append("Description", propertyForm.description);
 
-        const response = await axios.post(`${API_BASE_URL}/postproperties`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the Bearer token
-            "Content-Type": "multipart/form-data",
-          },
-        });
+      // Convert amenities object to a comma-separated string
+      const amenities = Object.keys(propertyForm.amenities)
+        .filter((key) => propertyForm.amenities[key])
+        .join(",");
+      formData.append("Amenities", amenities);
 
-        toast.success("Property added successfully!");
-        setProperties((prev) => [response.data.property, ...prev]);
-      } else if (view === "edit" && editPropertyId) {
-        const updatedProperty = {
-          ...propertyForm,
-          id: editPropertyId,
-        };
+      // Append multiple images
+      propertyForm.images.forEach((image) => {
+        formData.append("image", image);
+      });
 
-        const response = await axios.put(
-          `${API_BASE_URL}/updateproperty/${editPropertyId}`,
-          updatedProperty,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Include the Bearer token
-            },
-          }
-        );
-
-        setProperties((prev) =>
-          prev.map((property) =>
-            property.id === editPropertyId ? response.data.property : property
-          )
-        );
-        toast.success("Property updated successfully!");
+      // Log the form data for debugging
+      console.log("Form Data being sent to the backend:");
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
       }
 
+      const response = await axios.post(`${API_BASE_URL}/postproperties`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the Bearer token
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      toast.success("Property added successfully!");
+      setProperties((prev) => [response.data.property, ...prev]);
       setView("list");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         toast.error("Unauthorized! Please log in again.");
         navigate("/login"); // Redirect to login if unauthorized
       } else {
-        toast.error("Error saving property!");
+        toast.error(error.response?.data?.message || "Error saving property!");
       }
     }
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPropertyForm((prev) => ({
-          ...prev,
-          image: file // Save the file for upload
-        }));
-        toast.success("Image uploaded successfully!");
-      };
-      reader.readAsDataURL(file);
-    }
+    const files = Array.from(e.target.files);
+    setPropertyForm((prev) => ({
+      ...prev,
+      images: [...prev.images, ...files], // Append new images to the existing array
+    }));
+    toast.success(`${files.length} image(s) uploaded successfully!`);
   };
 
   const handlePageChange = (page) => {
