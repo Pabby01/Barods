@@ -37,7 +37,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Ensure it is above other elements */
     transition: width 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -358,34 +358,18 @@ body {
 }
 
 /* Mobile Responsive Styles */
-@media (max-width: 992px) {
-    .sidebar {
-        width: 220px;
-    }
-
-    .main-content {
-        margin-left: 220px;
-    }
-
-    .sidebar.closed + .main-content {
-        margin-left: var(--sidebar-collapsed-width);
-    }
-}
-
 @media (max-width: 768px) {
     .sidebar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
+        position: fixed !important;
+        bottom: 0 !important; /* Place the sidebar at the bottom of the viewport */
+        top: auto; /* Remove top positioning */
         width: 100%;
-        height: 60px;
-        background-color: var(--primary-color);
+        height: 70px;
+        z-index: 1000 !important; /* Ensure it is above other elements */
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        z-index: 1000;
-        transform: none; /* Ensure the sidebar is visible */
         padding: 0;
     }
 
@@ -436,7 +420,7 @@ body {
 
     .main-content {
         margin-left: 0;
-        margin-bottom: 60px; /* Add space for the bottom navigation bar */
+        margin-bottom: 70px; /* Add space for the bottom navigation bar */
         width: 100%;
     }
 
@@ -447,7 +431,9 @@ body {
 
 @media (max-width: 576px) {
     .sidebar {
-        height: 50px;
+        height: 50px; 
+        position: fixed !important;
+        bottom: 0 !important; /* Reduce height for smaller screens */
     }
 
     .nav-icon {
