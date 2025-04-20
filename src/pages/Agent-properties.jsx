@@ -346,7 +346,7 @@ export default function Properties3() {
   const fetchProperties = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("userToken"); // Retrieve the token from localStorage
+      const token = localStorage.getItem("Token"); // Retrieve the token from localStorage
 
       const response = await axios.get(`${API_BASE_URL}/getproperties`, {
         headers: {
