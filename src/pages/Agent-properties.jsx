@@ -724,7 +724,7 @@ export default function Properties3() {
       <div className="main-content">
         <div className="top-bar">
           <div className="welcome-section">
-            <h1 className="page-title">Properties</h1>
+            <h2 className="page-title">Properties</h2>
             <div className="top-bar-actions">
               <button className="add-property-btn" onClick={() => setView("add")}>
                 <Plus size={20} />

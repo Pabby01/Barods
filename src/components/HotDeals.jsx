@@ -72,7 +72,7 @@ const HotDeals = () => {
               onClick={() => viewPropertyDetails(deal.id)}
             >
               <div className="property-image-containers">
-                <img src={deal.img} alt={deal.title} className="property-image" />
+                <img src={deal.img} alt={deal.title} className="property-image2" />
                 <div className="discount-badge">{deal.discount}</div>
                 <button 
                   className={`favorite-button ${favorites[deal.id] ? 'active' : ''}`}
