@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Bell, Search, ChevronDown, User, Share, Edit, Trash2, ArrowRight, ArrowLeft, Upload } from "lucide-react";
+import { Bell, Search, ChevronDown, User, Share, Edit, Trash2, ArrowRight, ArrowLeft, Upload, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,6 +9,7 @@ import "./prop.css";
 
 export default function Properties3() {
   const [properties, setProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("list"); // "list", "add", "edit"
   const [currentPage, setCurrentPage] = useState(1);
@@ -103,81 +104,84 @@ export default function Properties3() {
   
   const renderPropertyList = () => (
     <div className="property-list">
-      {properties.slice((currentPage - 1) * 10, currentPage * 10).map((property) => (
+      {properties.map((property) => (
         <div key={property._id} className="property-item">
-          {/* Property Image */}
           <div className="property-image">
             <img
-              src={property.Image && property.Image.length > 0 ? property.Image[0] : "/images/default-property.jpg"}
-              alt={property.Title || "Property Image"}
+              src={property.Image?.[0] || "/images/default-property.jpg"}
+              alt={property.Title}
             />
           </div>
-
-          {/* Property Details */}
           <div className="property-details">
-            <h3>{property.Title || "Untitled Property"}</h3>
-            <p>{property.Description || "No description available."}</p>
-            <p className="property-price">{formatCurrency(property.Price?.$numberDecimal || 0)}</p>
-            <p className={`property-status ${property.Status?.toLowerCase()}`}>
-              {property.Status || "Unknown Status"}
+            <h3>{property.Title}</h3>
+            <p>{property.Description}</p>
+            <p className="property-price">
+              {formatCurrency(property.Price?.$numberDecimal || property.Price)}
             </p>
+            <span className={`property-status ${property.Status?.toLowerCase()}`}>
+              {property.Status}
+            </span>
           </div>
-
-          {/* Action Buttons */}
           <div className="property-actions">
             <button
               className="btn-edit"
-              onClick={() => {
-                setEditPropertyId(property._id);
-                setPropertyForm({
-                  title: property.Title,
-                  street: property.StreetAddress,
-                  area: property.Area,
-                  state: property.State,
-                  status: property.Status,
-                  type: property.Type,
-                  category: property.Category,
-                  currency: property.Currency,
-                  price: property.Price?.$numberDecimal || "",
-                  paymentFrequency: "",
-                  bedrooms: property.Bedroom,
-                  bathrooms: property.Bathroom,
-                  toilets: property.Toilet,
-                  parking: property.parking,
-                  amenities: property.Amenities || {},
-                  description: property.Description,
-                  images: property.Image || [],
-                });
-                setView("edit");
-              }}
+              onClick={() => handleEdit(property)}
             >
               Edit
             </button>
             <button
               className="btn-delete"
-              onClick={() => handleDeleteProperty(property._id)}
+              onClick={() => handleDelete(property._id)}
             >
               Delete
             </button>
           </div>
         </div>
       ))}
-
-      {/* Pagination */}
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i + 1}
-            className={currentPage === i + 1 ? "active" : ""}
-            onClick={() => handlePageChange(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
     </div>
   );
-  
+
+  const handleEdit = (property) => {
+    setEditPropertyId(property._id);
+    setPropertyForm({
+      title: property.Title,
+      street: property.StreetAddress,
+      area: property.Area,
+      state: property.State,
+      status: property.Status,
+      type: property.Type,
+      category: property.Category,
+      currency: property.Currency,
+      price: property.Price?.$numberDecimal || property.Price,
+      bedrooms: property.Bedroom,
+      bathrooms: property.Bathroom,
+      toilets: property.Toilet,
+      parking: property.parking,
+      description: property.Description,
+      images: property.Image || [],
+    });
+    setView("edit");
+  };
+
+  const handleDelete = async (propertyId) => {
+    if (window.confirm("Are you sure you want to delete this property?")) {
+      try {
+        const token = localStorage.getItem("Token");
+        await axios.delete(`${API_BASE_URL}/deleteproperty/${propertyId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        setProperties((prev) => prev.filter((p) => p._id !== propertyId));
+        toast.success("Property deleted successfully!");
+      } catch (error) {
+        console.error("Error deleting property:", error);
+        toast.error("Failed to delete property");
+      }
+    }
+  };
+
   const renderPropertyForm = () => (
     <form onSubmit={handleSaveChanges} className="property-form">
       {/* Title */}
@@ -396,6 +400,7 @@ export default function Properties3() {
       // Ensure properties are set correctly
       const fetchedProperties = response.data.properties || [];
       setProperties(fetchedProperties);
+      setFilteredProperties(fetchedProperties);
       setTotalPages(Math.ceil(fetchedProperties.length / 10)); // Assuming 10 properties per page
       setLoading(false);
     } catch (error) {
@@ -420,62 +425,116 @@ export default function Properties3() {
 
     try {
       const token = localStorage.getItem("Token");
+      
+      // Validate token
+      if (!token) {
+        toast.error("Authentication token is missing. Please login again.");
+        return;
+      }
+
+      // Create FormData object
       const formData = new FormData();
 
-      formData.append("Title", propertyForm.title);
-      formData.append("StreetAddress", propertyForm.street);
-      formData.append("Area", propertyForm.area);
-      formData.append("State", propertyForm.state);
-      formData.append("Status", propertyForm.status);
-      formData.append("Type", propertyForm.type);
-      formData.append("Category", propertyForm.category);
-      formData.append("Currency", propertyForm.currency);
-      formData.append("Price", propertyForm.price);
-      formData.append("Bedroom", propertyForm.bedrooms);
-      formData.append("Bathroom", propertyForm.bathrooms);
-      formData.append("Toilet", propertyForm.toilets);
-      formData.append("parking", propertyForm.parking);
-      formData.append("Description", propertyForm.description);
+      // Basic validation
+      if (!propertyForm.title || !propertyForm.description) {
+        toast.error("Title and description are required!");
+        return;
+      }
 
-      const amenities = Object.keys(propertyForm.amenities)
-        .filter((key) => propertyForm.amenities[key])
-        .join(",");
-      formData.append("Amenities", amenities);
+      // Append data to FormData with explicit type conversion
+      formData.append("Title", propertyForm.title || "");
+      formData.append("StreetAddress", propertyForm.street || "");
+      formData.append("Area", propertyForm.area || "");
+      formData.append("State", propertyForm.state || "");
+      formData.append("Status", propertyForm.status || "");
+      formData.append("Type", propertyForm.type || "");
+      formData.append("Category", propertyForm.category || "");
+      formData.append("Currency", propertyForm.currency || "");
+      formData.append("Price", propertyForm.price || "0");
+      formData.append("Bedroom", propertyForm.bedrooms || "0");
+      formData.append("Bathroom", propertyForm.bathrooms || "0");
+      formData.append("Toilet", propertyForm.toilets || "0");
+      formData.append("parking", propertyForm.parking || "0");
+      formData.append("Description", propertyForm.description || "");
+      
+      // Handle amenities
+      const amenitiesArray = propertyForm.amenities ? 
+        Object.entries(propertyForm.amenities)
+          .filter(([_, value]) => value)
+          .map(([key]) => key) : 
+        [];
+      formData.append("Amenities", amenitiesArray.join(","));
 
-      propertyForm.images.forEach((image) => {
-        formData.append("image", image);
-      });
+      // Handle images
+      if (propertyForm.images && propertyForm.images.length > 0) {
+        propertyForm.images.forEach((image, index) => {
+          formData.append(`image`, image);
+        });
+      }
+
+      // Log formData for debugging
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
 
       let response;
       if (editPropertyId) {
-        response = await axios.put(`${API_BASE_URL}/updateproperty/${editPropertyId}`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        // Update existing property
+        response = await axios.put(
+          `${API_BASE_URL}/updateproperty/${editPropertyId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         setProperties((prev) =>
-          prev.map((property) =>
-            property._id === editPropertyId ? response.data.property : property
-          )
+          prev.map((p) => (p._id === editPropertyId ? response.data.property : p))
         );
         toast.success("Property updated successfully!");
       } else {
-        response = await axios.post(`${API_BASE_URL}/postproperties`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        // Create new property
+        response = await axios.post(
+          `${API_BASE_URL}/postproperties`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         setProperties((prev) => [response.data.property, ...prev]);
         toast.success("Property added successfully!");
       }
 
+      // Reset form and view
+      setPropertyForm({
+        title: "",
+        street: "",
+        area: "",
+        state: "",
+        status: "",
+        type: "",
+        category: "",
+        currency: "",
+        price: "",
+        paymentFrequency: "",
+        bedrooms: "",
+        bathrooms: "",
+        toilets: "",
+        parking: "",
+        amenities: {},
+        description: "",
+        images: [],
+      });
       setView("list");
     } catch (error) {
-      console.error("Error saving property:", error.response || error.message);
+      console.error("Error saving property:", error);
       toast.error(error.response?.data?.message || "Error saving property!");
     }
   };
@@ -523,6 +582,35 @@ export default function Properties3() {
       console.error("Login error:", error.response || error.message);
       toast.error(error.response?.data?.message || "Login failed. Please try again.");
     }
+  };
+
+  const handleSearch = (query) => {
+    const filtered = properties.filter((property) =>
+      property.Title.toLowerCase().includes(query.toLowerCase()) ||
+      property.Description.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProperties(filtered);
+  };
+
+  const handleSort = (value) => {
+    const sorted = [...properties];
+    switch (value) {
+      case "price-asc":
+        sorted.sort((a, b) => (a.Price?.$numberDecimal || 0) - (b.Price?.$numberDecimal || 0));
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => (b.Price?.$numberDecimal || 0) - (a.Price?.$numberDecimal || 0));
+        break;
+      case "date-desc":
+        sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
+      case "date-asc":
+        sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        break;
+      default:
+        break;
+    }
+    setProperties(sorted);
   };
 
   return (
@@ -642,6 +730,30 @@ export default function Properties3() {
       <div className="top-bar">
         <div className="welcome-section">
           <h1 className="page-title">Properties</h1>
+          <div className="top-bar-actions">
+            <button className="add-property-btn" onClick={() => setView("add")}>
+              <Plus size={20} />
+              Add Property
+            </button>
+          </div>
+        </div>
+        <div className="search-sort-container">
+          <input
+            type="text"
+            placeholder="Search properties..."
+            className="search-input"
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+          <select 
+            className="sort-select"
+            onChange={(e) => handleSort(e.target.value)}
+          >
+            <option value="">Sort by</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+          </select>
         </div>
         <div className="user-section">
           {/* Notifications */}
@@ -715,7 +827,7 @@ export default function Properties3() {
         ) : (
           <>
             {view === "list" && (
-              properties.length === 0 ? renderEmptyState() : renderPropertyList()
+              filteredProperties.length === 0 ? renderEmptyState() : renderPropertyList()
             )}
             {(view === "add" || view === "edit") && renderPropertyForm()}
           </>
