@@ -32,26 +32,9 @@ export default function Properties3() {
     bathrooms: "",
     toilets: "",
     parking: "",
-    amenities: {
-      "24Hrs Power supply": false,
-      "Rent": false,
-      "Swimming Pool": false,
-      "Gym": false,
-      "Security": false,
-      "Elevator": false,
-      "Furnished": false,
-      "Air Conditioning": false,
-      "Balcony": false,
-      "Pet Friendly": false,
-      "WiFi": false,
-      "Parking Space": false,
-      "Playground": false,
-      "Backup Generator": false,
-      "Laundry Room": false,
-      "CCTV": false,
-    },
+    amenities: {},
     description: "",
-    images: [], // Array to hold multiple images
+    images: [], // Initialize as an empty array
   });
   const [editPropertyId, setEditPropertyId] = useState(null);
   const [errors, setErrors] = useState({}); // State to track field-specific errors
@@ -119,33 +102,80 @@ export default function Properties3() {
   );
   
   const renderPropertyList = () => (
-      <div className="property-list">
-          {properties.slice((currentPage - 1) * 10, currentPage * 10).map((property) => (
-              <div key={property.id} className="property-item">
-                  <h3>{property.title}</h3>
-                  <p>{property.description}</p>
-                  <p>{formatCurrency(property.price)}</p>
-                  <button onClick={() => {
-                      setEditPropertyId(property.id);
-                      setPropertyForm(property);
-                      setView("edit");
-                  }}>
-                      Edit
-                  </button>
-              </div>
-          ))}
-          <div className="pagination">
-              {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                      key={i + 1}
-                      className={currentPage === i + 1 ? "active" : ""}
-                      onClick={() => handlePageChange(i + 1)}
-                  >
-                      {i + 1}
-                  </button>
-              ))}
+    <div className="property-list">
+      {properties.slice((currentPage - 1) * 10, currentPage * 10).map((property) => (
+        <div key={property._id} className="property-item">
+          {/* Property Image */}
+          <div className="property-image">
+            <img
+              src={property.Image && property.Image.length > 0 ? property.Image[0] : "/images/default-property.jpg"}
+              alt={property.Title || "Property Image"}
+            />
           </div>
+
+          {/* Property Details */}
+          <div className="property-details">
+            <h3>{property.Title || "Untitled Property"}</h3>
+            <p>{property.Description || "No description available."}</p>
+            <p className="property-price">{formatCurrency(property.Price?.$numberDecimal || 0)}</p>
+            <p className={`property-status ${property.Status?.toLowerCase()}`}>
+              {property.Status || "Unknown Status"}
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="property-actions">
+            <button
+              className="btn-edit"
+              onClick={() => {
+                setEditPropertyId(property._id);
+                setPropertyForm({
+                  title: property.Title,
+                  street: property.StreetAddress,
+                  area: property.Area,
+                  state: property.State,
+                  status: property.Status,
+                  type: property.Type,
+                  category: property.Category,
+                  currency: property.Currency,
+                  price: property.Price?.$numberDecimal || "",
+                  paymentFrequency: "",
+                  bedrooms: property.Bedroom,
+                  bathrooms: property.Bathroom,
+                  toilets: property.Toilet,
+                  parking: property.parking,
+                  amenities: property.Amenities || {},
+                  description: property.Description,
+                  images: property.Image || [],
+                });
+                setView("edit");
+              }}
+            >
+              Edit
+            </button>
+            <button
+              className="btn-delete"
+              onClick={() => handleDeleteProperty(property._id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+
+      {/* Pagination */}
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i + 1}
+            className={currentPage === i + 1 ? "active" : ""}
+            onClick={() => handlePageChange(i + 1)}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
+    </div>
   );
   
   const renderPropertyForm = () => (
@@ -346,29 +376,31 @@ export default function Properties3() {
   const fetchProperties = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("Token"); // Retrieve the token from localStorage
+      const token = localStorage.getItem("Token");
+      console.log("Retrieved Token:", token);
+
+      if (!token) {
+        toast.error("Session expired. Please log in again.");
+        setLoading(false);
+        return;
+      }
 
       const response = await axios.get(`${API_BASE_URL}/getproperties`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the Bearer token
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      // Log the response for debugging
       console.log("GET Response from Backend:", response.data);
 
-      setProperties(response.data.properties || []);
-      setTotalPages(Math.ceil((response.data.properties || []).length / 10)); // Assuming 10 properties per page
+      // Ensure properties are set correctly
+      const fetchedProperties = response.data.properties || [];
+      setProperties(fetchedProperties);
+      setTotalPages(Math.ceil(fetchedProperties.length / 10)); // Assuming 10 properties per page
       setLoading(false);
     } catch (error) {
       console.error("Error fetching properties:", error.response || error.message);
-
-      if (error.response && error.response.status === 401) {
-        toast.error("Unauthorized! Please log in again.");
-        navigate("/login"); // Redirect to login if unauthorized
-      } else {
-        toast.error("Error fetching properties!");
-      }
+      toast.error(error.response?.data?.message || "Error fetching properties!");
       setLoading(false);
     }
   };
@@ -386,49 +418,10 @@ export default function Properties3() {
   const handleSaveChanges = async (e) => {
     e.preventDefault();
 
-    // Validation: Check for required fields
-    const requiredFields = [
-      "title",
-      "street",
-      "area",
-      "state",
-      "status",
-      "type",
-      "category",
-      "currency",
-      "price",
-      "paymentFrequency",
-      "bedrooms",
-      "bathrooms",
-      "toilets",
-      "parking",
-      "description",
-    ];
-
-    const newErrors = {};
-    requiredFields.forEach((field) => {
-      if (!propertyForm[field]) {
-        newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`;
-      }
-    });
-
-    if (!propertyForm.images || propertyForm.images.length === 0) {
-      newErrors.images = "Please upload at least one image.";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0) {
-      hotToast.error("Please fix the errors in the form.");
-      return;
-    }
-
     try {
-      const token = localStorage.getItem("userToken"); // Retrieve the token from localStorage
-
+      const token = localStorage.getItem("Token");
       const formData = new FormData();
 
-      // Map frontend fields to backend fields
       formData.append("Title", propertyForm.title);
       formData.append("StreetAddress", propertyForm.street);
       formData.append("Area", propertyForm.area);
@@ -444,40 +437,46 @@ export default function Properties3() {
       formData.append("parking", propertyForm.parking);
       formData.append("Description", propertyForm.description);
 
-      // Convert amenities object to a comma-separated string
       const amenities = Object.keys(propertyForm.amenities)
         .filter((key) => propertyForm.amenities[key])
         .join(",");
       formData.append("Amenities", amenities);
 
-      // Append multiple images
       propertyForm.images.forEach((image) => {
         formData.append("image", image);
       });
 
-      // Log the form data for debugging
-      console.log("Form Data being sent to the backend:");
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
+      let response;
+      if (editPropertyId) {
+        response = await axios.put(`${API_BASE_URL}/updateproperty/${editPropertyId}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        setProperties((prev) =>
+          prev.map((property) =>
+            property._id === editPropertyId ? response.data.property : property
+          )
+        );
+        toast.success("Property updated successfully!");
+      } else {
+        response = await axios.post(`${API_BASE_URL}/postproperties`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        setProperties((prev) => [response.data.property, ...prev]);
+        toast.success("Property added successfully!");
       }
 
-      const response = await axios.post(`${API_BASE_URL}/postproperties`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include the Bearer token
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      toast.success("Property added successfully!");
-      setProperties((prev) => [response.data.property, ...prev]);
       setView("list");
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        toast.error("Unauthorized! Please log in again.");
-        navigate("/login"); // Redirect to login if unauthorized
-      } else {
-        toast.error(error.response?.data?.message || "Error saving property!");
-      }
+      console.error("Error saving property:", error.response || error.message);
+      toast.error(error.response?.data?.message || "Error saving property!");
     }
   };
 
@@ -485,7 +484,7 @@ export default function Properties3() {
     const files = Array.from(e.target.files);
     setPropertyForm((prev) => ({
       ...prev,
-      images: [...prev.images, ...files], // Append new images to the existing array
+      images: [...(prev.images || []), ...files], // Ensure `prev.images` is an array
     }));
     toast.success(`${files.length} image(s) uploaded successfully!`);
   };
@@ -496,7 +495,34 @@ export default function Properties3() {
   };
 
   const formatCurrency = (amount, currency = "₦") => {
+    if (amount == null || isNaN(amount)) {
+      // Handle invalid amount
+      return `${currency}0`;
+    }
     return `${currency}${amount.toLocaleString()}`;
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`${API_BASE_URL}/login`, {
+        email: loginForm.email,
+        password: loginForm.password,
+      });
+
+      const token = response.data.token; // Assuming the token is returned as `token`
+      console.log("Token received from backend:", token);
+
+      // Save the token to localStorage
+      localStorage.setItem("Token", token);
+
+      toast.success("Login successful!");
+      navigate("/dashboard"); // Redirect to the dashboard or another page
+    } catch (error) {
+      console.error("Login error:", error.response || error.message);
+      toast.error(error.response?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   return (

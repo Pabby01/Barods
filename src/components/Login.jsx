@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import logo from "/images/barods-logo.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
+const API_BASE_URL = "https://barods-global.onrender.com/api/v1/agent";
+
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -17,30 +19,22 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://barods-global.onrender.com/api/v1/agent/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-          // This bypasses CORS but limits the response data
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/login`, {
+        email: loginForm.email,
+        password: loginForm.password,
+      });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Login failed. Please try again.");
-      }
+      const token = response.data.token; // Assuming the token is returned as `token`
+      console.log("Token received from backend:", token);
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
+      // Save the token to localStorage
+      localStorage.setItem("Token", token);
+
       toast.success("Login successful!");
-      navigate("/dashboard");
+      navigate("/dashboard"); // Redirect to the dashboard or another page
     } catch (error) {
-      console.error("Login error:", error);
-      toast.error(error.message || "An error occurred during login. Please try again.");
+      console.error("Login error:", error.response || error.message);
+      toast.error(error.response?.data?.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -62,8 +56,8 @@ const Login = () => {
             <input
               type="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={loginForm.email}
+              onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
               required
             />
           </div>
@@ -72,8 +66,8 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={loginForm.password}
+              onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
               required
             />
             <button
