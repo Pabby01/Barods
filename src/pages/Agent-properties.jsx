@@ -444,113 +444,184 @@ export default function Properties3() {
 
     try {
       const token = localStorage.getItem("Token");
-      
       if (!token) {
         toast.error("Authentication token is missing. Please login again.");
         return;
       }
 
-      const formData = new FormData();
+      // Validate required fields
+      const requiredFields = {
+        title: "Title",
+        description: "Description",
+        street: "Street Address",
+        area: "Area",
+        state: "State",
+        status: "Status",
+        type: "Property Type",
+        category: "Category",
+        price: "Price"
+      };
 
-      if (!propertyForm.title || !propertyForm.description) {
-        toast.error("Title and description are required!");
+      const errors = {};
+      Object.entries(requiredFields).forEach(([field, label]) => {
+        if (!propertyForm[field]) {
+          errors[field] = `${label} is required`;
+        }
+      });
+
+      if (Object.keys(errors).length > 0) {
+        setErrors(errors);
+        toast.error("Please fill in all required fields");
         return;
       }
 
-      formData.append("Title", propertyForm.title || "");
-      formData.append("StreetAddress", propertyForm.street || "");
-      formData.append("Area", propertyForm.area || "");
-      formData.append("State", propertyForm.state || "");
-      formData.append("Status", propertyForm.status || "");
-      formData.append("Type", propertyForm.type || "");
-      formData.append("Category", propertyForm.category || "");
-      formData.append("Currency", propertyForm.currency || "");
-      formData.append("Price", propertyForm.price || "0");
-      formData.append("Bedroom", propertyForm.bedrooms || "0");
-      formData.append("Bathroom", propertyForm.bathrooms || "0");
-      formData.append("Toilet", propertyForm.toilets || "0");
-      formData.append("parking", propertyForm.parking || "0");
-      formData.append("Description", propertyForm.description || "");
-      
-      const amenitiesArray = propertyForm.amenities ? 
-        Object.entries(propertyForm.amenities)
-          .filter(([_, value]) => value)
-          .map(([key]) => key) : 
-        [];
-      formData.append("Amenities", amenitiesArray.join(","));
+      const formData = new FormData();
 
+      // Convert price to number
+      const priceValue = parseFloat(propertyForm.price);
+      if (isNaN(priceValue)) {
+        toast.error("Invalid price value");
+        return;
+      }
+
+      // Append form fields with type conversion
+      formData.append("Title", propertyForm.title.trim());
+      formData.append("StreetAddress", propertyForm.street.trim());
+      formData.append("Area", propertyForm.area.trim());
+      formData.append("State", propertyForm.state.trim());
+      formData.append("Status", propertyForm.status);
+      formData.append("Type", propertyForm.type);
+      formData.append("Category", propertyForm.category);
+      formData.append("Currency", propertyForm.currency);
+      formData.append("Price", priceValue.toString());
+      formData.append("Bedroom", parseInt(propertyForm.bedrooms || 0, 10).toString());
+      formData.append("Bathroom", parseInt(propertyForm.bathrooms || 0, 10).toString());
+      formData.append("Toilet", parseInt(propertyForm.toilets || 0, 10).toString());
+      formData.append("parking", parseInt(propertyForm.parking || 0, 10).toString());
+      formData.append("Description", propertyForm.description.trim());
+
+      // Handle images
       if (propertyForm.images && propertyForm.images.length > 0) {
         propertyForm.images.forEach((image, index) => {
-          formData.append(`image`, image);
+          // Check if image is a File object
+          if (image instanceof File) {
+            formData.append(`image`, image);
+          }
         });
       }
+
+      // Debug log
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value instanceof File ? 'File: ' + value.name : value}`);
+      }
+
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+          // Let the browser set the Content-Type for FormData
+        }
+      };
+
+      // Show loading state
+      toast.loading("Saving property...");
 
       let response;
       if (editPropertyId) {
         response = await axios.put(
           `${API_BASE_URL}/updateproperty/${editPropertyId}`,
           formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
+          config
         );
-
-        setProperties((prev) =>
-          prev.map((p) => (p._id === editPropertyId ? response.data.property : p))
-        );
-        toast.success("Property updated successfully!");
       } else {
         response = await axios.post(
           `${API_BASE_URL}/postproperties`,
           formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
+          config
         );
-
-        setProperties((prev) => [response.data.property, ...prev]);
-        toast.success("Property added successfully!");
       }
 
-      setPropertyForm({
-        title: "",
-        street: "",
-        area: "",
-        state: "",
-        status: "",
-        type: "",
-        category: "",
-        currency: "",
-        price: "",
-        paymentFrequency: "",
-        bedrooms: "",
-        bathrooms: "",
-        toilets: "",
-        parking: "",
-        amenities: {},
-        description: "",
-        images: [],
-      });
-      setView("list");
+      toast.dismiss(); // Remove loading toast
+
+      if (response.data) {
+        if (editPropertyId) {
+          setProperties((prev) =>
+            prev.map((p) => (p._id === editPropertyId ? response.data.property : p))
+          );
+          toast.success("Property updated successfully!");
+        } else {
+          setProperties((prev) => [response.data.property, ...prev]);
+          toast.success("Property added successfully!");
+        }
+
+        // Reset form and view
+        setPropertyForm({
+          title: "",
+          street: "",
+          area: "",
+          state: "",
+          status: "",
+          type: "",
+          category: "",
+          currency: "",
+          price: "",
+          paymentFrequency: "",
+          bedrooms: "",
+          bathrooms: "",
+          toilets: "",
+          parking: "",
+          amenities: {},
+          description: "",
+          images: [],
+        });
+        setErrors({});
+        setView("list");
+      }
     } catch (error) {
+      toast.dismiss(); // Remove loading toast
       console.error("Error saving property:", error);
-      toast.error(error.response?.data?.message || "Error saving property!");
+      
+      // Enhanced error handling
+      let errorMessage = "Error saving property!";
+      if (error.response?.data) {
+        console.log("Error Response Data:", error.response.data);
+        errorMessage = error.response.data.message || error.response.data.msg || 
+                      `Server error: ${error.response.status}`;
+      }
+      
+      toast.error(errorMessage);
     }
   };
 
+  // Add this helper function for image validation
+  const validateImages = (files) => {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    
+    for (let file of files) {
+      if (file.size > maxSize) {
+        throw new Error(`File ${file.name} is too large. Maximum size is 5MB`);
+      }
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error(`File ${file.name} has invalid type. Allowed types are JPG and PNG`);
+      }
+    }
+  };
+
+  // Update handleImageUpload function
   const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setPropertyForm((prev) => ({
-      ...prev,
-      images: [...(prev.images || []), ...files],
-    }));
-    toast.success(`${files.length} image(s) uploaded successfully!`);
+    try {
+      const files = Array.from(e.target.files);
+      validateImages(files);
+      
+      setPropertyForm((prev) => ({
+        ...prev,
+        images: [...(prev.images || []), ...files],
+      }));
+      toast.success(`${files.length} image(s) uploaded successfully!`);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const handlePageChange = (page) => {
