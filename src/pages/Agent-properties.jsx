@@ -333,8 +333,8 @@ export default function Properties3() {
           onChange={(e) => setPropertyForm({ ...propertyForm, category: e.target.value })}
         >
           <option value="">Select Category</option>
-          <option value="Residential">Residential</option>
-          <option value="Commercial">Commercial</option>
+          <option value="Residential">for rent</option>
+          <option value="Commercial">for sale</option>
         </select>
         {errors.category && <p className="error-message">{errors.category}</p>}
       </div>
@@ -346,8 +346,8 @@ export default function Properties3() {
           onChange={(e) => setPropertyForm({ ...propertyForm, currency: e.target.value })}
         >
           <option value="">Select Currency</option>
-          <option value="₦">₦</option>
-          <option value="$">$</option>
+          <option value="₦">NGN</option>
+          <option value="$">USD</option>
           <option value="€">€</option>
         </select>
         {errors.currency && <p className="error-message">{errors.currency}</p>}
@@ -661,7 +661,7 @@ export default function Properties3() {
     setCurrentPage(page);
   };
 
-  const formatCurrency = (amount, currency = "₦") => {
+  const formatCurrency = (amount, currency = "NGN") => {
     if (amount == null || isNaN(amount)) {
       return `${currency}0`;
     }
