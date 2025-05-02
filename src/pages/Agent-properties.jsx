@@ -306,8 +306,9 @@ export default function Properties3() {
           onChange={(e) => setPropertyForm({ ...propertyForm, status: e.target.value })}
         >
           <option value="">Select Status</option>
-          <option value="For Sale">For Sale</option>
-          <option value="For Rent">For Rent</option>
+          <option value="Available">Available</option>
+          <option value="Leased">Leased</option>
+          <option value="Sold">Sold</option>
         </select>
         {errors.status && <p className="error-message">{errors.status}</p>}
       </div>
@@ -333,8 +334,8 @@ export default function Properties3() {
           onChange={(e) => setPropertyForm({ ...propertyForm, category: e.target.value })}
         >
           <option value="">Select Category</option>
-          <option value="Residential">for rent</option>
-          <option value="Commercial">for sale</option>
+          <option value="For sale">For sale</option>
+          <option value="For Rent">For Rent</option>
         </select>
         {errors.category && <p className="error-message">{errors.category}</p>}
       </div>
@@ -346,9 +347,8 @@ export default function Properties3() {
           onChange={(e) => setPropertyForm({ ...propertyForm, currency: e.target.value })}
         >
           <option value="">Select Currency</option>
-          <option value="₦">NGN</option>
-          <option value="$">USD</option>
-          <option value="€">€</option>
+          <option value="NGN">NGN</option>
+          <option value="USD">USD</option>
         </select>
         {errors.currency && <p className="error-message">{errors.currency}</p>}
       </div>
