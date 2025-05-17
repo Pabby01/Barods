@@ -44,14 +44,14 @@
   overflow: hidden;
 }
 
-.property-image2 {
+.property-image17 {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.property-card:hover .property-image {
+.dcard:hover .property-image {
   transform: scale(1.05);
 }
 
@@ -91,7 +91,7 @@
   background-color: rgba(255, 255, 255, 0.8);
 }
 
-.property-details1 {
+.property-details17 {
   padding: 20px;
 }
 

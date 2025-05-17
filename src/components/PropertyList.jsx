@@ -83,7 +83,7 @@ const PropertyList = () => {
               <img
                 src={property.image}
                 alt={property.title}
-                className="property-image2"
+                className="property-image5"
               />
               <div className="image-overlay">
                 <button className="image-button">
@@ -95,7 +95,7 @@ const PropertyList = () => {
               </div>
             </div>
 
-            <div className="property-details2">
+            <div className="property-details5">
               <h3 className="property-title">{property.title}</h3>
               <p className="property-location">{property.location}</p>
 
