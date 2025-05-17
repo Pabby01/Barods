@@ -84,11 +84,21 @@
   .user-section {
     display: flex;
     align-items: center;
+    gap: 1rem;
+    position: relative;
   }
   
   .notification-icon {
     margin-right: 1rem;
     position: relative;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .notification-icon:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
   
   .notification-badge {
@@ -109,6 +119,14 @@
   .user-profile {
     display: flex;
     align-items: center;
+    padding: 8px;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .user-profile:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
   
   .avatar {
@@ -288,66 +306,84 @@
   /* Notifications Dropdown */
 .notifications-dropdown {
   position: absolute;
-  top: 40px;
+  top: calc(100% + 8px);
   right: 0;
+  width: 320px;
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 1000;
-  overflow: hidden;
+  border: 1px solid #e5e7eb;
 }
 
-.notification-item {
-  padding: 10px;
-  border-bottom: 1px solid #f0f0f0;
+.notifications-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.notification-item:last-child {
-  border-bottom: none;
+.notifications-list {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.notification-item p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #333;
+.notification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.notification-item button {
+.notification-content {
+  flex: 1;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.delete-notification {
   background: none;
   border: none;
-  color: #f44336;
-  font-size: 0.75rem;
+  color: #6b7280;
   cursor: pointer;
-  transition: color 0.2s ease;
+  padding: 0.25rem;
+  font-size: 1.25rem;
 }
 
-.notification-item button:hover {
-  color: #d32f2f;
-}
-
-.notifications-dropdown p {
+.no-notifications {
+  padding: 1rem;
   text-align: center;
-  padding: 10px;
-  font-size: 0.875rem;
-  color: #666;
+  color: #6b7280;
+}
+
+.profile-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  margin: 0 0.5rem;
+  font-weight: 500;
 }
 
 /* User Profile Dropdown */
 .user-dropdown {
   position: absolute;
-  top: 40px;
+  top: calc(100% + 8px);
   right: 0;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
   width: 200px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 1000;
+  border: 1px solid #e5e7eb;
   overflow: hidden;
 }
 
@@ -370,6 +406,20 @@
 
 .user-dropdown button:last-child {
   border-top: 1px solid #f0f0f0;
+}
+
+.clear-all {
+  background: none;
+  border: none;
+  color: #FF6B35;
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.clear-all:hover {
+  background-color: rgba(255, 107, 53, 0.1);
 }
 
 /* General Responsive Styles */

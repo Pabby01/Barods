@@ -1,9 +1,14 @@
+ 
 // AccountPage.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast"; // Change to react-hot-toast
+import { Bell, User, ChevronDown } from "lucide-react"; // Use lucide-react icons
+import { FaBars, FaArrowRight } from "react-icons/fa";
+import axios from "axios";
 import "./AccountPage.css";
-import { FaUpload, FaArrowRight, FaBars, FaBell, FaUserCircle } from "react-icons/fa";
+
+const API_BASE_URL = "https://barods-global.onrender.com/api/v1/agent";
 
 const AccountPage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -28,6 +33,18 @@ const AccountPage = () => {
   });
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const notificationsRef = useRef(null);
+  const userDropdownRef = useRef(null);
+  const [agentData, setAgentData] = useState({
+    name: "",
+    email: "",
+    image: null,
+    id: null
+  });
+
   const navigate = useNavigate();
 
   const handleInfoChange = (e) => {
@@ -160,6 +177,107 @@ const AccountPage = () => {
 
     // Redirect to the login page
     navigate("/become-agent");
+  };
+
+  // Add useEffect for fetching agent data
+  useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (!token) {
+      navigate("/become-agent");
+      return;
+    }
+
+    fetchAgentData();
+    fetchNotifications();
+  }, [navigate]);
+
+  // Add click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+        setShowNotifications(false);
+      }
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Add fetch functions
+  const fetchAgentData = async () => {
+    try {
+      const token = localStorage.getItem("Token");
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const response = await axios.get(`${API_BASE_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data.user) {
+        const { fullName, email, accountID } = response.data.user;
+        setAgentData({
+          name: fullName || "User",
+          email: email || "",
+          image: null,
+          id: accountID || null
+        });
+        // Pre-fill the form with user data
+        setUserInfo(prev => ({
+          ...prev,
+          fullName: fullName || "",
+          email: email || "",
+          accountId: accountID || ""
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching agent data:", error);
+      toast.error("Failed to load profile data");
+    }
+  };
+
+  const fetchNotifications = async () => {
+    try {
+      const token = localStorage.getItem("Token");
+      const response = await axios.get(`${API_BASE_URL}/get-notifications`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data.success) {
+        setNotifications(response.data.data || []);
+      }
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      setNotifications([]);
+    }
+  };
+
+  const handleDeleteNotification = async (notificationId) => {
+    try {
+      const token = localStorage.getItem("Token");
+      await axios.delete(`${API_BASE_URL}/delete-notification/${notificationId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      // Remove the notification from the state
+      setNotifications(notifications.filter(n => n.id !== notificationId));
+      toast.success("Notification deleted successfully");
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+      toast.error("Failed to delete notification");
+    }
   };
 
   return (
@@ -337,25 +455,84 @@ const AccountPage = () => {
 
       {/* Main Content */}
       <div className="main-content">
-        {/* Header */}
+        {/* Updated Header */}
         <header className="header">
           <div className="header-left">
             <button className="menu-toggle" onClick={toggleSidebar}>
               <FaBars />
             </button>
-            <h3 className="page-title">Account</h3>
+            <h1 className="page-title">Account</h1>
           </div>
           <div className="header-right">
-            <div className="notification-icon">
-              <FaBell />
-            </div>
-            <div className="user-profile">
-              {userInfo.profileImage ? (
-                <img src={userInfo.profileImage} alt="User" className="profile-pic" />
-              ) : (
-                <FaUserCircle className="profile-pic-placeholder" />
+            <div className="notification-wrapper" ref={notificationsRef}>
+              <div
+                className="notification-icon"
+                onClick={() => setShowNotifications(!showNotifications)}
+              >
+                <Bell size={20} />
+                {notifications.length > 0 && (
+                  <span className="notification-badge">{notifications.length}</span>
+                )}
+              </div>
+              {showNotifications && (
+                <div className="notifications-dropdown">
+                  <div className="notifications-header">
+                    <h4>Notifications</h4>
+                    {notifications.length > 0 && (
+                      <button className="clear-all">Clear All</button>
+                    )}
+                  </div>
+                  <div className="notifications-list">
+                    {notifications.length > 0 ? (
+                      notifications.map((notification) => (
+                        <div key={notification.id} className="notification-item">
+                          <div className="notification-content">
+                            <p>{notification.message}</p>
+                            <span className="notification-time">
+                              {new Date(notification.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <button 
+                            className="delete-notification"
+                            onClick={() => handleDeleteNotification(notification.id)}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="no-notifications">No notifications</p>
+                    )}
+                  </div>
+                </div>
               )}
-              <span className="dropdown-arrow">▼</span>
+            </div>
+
+            <div className="user-wrapper" ref={userDropdownRef}>
+              <div
+                className="user-profile"
+                onClick={() => setShowUserDropdown(!showUserDropdown)}
+              >
+                <div className="avatar">
+                  {agentData.image ? (
+                    <img 
+                      src={agentData.image} 
+                      alt={agentData.name}
+                      className="profile-image"
+                    />
+                  ) : (
+                    <User size={20} color="white" />
+                  )}
+                </div>
+                <span className="user-name">{agentData.name}</span>
+                <ChevronDown size={16} />
+              </div>
+              {showUserDropdown && (
+                <div className="user-dropdown">
+                  <button onClick={() => navigate("/account")}>My Profile</button>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
             </div>
           </div>
         </header>

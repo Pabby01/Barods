@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Bell, Search, ChevronDown, User, Share, Edit, Trash2, ArrowRight, ArrowLeft, Upload, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast"; // Replace react-toastify with react-hot-toast
@@ -16,6 +18,8 @@ export default function Properties3() {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [userName, setUserName] = useState("Emmanuel");
+  const notificationsRef = useRef(null);
+  const userDropdownRef = useRef(null);
   const [propertyForm, setPropertyForm] = useState({
     title: "",
     street: "",
@@ -35,15 +39,63 @@ export default function Properties3() {
     description: "",
     images: [], // Initialize as an empty array
   });
+  
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: ""
+  });
   const [editPropertyId, setEditPropertyId] = useState(null);
   const [errors, setErrors] = useState({}); // State to track field-specific errors
+  const [agentData, setAgentData] = useState({
+    name: "",
+    email: "",
+    image: null,
+    id: null
+  });
   const navigate = useNavigate();
-  const notificationsRef = useRef(null);
-  const userDropdownRef = useRef(null);
+
+  const fetchProperties = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("Token");
+      if (!token) {
+        toast.error("Session expired. Please log in again.");
+        navigate("/become-agent");
+        return;
+      }
+      
+      const response = await axios.get(`${API_BASE_URL}${ENDPOINTS.GET_PROPERTIES}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Check if response.data exists and has the expected structure
+      if (response.data && response.data.properties) {
+        setProperties(response.data.properties);
+        setFilteredProperties(response.data.properties);
+      } else {
+        setProperties([]);
+        setFilteredProperties([]);
+        console.log("No properties found in response:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+      toast.error("Failed to load properties");
+      setProperties([]);
+      setFilteredProperties([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("Token");
+    toast.success("Logged out successfully!");
+    navigate("/become-agent"); // Changed from /login to /become-agent to match the rest of the app
+  }, [navigate]);
 
   const API_BASE_URL = "https://barods-global.onrender.com/api/v1/agent";
-
-  // Update endpoints
   const ENDPOINTS = {
     GET_PROPERTIES: "/getproperties",
     CREATE_PROPERTY: "/postproperties",
@@ -51,15 +103,57 @@ export default function Properties3() {
     DELETE_PROPERTY: "/deleteproperty"
   };
 
+  const fetchAgentDataCallback = useCallback(async () => {
+    try {
+      const token = localStorage.getItem("Token");
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const response = await axios.get(`${API_BASE_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data.user) {
+        const { fullName, email, accountID } = response.data.user;
+        setAgentData({
+          name: fullName || "User",
+          email: email || "",
+          image: null,
+          id: accountID || null
+        });
+        setUserName(fullName || "User");
+      } else {
+        throw new Error("Failed to fetch profile data");
+      }
+    } catch (error) {
+      console.error("Error fetching agent data:", error);
+      toast.error("Failed to load profile data");
+      if (error.response?.status === 401) {
+        handleLogout();
+      }
+    }
+  }, [handleLogout]);
+
   useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (!token) {
+      navigate("/become-agent");
+      return;
+    }
+
+    fetchAgentDataCallback();
     fetchProperties();
-    fetchNotifications();
+    // Remove fetchNotifications() since we're not using it yet
 
     return () => {
       // Cleanup toasts when component unmounts
       toast.dismiss();
     };
-  }, []);
+  }, [fetchAgentDataCallback, navigate]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -101,11 +195,6 @@ export default function Properties3() {
     setShowUserDropdown((prev) => !prev);
   };
 
-  const handleLogout = () => {
-    toast.success("Logged out successfully!");
-    navigate("/login");
-  };
-
   const renderEmptyState = () => (
     <div className="empty-state">
       <p>No properties available. Add a new property to get started.</p>
@@ -113,44 +202,53 @@ export default function Properties3() {
     </div>
   );
 
-  const renderPropertyList = () => (
-    <div className="property-list">
-      {properties.map((property) => (
-        <div key={property._id} className="property-item">
-          <div className="property-image">
-            <img
-              src={property.Image?.[0] || "/images/default-property.jpg"}
-              alt={property.Title}
-            />
+  const renderPropertyList = () => {
+    if (!Array.isArray(properties) || properties.length === 0) {
+      return renderEmptyState();
+    }
+
+    return (
+      <div className="property-list">
+        {properties.map((property) => (
+          <div key={property._id || Math.random()} className="property-item">
+            <div className="property-image">
+              <img
+                src={property.Image?.[0] || "/images/default-property.jpg"}
+                alt={property.Title || 'Property'}
+                onError={(e) => {
+                  e.target.src = "/images/default-property.jpg";
+                }}
+              />
+            </div>
+            <div className="property-details">
+              <h3>{property.Title || 'Untitled Property'}</h3>
+              <p>{property.Description || 'No description available'}</p>
+              <p className="property-price">
+                {formatCurrency(property.Price?.$numberDecimal || property.Price || 0)}
+              </p>
+              <span className={`property-status ${(property.Status || '').toLowerCase()}`}>
+                {property.Status || 'Status Unknown'}
+              </span>
+            </div>
+            <div className="property-actions">
+              <button
+                className="btn-edit"
+                onClick={() => handleEdit(property)}
+              >
+                Edit
+              </button>
+              <button
+                className="btn-delete"
+                onClick={() => handleDelete(property._id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="property-details">
-            <h3>{property.Title}</h3>
-            <p>{property.Description}</p>
-            <p className="property-price">
-              {formatCurrency(property.Price?.$numberDecimal || property.Price)}
-            </p>
-            <span className={`property-status ${property.Status?.toLowerCase()}`}>
-              {property.Status}
-            </span>
-          </div>
-          <div className="property-actions">
-            <button
-              className="btn-edit"
-              onClick={() => handleEdit(property)}
-            >
-              Edit
-            </button>
-            <button
-              className="btn-delete"
-              onClick={() => handleDelete(property._id)}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  };
 
   const handleEdit = (property) => {
     setEditPropertyId(property._id);
@@ -448,47 +546,39 @@ export default function Properties3() {
     </form>
   );
 
-  const fetchProperties = async () => {
-    setLoading(true);
+  const fetchAgentData = async () => {
     try {
       const token = localStorage.getItem("Token");
       if (!token) {
-        toast.error("Session expired. Please log in again.");
-        setLoading(false);
-        return;
+        throw new Error("No authentication token found");
       }
 
-      const response = await axios.get(`${API_BASE_URL}/getproperties`, {
+      const response = await axios.get(`${API_BASE_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        },
+          'Content-Type': 'application/json'
+        }
       });
 
-      if (response.data?.properties) {
-        setProperties(response.data.properties);
-        setFilteredProperties(response.data.properties);
-        setTotalPages(Math.ceil(response.data.properties.length / 10));
+      if (response.data.user) {
+        const { fullName, email, accountID } = response.data.user;
+        setAgentData({
+          name: fullName || "User",
+          email: email || "",
+          image: null,
+          id: accountID || null
+        });
+        setUserName(fullName || "User"); // Update the existing userName state
       } else {
-        setProperties([]);
-        setFilteredProperties([]);
-        setTotalPages(1);
+        throw new Error("Failed to fetch profile data");
       }
     } catch (error) {
-      console.error("Error fetching properties:", error);
-      toast.error(error.response?.data?.message || "Error fetching properties!");
-    } finally {
-      setLoading(false);
+      console.error("Error fetching agent data:", error);
+      toast.error("Failed to load profile data");
+      if (error.response?.status === 401) {
+        handleLogout();
+      }
     }
-  };
-
-  const fetchNotifications = async () => {
-    setTimeout(() => {
-      setNotifications([
-        { id: 1, message: "New property listed: Diamond Family Home" },
-        { id: 2, message: "Your profile has been updated successfully" },
-        { id: 3, message: "New deal closed: Mountainview Villa" },
-      ]);
-    }, 500);
   };
 
   const handleSaveChanges = async (e) => {
@@ -855,62 +945,75 @@ export default function Properties3() {
             </select>
           </div>
           <div className="user-section">
-            <div
-              className="notification-icon"
-              onClick={toggleNotifications}
-              ref={notificationsRef}
-            >
-              <Bell size={20} />
-              {notifications.length > 0 && (
-                <span className="notification-badge">{notifications.length}</span>
-              )}
-              
+            <div className="notification-wrapper" ref={notificationsRef}>
+              <div
+                className="notification-icon"
+                onClick={toggleNotifications}
+              >
+                <Bell size={20} />
+                {notifications.length > 0 && (
+                  <span className="notification-badge">{notifications.length}</span>
+                )}
+              </div>
               {showNotifications && (
                 <div className="notifications-dropdown">
                   <div className="notifications-header">
-                    <h3>Notifications</h3>
+                    <h4>Notifications</h4>
+                    {notifications.length > 0 && (
+                      <button className="clear-all">Clear All</button>
+                    )}
                   </div>
-                  {notifications.length > 0 ? (
-                    <div className="notification-list">
-                      {notifications.map((notification) => (
+                  <div className="notifications-list">
+                    {notifications.length > 0 ? (
+                      notifications.map((notification) => (
                         <div key={notification.id} className="notification-item">
-                          <p>{notification.message}</p>
-                          <button onClick={() => handleDeleteNotification(notification.id)}>
+                          <div className="notification-content">
+                            <p>{notification.message}</p>
+                            <span className="notification-time">
+                              {new Date(notification.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <button 
+                            className="delete-notification"
+                            onClick={() => handleDeleteNotification(notification.id)}
+                          >
                             <Trash2 size={16} />
                           </button>
                         </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="no-notifications">No notifications</p>
-                  )}
+                      ))
+                    ) : (
+                      <p className="no-notifications">No notifications</p>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
 
-            <div
-              className="user-profile"
-              onClick={toggleUserDropdown}
-              ref={userDropdownRef}
-            >
-              <div className="avatar">
-                <User size={20} />
+            <div className="user-wrapper" ref={userDropdownRef}>
+              <div
+                className="user-profile"
+                onClick={toggleUserDropdown}
+              >
+                <div className="avatar">
+                  {agentData.image ? (
+                    <img 
+                      src={agentData.image} 
+                      alt={agentData.name}
+                      className="profile-image"
+                    />
+                  ) : (
+                    <User size={20} color="white" />
+                  )}
+                </div>
+                <span className="user-name">{agentData.name}</span>
+                <ChevronDown size={16} />
               </div>
-              <span className="user-name">{userName}</span>
-              <ChevronDown size={16} />
-              
               {showUserDropdown && (
                 <div className="user-dropdown">
-                  <div className="dropdown-item" onClick={() => handleNavigation("/profile")}>
+                  <button onClick={() => handleNavigation("/account")}>
                     My Profile
-                  </div>
-                  <div className="dropdown-item" onClick={() => handleNavigation("/settings")}>
-                    Settings
-                  </div>
-                  <div className="dropdown-divider"></div>
-                  <div className="dropdown-item logout" onClick={handleLogout}>
-                    Logout
-                  </div>
+                  </button>
+                  <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </div>

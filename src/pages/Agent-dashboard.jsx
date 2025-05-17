@@ -1,7 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Bell, User } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import axios from "axios";
+import toast from "react-hot-toast";
 import "./Dashboard.css";
 
 // Utility function to format prices
@@ -25,7 +29,9 @@ const renderSalesChart = (salesData) => {
   );
 };
 
-export default function Dashboard() {
+const API_BASE_URL = "https://barods-global.onrender.com/api/v1/agent";
+
+const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
     totalListings: 0,
     closedDeals: 0,
@@ -46,82 +52,189 @@ export default function Dashboard() {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-  const navigate = useNavigate();
-
   const notificationsRef = useRef(null);
   const userDropdownRef = useRef(null);
+  const [agentData, setAgentData] = useState({
+    name: "",
+    email: "",
+    image: null,
+    id: null
+  });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchDashboardData();
-    fetchNotifications();
-  }, []);
+    const token = localStorage.getItem("Token");
+    if (!token) {
+      navigate("/become-agent");
+      return;
+    }
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        notificationsRef.current &&
-        !notificationsRef.current.contains(event.target)
-      ) {
-        setShowNotifications(false);
+    // Fetch data separately to handle individual failures
+    const fetchData = async () => {
+      try {
+        await fetchAgentData();
+      } catch (error) {
+        console.error("Error fetching agent data:", error);
       }
 
-      if (
-        userDropdownRef.current &&
-        !userDropdownRef.current.contains(event.target)
-      ) {
+      try {
+        await fetchDashboardData();
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      }
+
+      try {
+        await fetchNotifications();
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Add click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+        setShowNotifications(false);
+      }
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
         setShowUserDropdown(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const fetchAgentData = async () => {
+    try {
+      const token = localStorage.getItem("Token");
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const response = await axios.get(`${API_BASE_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Log the response to debug
+      console.log("Profile response:", response.data);
+
+      // The data structure shows user object contains the profile info
+      if (response.data.user) {
+        const { fullName, email, accountID } = response.data.user;
+        setAgentData({
+          name: fullName || "User", // Changed from name to fullName
+          email: email || "",
+          image: null, // API doesn't seem to return image yet
+          id: accountID || null
+        });
+        setUserName(fullName || "User"); // Update userName state with fullName
+      } else {
+        throw new Error("Failed to fetch profile data");
+      }
+    } catch (error) {
+      console.error("Error fetching agent data:", error);
+      // Set default values if fetch fails
+      setAgentData({
+        name: "User",
+        email: "",
+        image: null,
+        id: null
+      });
+      if (error.response?.status === 401) {
+        handleLogout();
+      }
+    }
+  };
 
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/dashboard");
+      const token = localStorage.getItem("Token");
+      const response = await axios.get(`${API_BASE_URL}/dashboard`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (response.data.success) {
+        setDashboardData(response.data.data);
+      } else {
+        throw new Error(response.data.message || "Failed to fetch dashboard data");
       }
-
-      const data = await response.json();
-      setDashboardData(data);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
+      toast.error("Failed to load dashboard data");
     } finally {
       setLoading(false);
     }
   };
 
   const fetchNotifications = async () => {
-    setTimeout(() => {
-      setNotifications([
-        { id: 1, message: "New property listed: Diamond Family Home" },
-        { id: 2, message: "Your profile has been updated successfully" },
-        { id: 3, message: "New deal closed: Mountainview Villa" },
-      ]);
-    }, 500);
+    try {
+      const token = localStorage.getItem("Token");
+      // Using the correct notifications endpoint
+      const response = await axios.get(`${API_BASE_URL}/get-notifications`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data.success) {
+        setNotifications(response.data.data || []);
+      } else {
+        throw new Error(response.data.message || "Failed to fetch notifications");
+      }
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      // Don't show error toast for notifications as they might not be implemented yet
+      setNotifications([]);
+    }
   };
 
-  const handleDeleteNotification = (id) => {
-    setNotifications((prev) => prev.filter((notification) => notification.id !== id));
+  const handleDeleteNotification = async (id) => {
+    try {
+      const token = localStorage.getItem("Token");
+      await axios.delete(`${API_BASE_URL}/notifications/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setNotifications(prev => prev.filter(notif => notif.id !== id));
+      toast.success("Notification deleted");
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+      toast.error("Failed to delete notification");
+    }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    navigate("/become-agen");
+    localStorage.removeItem("Token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    toast.success("Logged out successfully");
+    navigate("/become-agent");
   };
 
-  const toggleNotifications = () => {
-    setShowNotifications((prev) => !prev);
+  const toggleNotifications = (e) => {
+    e.stopPropagation();
+    setShowNotifications(!showNotifications);
+    setShowUserDropdown(false);
   };
 
-  const toggleUserDropdown = () => {
-    setShowUserDropdown((prev) => !prev);
+  const toggleUserDropdown = (e) => {
+    e.stopPropagation();
+    setShowUserDropdown(!showUserDropdown);
+    setShowNotifications(false);
   };
 
   const handleNavigation = (path) => {
@@ -255,54 +368,83 @@ export default function Dashboard() {
         <div className="top-bar">
           <div className="welcome-section">
             <h1 className="page-title">Dashboard</h1>
-            <p className="welcome-text">Welcome, {userName}</p>
+            <p className="welcome-text">Welcome, {agentData.name}</p>
           </div>
           <div className="user-section">
-            {/* Notifications */}
-            <div
-              className="notification-icon"
-              onClick={toggleNotifications}
-              ref={notificationsRef}
-            >
-              <Bell size={20} />
-              {notifications.length > 0 && (
-                <span className="notification-badge">{notifications.length}</span>
-              )}
-            </div>
-            {showNotifications && (
-              <div className="notifications-dropdown">
-                {notifications.length > 0 ? (
-                  notifications.map((notification) => (
-                    <div key={notification.id} className="notification-item">
-                      <p>{notification.message}</p>
-                      <button onClick={() => handleDeleteNotification(notification.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  ))
-                ) : (
-                  <p>No notifications</p>
+            <div className="notification-wrapper" ref={notificationsRef}>
+              {/* Notifications */}
+              <div
+                className="notification-icon"
+                onClick={toggleNotifications}
+              >
+                <Bell size={20} />
+                {notifications.length > 0 && (
+                  <span className="notification-badge">{notifications.length}</span>
                 )}
               </div>
-            )}
+              {showNotifications && (
+                <div className="notifications-dropdown">
+                  <div className="notifications-header">
+                    <h4>Notifications</h4>
+                    {notifications.length > 0 && (
+                      <button className="clear-all">Clear All</button>
+                    )}
+                  </div>
+                  <div className="notifications-list">
+                    {notifications.length > 0 ? (
+                      notifications.map((notification) => (
+                        <div key={notification.id} className="notification-item">
+                          <div className="notification-content">
+                            <p>{notification.message}</p>
+                            <span className="notification-time">
+                              {new Date(notification.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <button 
+                            className="delete-notification"
+                            onClick={() => handleDeleteNotification(notification.id)}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="no-notifications">No notifications</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* User Profile */}
-            <div
-              className="user-profile"
-              onClick={toggleUserDropdown}
-              ref={userDropdownRef}
-            >
-              <div className="avatar">
-                <User size={20} color="white" />
+            <div className="user-wrapper" ref={userDropdownRef}>
+              <div
+                className="user-profile"
+                onClick={toggleUserDropdown}
+              >
+                <div className="avatar">
+                  {agentData.image ? (
+                    <img 
+                      src={agentData.image} 
+                      alt={agentData.name}
+                      className="profile-image"
+                    />
+                  ) : (
+                    <User size={20} color="white" />
+                  )}
+                </div>
+                <span className="user-name">{agentData.name}</span>
+                <ChevronDown size={16} />
               </div>
-              <ChevronDown size={16} />
+              {showUserDropdown && (
+                <div className="user-dropdown">
+                  <button onClick={() => handleNavigation("/account")}>
+                    My Profile
+                  </button>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
             </div>
-            {showUserDropdown && (
-              <div className="user-dropdown">
-                <button onClick={() => handleNavigation("/profile")}>Profile</button>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
-            )}
           </div>
         </div>
         
@@ -378,3 +520,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;
