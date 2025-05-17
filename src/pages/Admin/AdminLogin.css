@@ -1,0 +1,139 @@
+.admin-login-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.login-image-section {
+  flex: 1;
+  background-image: url('images/shiloete.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #519A14;
+}
+
+.login-form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  background: #fff;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: 1rem;
+}
+
+.login-header h1 {
+  color: #519A14;
+  margin-bottom: 0.5rem;
+}
+
+.login-header p {
+  color: #666;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.password-input {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #519A14;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background: #3a6922;
+}
+
+.login-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.forgot-password {
+  display: block;
+  text-align: center;
+  color: #4a862c;
+  text-decoration: none;
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .admin-login-container {
+    flex-direction: column;
+  }
+
+  .login-image-section {
+    height: 200px;
+  }
+
+  .login-form-section {
+    padding: 1.5rem;
+  }
+}

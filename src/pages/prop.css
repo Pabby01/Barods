@@ -350,7 +350,7 @@ body {
 }
 
 /* Property List Styles */
-.property-list {
+.property-list2 {
   padding: 20px;
   display: grid;
   grid-gap: 20px;
@@ -366,20 +366,20 @@ body {
   padding: 15px;
 }
 
-.property-image {
+.property-image2 {
   width: 120px;
   height: 120px;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.property-image img {
+.property-image2 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.property-details {
+.property-details2 {
   flex: 1;
   padding: 0 20px;
 }
@@ -412,27 +412,76 @@ body {
 
 .property-actions {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-.btn-edit, .btn-delete {
-  padding: 8px 16px;
-  border-radius: 4px;
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  background: #f3f4f6;
 }
 
-.btn-edit {
-  background-color: #E8F5E9;
-  color: #4CAF50;
+.btn-icon.edit {
+  color: #519A14;
 }
 
-.btn-delete {
-  background-color: #FFEBEE;
-  color: #F44336;
+.btn-icon.edit:hover {
+  background: #ecfdf5;
+  color: #166534;
+}
+
+.btn-icon.delete {
+  color: #ef4444;
+}
+
+.btn-icon.delete:hover {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.property-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f3f4f6;
+}
+
+.btn-icon.edit {
+  color: #519A14;
+}
+
+.btn-icon.edit:hover {
+  background: #ecfdf5;
+  color: #166534;
+}
+
+.btn-icon.delete {
+  color: #ef4444;
+}
+
+.btn-icon.delete:hover {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 /* Top Bar Actions */

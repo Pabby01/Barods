@@ -208,10 +208,10 @@ export default function Properties3() {
     }
 
     return (
-      <div className="property-list">
+      <div className="property-list2">
         {properties.map((property) => (
           <div key={property._id || Math.random()} className="property-item">
-            <div className="property-image">
+            <div className="property-image2">
               <img
                 src={property.Image?.[0] || "/images/default-property.jpg"}
                 alt={property.Title || 'Property'}
@@ -220,7 +220,7 @@ export default function Properties3() {
                 }}
               />
             </div>
-            <div className="property-details">
+            <div className="property-details2">
               <h3>{property.Title || 'Untitled Property'}</h3>
               <p>{property.Description || 'No description available'}</p>
               <p className="property-price">
@@ -232,16 +232,18 @@ export default function Properties3() {
             </div>
             <div className="property-actions">
               <button
-                className="btn-edit"
+                className="btn-icon edit"
                 onClick={() => handleEdit(property)}
+                title="Edit property"
               >
-                Edit
+                <Edit size={18} />
               </button>
               <button
-                className="btn-delete"
+                className="btn-icon delete"
                 onClick={() => handleDelete(property._id)}
+                title="Delete property"
               >
-                Delete
+                <Trash2 size={18} />
               </button>
             </div>
           </div>
@@ -918,7 +920,7 @@ export default function Properties3() {
       <div className="main-content">
         <div className="top-bar">
           <div className="welcome-section">
-            <h2 className="page-title">Properties</h2>
+            <h3 className="page-title">Properties</h3>
             <div className="top-bar-actions">
               <button className="add-property-btn" onClick={() => setView("add")}>
                 <Plus size={20} />

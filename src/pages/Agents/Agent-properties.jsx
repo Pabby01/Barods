@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import AgentHeader from "../components/AgentHeader";
 import "../components/AgentHeader.css";
-import "./prop.css";
+import "/prop.css";
 
 export default function Properties3() {
   const [properties, setProperties] = useState([]);
@@ -98,7 +98,7 @@ export default function Properties3() {
   );
 
   const renderPropertyList = () => (
-    <div className="property-list">
+    <div className="property-list2">
       {properties.map((property) => (
         <div key={property._id} className="property-item">
           <div className="property-image">
@@ -220,7 +220,7 @@ export default function Properties3() {
       const loadingToastId = toast.loading("Deleting property...");
 
       const response = await axios.delete(
-        `${API_BASE_URL}${ENDPOINTS.DELETE_PROPERTY}/${propertyId}`,
+        `http://localhost:2020/api/v1/agent/deleteProperty/${propertyId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -235,6 +235,7 @@ export default function Properties3() {
         setProperties(prev => prev.filter(p => p._id !== propertyId));
         setFilteredProperties(prev => prev.filter(p => p._id !== propertyId));
         toast.success("Property deleted successfully!");
+        setShowDeleteModal(false); // Close the modal after successful deletion
       }
     } catch (error) {
       console.error("Error deleting property:", error);

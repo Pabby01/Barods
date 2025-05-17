@@ -26,6 +26,12 @@ import Dashboard from './pages/Agent-dashboard'; // Assuming you have a Dashboar
 import Properties3 from './pages/Agent-properties'
 import AccountPage from './pages/Agent-account'; // Assuming you have an AccountPage component
 import Register from './components/Register'; // Assuming you have a Register component
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminForgotPassword from './pages/Admin/AdminForgotPassword'; // Assuming you have an AdminForgotPassword component
+import { ToastContainer } from "react-toastify"; // Import ToastContainer for notifications
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminProperties from './pages/Admin/Properties/AdminProperties';
+import AdminAgents from "./pages/Admin/Agents/AdminAgents";
 
 const App = () => {
   return (
@@ -39,7 +45,7 @@ const AppContent = () => {
   const location = useLocation(); // Now useLocation is inside the Router context
 
   // Define routes where Header and Footer should not be displayed
-  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password","/account", "/register"];
+  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password","/account", "/register", "/admin", "/admin/forgot-password", "/admin/dashboard", "/admin/properties", "/admin/agents"];
 
   const shouldShowHeaderFooter = !noHeaderFooterRoutes.includes(location.pathname);
 
@@ -69,6 +75,12 @@ const AppContent = () => {
         <Route path="/properties3" element={<Properties3 />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/register" element={<Register />} /> {/* Added Register route */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/properties" element={<AdminProperties />} />
+        <Route path="/admin/agents" element={<AdminAgents />} />
+        {/* Add other admin routes here */}
       </Routes>
       {shouldShowHeaderFooter && <Footer />} {/* Render Footer conditionally */}
     </>
