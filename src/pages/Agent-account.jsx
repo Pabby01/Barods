@@ -1,4 +1,4 @@
- 
+/* eslint-disable no-unused-vars */
 // AccountPage.jsx
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,13 @@ import axios from "axios";
 import "./AccountPage.css";
 
 const API_BASE_URL = "https://barods-global.onrender.com/api/v1/agent";
+
+// Add API endpoints constant at the top of the file
+const ENDPOINTS = {
+  PROFILE: "/profile",
+  UPDATE_PROFILE: "/edit-profile", // Changed from update-profile
+  CHANGE_PASSWORD: "/change-password"
+};
 
 const AccountPage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -66,34 +73,51 @@ const AccountPage = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast.error("Image size should be less than 5MB");
+        return;
+      }
+
+      // Store the actual file
+      setUserInfo(prev => ({
+        ...prev,
+        profileImage: file
+      }));
+
+      // Show preview
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUserInfo({
-          ...userInfo,
-          profileImage: reader.result,
-        });
+        setUserInfo(prev => ({
+          ...prev,
+          imagePreview: reader.result
+        }));
       };
       reader.readAsDataURL(file);
     }
   };
 
   const validateProfile = () => {
-    const newErrors = {};
-    if (!userInfo.fullName.trim()) {
-      newErrors.fullName = "Full name is required.";
+    const errors = {};
+
+    if (!userInfo.fullName?.trim()) {
+      errors.fullName = "Full name is required";
     }
-    if (!userInfo.email.trim()) {
-      newErrors.email = "Email is required.";
+
+    if (!userInfo.email?.trim()) {
+      errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(userInfo.email)) {
-      newErrors.email = "Invalid email format.";
+      errors.email = "Invalid email format";
     }
-    if (!userInfo.phoneNumber.trim()) {
-      newErrors.phoneNumber = "Phone number is required.";
-    } else if (!/^\d+$/.test(userInfo.phoneNumber)) {
-      newErrors.phoneNumber = "Phone number must contain only digits.";
+
+    if (userInfo.profileImage && userInfo.profileImage.size > 5 * 1024 * 1024) {
+      errors.profileImage = "Image size should be less than 5MB";
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    // Update error state
+    setErrors(errors);
+
+    // Return true if no errors
+    return Object.keys(errors).length === 0;
   };
 
   const validatePassword = () => {
@@ -113,51 +137,109 @@ const AccountPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const saveChanges = () => {
+  // Update the saveChanges function
+  const saveChanges = async () => {
     if (!validateProfile()) {
       return;
     }
 
-    // Simulate API call to save user info
-    console.log("Saving user info:", userInfo);
+    try {
+      const token = localStorage.getItem("Token");
+      const formData = new FormData();
+      
+      // Append text data
+      formData.append("fullName", userInfo.fullName);
+      formData.append("email", userInfo.email);
+      formData.append("phoneNumber", userInfo.phoneNumber);
 
-    // Show notification
-    setNotification({
-      show: true,
-      message: "Profile information updated successfully!",
-      type: "success",
-    });
+      // Append image if it exists
+      if (userInfo.profileImage && userInfo.profileImage instanceof File) {
+        formData.append("profileImage", userInfo.profileImage);
+      }
 
-    // Hide notification after 3 seconds
-    setTimeout(() => {
-      setNotification({ ...notification, show: false });
-    }, 3000);
+      // Add debugging logs
+      console.log("Request URL:", `${API_BASE_URL}${ENDPOINTS.UPDATE_PROFILE}`);
+      console.log("FormData contents:", Object.fromEntries(formData.entries()));
+
+      const response = await axios.put(
+        `${API_BASE_URL}${ENDPOINTS.UPDATE_PROFILE}`,
+        formData,
+        {
+          headers:
+           {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+
+      // Add response debugging
+      console.log("Response:", response);
+
+      if (response.data.success) {
+        toast.success("Profile updated successfully!");
+        fetchAgentData(); // Refresh the profile data
+      } else {
+        throw new Error(response.data.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      
+      // More detailed error logging
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log("Error response data:", error.response.data);
+        console.log("Error response status:", error.response.status);
+        console.log("Error response headers:", error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log("Error request:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error message:", error.message);
+      }
+
+      toast.error(error.response?.data?.message || "Failed to update profile");
+    }
   };
 
-  const updatePassword = () => {
+  const updatePassword = async () => {
     if (!validatePassword()) {
       return;
     }
 
-    // Simulate API call to update password
-    console.log("Updating password");
+    try {
+      const token = localStorage.getItem("Token");
+      const response = await axios.put(
+        `${API_BASE_URL}/change-password`,
+        {
+          oldPassword: passwords.oldPassword,
+          newPassword: passwords.newPassword
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
-    // Clear password fields and show success notification
-    setPasswords({
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-
-    setNotification({
-      show: true,
-      message: "Password updated successfully!",
-      type: "success",
-    });
-
-    setTimeout(() => {
-      setNotification({ ...notification, show: false });
-    }, 3000);
+      if (response.data.success) {
+        toast.success("Password updated successfully!");
+        // Clear password fields
+        setPasswords({
+          oldPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+      } else {
+        throw new Error(response.data.message || "Failed to update password");
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+      toast.error(error.response?.data?.message || "Failed to update password");
+    }
   };
 
   const toggleSidebar = () => {
@@ -550,7 +632,7 @@ const AccountPage = () => {
             <div className="account-section">
               <h3 className="section-title">My Account</h3>
               <div className="form-group">
-                <label htmlFor="fullName">Full name</label>
+                <label htmlFor="fullName">Full Name</label>
                 <input
                   type="text"
                   id="fullName"
@@ -558,7 +640,7 @@ const AccountPage = () => {
                   value={userInfo.fullName}
                   onChange={handleInfoChange}
                 />
-                {errors.fullName && <p className="error-message">{errors.fullName}</p>}
+                {errors.fullName && <span className="error-message">{errors.fullName}</span>}
               </div>
 
               <div className="form-group">
@@ -586,14 +668,23 @@ const AccountPage = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="profileImage">Image</label>
-                <input
-                  type="file"
-                  id="profileImage"
-                  name="profileImage"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
+                <label htmlFor="profileImage">Profile Image</label>
+                <div className="image-upload-container">
+                  {userInfo.imagePreview && (
+                    <div className="image-preview">
+                      <img src={userInfo.imagePreview} alt="Preview" />
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    id="profileImage"
+                    name="profileImage"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="file-input"
+                  />
+                </div>
+                <p className="help-text">Max size: 5MB. Accepted formats: JPG, PNG</p>
               </div>
 
               <button className="save-button" onClick={saveChanges}>

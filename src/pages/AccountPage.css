@@ -305,6 +305,7 @@ body {
     position: relative;
     height: 150px;
     overflow: hidden;
+    margin-top: 0.5rem;
 }
 
 .image-upload-placeholder {
@@ -346,6 +347,13 @@ body {
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    border: 1px dashed #d1d5db;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.file-input:hover {
+  border-color: #9ca3af;
 }
 
 .profile-image-preview {
@@ -383,6 +391,18 @@ body {
 
 .button-icon {
     margin-left: 10px;
+}
+
+/* Error Message Styles */
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.form-group input.error {
+  border-color: #dc2626;
 }
 
 /* Mobile Responsive Styles */
