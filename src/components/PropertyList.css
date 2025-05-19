@@ -13,39 +13,34 @@
 
 .property-grid2 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 20px;
 }
 
 .property-card2 {
   background: white;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .property-card2:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.property-image-container {
+.property-image-wrapper {
   position: relative;
-  height: 200px;
-  overflow: hidden;
+  width: 100%;
+  height: 220px;
 }
 
 .property-image5 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.property-card:hover .property-image {
-  transform: scale(1.05);
 }
 
 .image-overlay {
@@ -53,47 +48,61 @@
   top: 10px;
   right: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .image-button {
-  background-color: rgba(255, 255, 255, 0.9);
+  background: white;
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .image-button:hover {
-  background-color: white;
+  background: #f3f4f6;
+  transform: scale(1.1);
 }
 
-.property-details5 {
-  padding: 15px;
-}
-
-.property-title {
-  font-size: 18px;
+.price-tag {
+  position: absolute;
+  bottom: -307px;
+  right: 15px;
+  background: #519a14;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
   font-weight: 600;
-  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.property-info {
+  padding: 20px;
 }
 
 .property-location {
   color: #666;
   font-size: 14px;
-  margin: 0 0 15px;
+  margin-bottom: 8px;
+}
+
+.property-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
 }
 
 .property-features {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  color: #666;
   font-size: 14px;
 }
 
@@ -103,127 +112,45 @@
   gap: 5px;
 }
 
-.feature i {
-  color: #666;
+.feature-value {
+  font-weight: 600;
+  color: #333;
 }
 
 .feature-divider {
   width: 1px;
-  height: 20px;
-  background-color: #ddd;
+  height: 15px;
+  background: #ddd;
   margin: 0 15px;
 }
 
-.property-pricing {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.property-footer {
   border-top: 1px solid #eee;
   padding-top: 15px;
 }
 
-.sale-button {
-  background-color: #2c6e49;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.property-price4 {
-  font-weight: 700;
-  font-size: 18px;
-  color: #2c6e49;
-}
-
-.card-link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.image-button {
-  z-index: 2;
-  position: relative;
-}
-
-/* See More Button Container */
-.see-more-container {
-  margin-top: 15px;
-  text-align: center;
-}
-
-/* See More Button Styling */
-.see-more-button {
+.sale-tag {
   display: inline-block;
-  padding: 7px 10px;
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
-  text-decoration: none; /* Remove underline */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 14px; /* Font size */
-  font-weight: bold; /* Bold text */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-/* Hover Effect for See More Button */
-.see-more-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-  transform: translateY(-2px); /* Slight lift on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-}
-
-/* Active State for See More Button */
-.see-more-button:active {
-  background-color: #3e8e41; /* Even darker green when clicked */
-  transform: translateY(0); /* Reset lift */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reset shadow */
-}
-
-/* Responsive styles */
-@media (max-width: 992px) {
-  .property-grid2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  background: #212529;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
   .property-grid2 {
     grid-template-columns: 1fr;
+    padding: 10px;
   }
-  
-  .property-image-container {
-    height: 250px;
-  }
-}
 
-@media (max-width: 480px) {
-  .property-list-container {
-    padding: 15px 10px;
+  .property-image-wrapper {
+    height: 200px;
   }
-  
-  .section-title {
+
+  .section-title2 {
     font-size: 24px;
     margin-bottom: 20px;
-  }
-  
-  .property-features {
-    flex-wrap: wrap;
-  }
-  
-  .feature-divider {
-    margin: 0 10px;
-  }
-  
-  .see-more-button {
-    padding: 8px 16px; /* Smaller padding for small screens */
-    font-size: 12px; /* Smaller font size */
   }
 }

@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { Heart, Maximize } from 'lucide-react';
 import "./PropertyList.css";
 
 const properties = [
   {
     id: 1,
     image: "/images/Recent-1.png",
-    title: "Diamond Family Home",
+    title: "Diamond Home",
     location: "2 bedroom flat, Ikeja, Lagos",
     beds: 3,
     baths: 2,
@@ -39,7 +40,7 @@ const properties = [
   {
     id: 4,
     image: "/images/Recent-1.png",
-    title: "Diamond Family Home",
+    title: "Royal Home",
     location: "2 bedroom flat, Ikeja, Lagos",
     beds: 3,
     baths: 2,
@@ -79,7 +80,7 @@ const PropertyList = () => {
       <div className="property-grid2">
         {properties.map((property) => (
           <div key={property.id} className="property-card2">
-            <div className="property-image-container">
+            <div className="property-image-wrapper">
               <img
                 src={property.image}
                 alt={property.title}
@@ -87,49 +88,39 @@ const PropertyList = () => {
               />
               <div className="image-overlay">
                 <button className="image-button">
-                  <i className="fa fa-heart"></i>
+                  <Heart size={18} />
                 </button>
                 <button className="image-button">
-                  <i className="fa fa-expand"></i>
+                  <Maximize size={18} />
                 </button>
+              </div>
+              <div className="price-tag">
+                {property.price}
               </div>
             </div>
 
-            <div className="property-details5">
+            <div className="property-info">
+              <div className="property-location">
+                {property.location}
+              </div>
               <h3 className="property-title">{property.title}</h3>
-              <p className="property-location">{property.location}</p>
 
               <div className="property-features">
                 <div className="feature">
-                  <i className="fa fa-bed"></i>
-                  <span>{property.beds} Beds</span>
+                  <span className="feature-value">{property.beds}</span> Beds
                 </div>
-                <div className="feature-divider"></div>
+                <div className="feature-divider" />
                 <div className="feature">
-                  <i className="fa fa-bath"></i>
-                  <span>{property.baths} Baths</span>
+                  <span className="feature-value">{property.baths}</span> Baths
                 </div>
-                <div className="feature-divider"></div>
+                <div className="feature-divider" />
                 <div className="feature">
-                  <i className="fa fa-expand"></i>
-                  <span>{property.size}</span>
+                  <span className="feature-value">{property.size}</span>
                 </div>
               </div>
 
-              <div className="property-pricing">
-                <button className="sale-button">{property.saleType}</button>
-                <span className="property-price4">{property.price}</span>
-              </div>
-
-              {/* See More Button */}
-              <div className="see-more-container">
-                <a
-                  href="/property-ID" // All properties lead to the same page
-                  className="see-more-button"
-                  aria-label={`View details for ${property.title}`}
-                >
-                  See More
-                </a>
+              <div className="property-footer">
+                <div className="sale-tag">{property.saleType}</div>
               </div>
             </div>
           </div>
