@@ -518,9 +518,18 @@ export default function Properties3() {
     }, 500);
   };
 
+  const [showDeleteNotificationModal, setShowDeleteNotificationModal] = useState(false);
+  const [deleteNotificationId, setDeleteNotificationId] = useState(null);
+
   const handleDeleteNotification = (id) => {
-    setNotifications(prev => prev.filter(notification => notification.id !== id));
-    toast.success("Notification deleted");
+    setDeleteNotificationId(id);
+    setShowDeleteNotificationModal(true);
+  };
+
+  const confirmDeleteNotification = () => {
+    setNotifications((prev) => prev.filter((notification) => notification.id !== deleteNotificationId));
+    setShowDeleteNotificationModal(false);
+    toast.success("Notification deleted!");
   };
 
   const handleSaveChanges = async (e) => {
@@ -912,6 +921,29 @@ export default function Properties3() {
                           </button>
                         </div>
                       ))}
+
+                      {showDeleteNotificationModal && (
+                        <div className="modal-overlay">
+                          <div className="delete-modal">
+                            <h3>Delete Notification</h3>
+                            <p>Are you sure you want to delete this notification?</p>
+                            <div className="modal-actions">
+                              <button 
+                                className="cancel-btn" 
+                                onClick={() => setShowDeleteNotificationModal(false)}
+                              >
+                                Cancel
+                              </button>
+                              <button 
+                                className="confirm-delete-btn" 
+                                onClick={confirmDeleteNotification}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <p className="no-notifications">No notifications</p>
