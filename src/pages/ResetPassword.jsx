@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
+ 
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -38,7 +38,7 @@ const ResetPassword = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://barods-global.onrender.com/api/v1/user/reset-password', {
+      const response = await fetch('https://barods-global.onrender.com/api/v1/user//resetpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
