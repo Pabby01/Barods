@@ -16,11 +16,13 @@ const ForgotPassword2 = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://barods-global-eight.vercel.app/api/v1/user/forgotpassword', {
+      const response = await fetch('https://barods-global.onrender.com/api/v1/user/forgotpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ email }),
       });
 
