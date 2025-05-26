@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '/images/barods-logo.png';
@@ -13,7 +14,7 @@ const ForgotPassword = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('https://api.barodsglobal.com/reset-password-request', {
+      const response = await fetch('https://barods-global-eight.vercel.app/api/v1/agent//forgotpass', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
