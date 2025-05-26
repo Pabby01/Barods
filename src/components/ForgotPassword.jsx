@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '/images/barods-logo.png';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './forgot-password.css';
 
 const ForgotPassword = () => {
@@ -14,7 +16,9 @@ const ForgotPassword = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('https://barods-global-eight.vercel.app/api/v1/agent//forgotpass', {
+      const response = await fetch('https://barods-global-eight.vercel.app/api/v1/agent/forgotpass', {
+        mode: 'cors',
+        credentials: 'include',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,15 +29,14 @@ const ForgotPassword = () => {
       const data = await response.json();
       
       if (response.ok) {
-        // Normally we would redirect to a "check your email" page
-        // For demo purposes, we'll redirect to the reset page directly
+        toast.success('Password reset link sent to your email');
         navigate('/reset-password');
       } else {
-        alert(data.message || 'Failed to send reset link. Please try again.');
+        toast.error(data.message || 'Failed to send reset link. Please try again.');
       }
     } catch (error) {
       console.error('Request error:', error);
-      alert('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -41,6 +44,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="login-container">
+      <ToastContainer />
       <div className="city-background2"></div>
       <div className="login-form-container">
         <div className="logo-container">

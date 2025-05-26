@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '/images/barods-logo.png';
 import Success from './Success';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './create-password.css';
 
 const CreatePassword = () => {
@@ -67,27 +70,28 @@ const CreatePassword = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('https://api.barodsglobal.com/reset-password', {
+      const response = await fetch(`https://barods-global-eight.vercel.app/api/v1/agent/resetpass/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          token,
-          password 
+          password,
+          confirmPassword: password
         }),
       });
       
       const data = await response.json();
       
       if (response.ok) {
+        toast.success('Password reset successful!');
         setShowSuccess(true);
       } else {
-        alert(data.message || 'Failed to reset password. Please try again.');
+        toast.error(data.message || 'Failed to reset password. Please try again.');
       }
     } catch (error) {
       console.error('Request error:', error);
-      alert('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -109,6 +113,7 @@ const CreatePassword = () => {
 
   return (
     <div className="login-container">
+      <ToastContainer />
       <div className="city-background"></div>
       <div className="login-form-container">
         <div className="logo-container">
