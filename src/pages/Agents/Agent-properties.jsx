@@ -219,18 +219,19 @@ export default function Properties3() {
 
       const loadingToastId = toast.loading("Deleting property...");
 
-      const response = await axios.delete(
-        `http://localhost:2020/api/v1/agent/deleteProperty/${propertyId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios({
+        method: 'DELETE',
+        url: `${API_BASE_URL}/deleteProperty/${propertyId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        validateStatus: (status) => status >= 200 && status < 300
+      });
 
       toast.dismiss(loadingToastId);
 
-      if (response.status === 200) {
+      if (response.status >= 200 && response.status < 300) {
         // Update local state
         setProperties(prev => prev.filter(p => p._id !== propertyId));
         setFilteredProperties(prev => prev.filter(p => p._id !== propertyId));
@@ -243,6 +244,7 @@ export default function Properties3() {
         error.response?.data?.message || 
         "Failed to delete property"
       );
+      setShowDeleteModal(false); // Close modal on error
     }
   };
 
@@ -523,7 +525,7 @@ export default function Properties3() {
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
-    const loadingToastId = toast.loading("Creating property...");
+    const loadingToastId = toast.loading(editPropertyId ? "Updating property..." : "Creating property...");
 
     try {
       const token = localStorage.getItem("Token");
@@ -568,27 +570,20 @@ export default function Properties3() {
         });
       }
 
-      // Debug log formData contents
-      console.log('Form Data Contents:');
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}: ${typeof pair[1] === 'object' ? 'File' : pair[1]}`);
-      }
-
       const response = await axios({
-        method: 'post',
-        url: `${API_BASE_URL}/postproperties`,
+        method: editPropertyId ? 'PUT' : 'POST',
+        url: editPropertyId 
+          ? `${API_BASE_URL}/editProperties/${editPropertyId}`
+          : `${API_BASE_URL}/postproperties`,
         data: formData,
         headers: {
           'Authorization': `Bearer ${token}`,
           'Accept': 'application/json',
-          // Let browser set the Content-Type for FormData
         },
-        // Add timeout and validation
         timeout: 15000,
-        validateStatus: (status) => {
-          return status >= 200 && status < 300;
-        }
+        validateStatus: (status) => status >= 200 && status < 300
       });
+
 
       toast.dismiss(loadingToastId);
 
