@@ -32,6 +32,7 @@ import { ToastContainer } from "react-toastify"; // Import ToastContainer for no
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminProperties from './pages/Admin/Properties/AdminProperties';
 import AdminAgents from "./pages/Admin/Agents/AdminAgents";
+import ForgotPassword2 from "./pages/ForgotPassword";
 
 const App = () => {
   return (
@@ -80,6 +81,7 @@ const AppContent = () => {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/properties" element={<AdminProperties />} />
         <Route path="/admin/agents" element={<AdminAgents />} />
+        <Route path="/forgot" element={<ForgotPassword2 />} />
         {/* Add other admin routes here */}
       </Routes>
       {shouldShowHeaderFooter && <Footer />} {/* Render Footer conditionally */}

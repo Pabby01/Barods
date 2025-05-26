@@ -13,7 +13,9 @@
 .auth-content {
   padding: 30px;
 }
-
+.auth-button {
+  background-color: #4d7c0f;
+}
 .auth-logo-container {
   display: flex;
   justify-content: center;

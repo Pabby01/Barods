@@ -275,7 +275,16 @@ const LoginRegister = ({ initialMode = "login" }) => {
                   </button>
                 </div>
                 
-                <a href="#" className="forgot-password">Forgot Password?</a>
+                <a 
+                  href="#" 
+                  className="forgot-password" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = '/forgot';
+                  }}
+                >
+                  Forgot Password?
+                </a>
                 
                 <button className="auth-button login-btn" onClick={handleLogin}>Log in</button>
                 
