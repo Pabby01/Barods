@@ -16,7 +16,7 @@ const AdminLogin = () => {
 
   // Check if user is already logged in
   useEffect(() => {
-    const token = localStorage.getItem('AdminToken');
+    const token = localStorage.getItem('token');
     if (token) {
       navigate('/admin/dashboard');
     }
