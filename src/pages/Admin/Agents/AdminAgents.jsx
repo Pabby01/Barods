@@ -17,7 +17,7 @@ const AdminAgents = () => {
   const fetchAgents = async () => {
     try {
       const token = localStorage.getItem('AdminToken');
-      const response = await axios.get('https://barods-global.onrender.com/api/v1/admin/agents', {
+      const response = await axios.get('https://barods-global.onrender.com/api/v1/admin/all/agents', {
         headers: { Authorization: `Bearer ${token}` }
       });
 

@@ -124,6 +124,17 @@
   text-decoration: underline;
 }
 
+.admin-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.admin-links .forgot-password {
+  margin-top: 0;
+}
+
 @media (max-width: 768px) {
   .admin-login-container {
     flex-direction: column;
@@ -135,5 +146,9 @@
 
   .login-form-section {
     padding: 1.5rem;
+  }
+  
+  .admin-links {
+    gap: 0.25rem;
   }
 }

@@ -33,6 +33,7 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminProperties from './pages/Admin/Properties/AdminProperties';
 import AdminAgents from "./pages/Admin/Agents/AdminAgents";
 import ForgotPassword2 from "./pages/ForgotPassword";
+import AdminSignup from "./pages/Admin/AdminSignup";
 
 const App = () => {
   return (
@@ -46,7 +47,7 @@ const AppContent = () => {
   const location = useLocation(); // Now useLocation is inside the Router context
 
   // Define routes where Header and Footer should not be displayed
-  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password","/account", "/register", "/admin", "/admin/forgot-password", "/admin/dashboard", "/admin/properties", "/admin/agents"];
+  const noHeaderFooterRoutes = ["/dashboard", "/properties3", "/become-agent","/forgot-password","/account", "/register", "/admin", "/admin/forgot-password", "/admin/dashboard", "/admin/properties", "/admin/agents", "/admin/signup"];
 
   const shouldShowHeaderFooter = !noHeaderFooterRoutes.includes(location.pathname);
 
@@ -82,6 +83,7 @@ const AppContent = () => {
         <Route path="/admin/properties" element={<AdminProperties />} />
         <Route path="/admin/agents" element={<AdminAgents />} />
         <Route path="/forgot" element={<ForgotPassword2 />} />
+        <Route path="/admin/signup" element={<AdminSignup />} />
         {/* Add other admin routes here */}
       </Routes>
       {shouldShowHeaderFooter && <Footer />} {/* Render Footer conditionally */}

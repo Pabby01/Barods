@@ -107,13 +107,23 @@ const AdminLogin = () => {
             {loading ? 'Logging in...' : 'Log in'}
           </button>
 
-          <button
-            type="button"
-            className="forgot-password"
-            onClick={handleForgotPassword}
-          >
-            Forgot Password?
-          </button>
+          <div className="admin-links">
+            <button
+              type="button"
+              className="forgot-password"
+              onClick={handleForgotPassword}
+            >
+              Forgot Password?
+            </button>
+            
+            <button
+              type="button"
+              className="forgot-password"
+              onClick={() => navigate('/admin/signup')}
+            >
+              Create Admin Account
+            </button>
+          </div>
         </form>
       </div>
     </div>
