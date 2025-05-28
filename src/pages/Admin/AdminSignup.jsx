@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
@@ -16,6 +16,14 @@ const AdminSignup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem('AdminToken');
+    if (token) {
+      navigate('/admin/dashboard');
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -36,43 +44,61 @@ const AdminSignup = () => {
     setLoading(true);
 
     try {
+      // Get existing admin token if available (for authorization)
+      const token = localStorage.getItem('AdminToken');
+      
       const response = await axios.post(
         'https://barods-global.onrender.com/api/v1/admin/signup',
         {
-          name: formData.fullName,  // Changed from fullName to name
+          name: formData.fullName,
           email: formData.email,
           password: formData.password,
         },
         {
           headers: {
             'Content-Type': 'application/json',
+            // Include authorization if token exists (might be required for admin creation)
+            ...(token && { 'Authorization': `Bearer ${token}` })
           },
         }
       );
 
       if (response.data.success) {
         toast.success('Admin account created successfully!');
-        navigate('/admin'); // Redirect to admin login
+        // Store token if provided in response
+        if (response.data.token) {
+          localStorage.setItem('AdminToken', response.data.token);
+          localStorage.setItem('adminName', response.data.admin?.fullName || formData.fullName);
+          localStorage.setItem('adminEmail', response.data.admin?.email || formData.email);
+          navigate('/admin/dashboard'); // Redirect to dashboard if token provided
+        } else {
+          navigate('/admin'); // Otherwise redirect to login
+        }
       }
     } catch (error) {
       console.error('Signup error:', error);
       
-      // Detailed error logging
+      // Detailed error handling
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
+        const statusCode = error.response.status;
+        const errorMessage = error.response.data.message || `Error ${statusCode}`;
+        
+        // Handle specific status codes
+        if (statusCode === 403) {
+          toast.error('Permission denied. You may need admin privileges to create new admin accounts.');
+        } else if (statusCode === 409) {
+          toast.error('An account with this email already exists.');
+        } else {
+          toast.error(errorMessage);
+        }
+        
         console.log('Error data:', error.response.data);
-        console.log('Error status:', error.response.status);
-        console.log('Error headers:', error.response.headers);
-        toast.error(error.response.data.message || `Error ${error.response.status}: Signup failed`);
       } else if (error.request) {
-        // The request was made but no response was received
-        console.log('Error request:', error.request);
         toast.error('No response from server. Please try again later.');
+        console.log('Error request:', error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error message:', error.message);
         toast.error('Error setting up request: ' + error.message);
+        console.log('Error message:', error.message);
       }
     } finally {
       setLoading(false);

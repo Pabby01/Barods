@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
@@ -14,6 +14,14 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem('AdminToken');
+    if (token) {
+      navigate('/admin/dashboard');
+    }
+  }, [navigate]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -24,23 +32,64 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    
+    // Show loading toast
+    const loadingToast = toast.loading('Logging in...');
 
     try {
       const response = await axios.post(
         'https://barods-global.onrender.com/api/v1/admin/login',
-        formData
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
 
       if (response.data.success) {
+        // Store admin data in localStorage
         localStorage.setItem('AdminToken', response.data.token);
         localStorage.setItem('adminName', response.data.admin.fullName);
         localStorage.setItem('adminEmail', response.data.admin.email);
-        toast.success('Login successful!');
-        navigate('/admin/dashboard');
+        
+        // Dismiss loading toast and show success
+        toast.dismiss(loadingToast);
+        toast.success('Login successful! Redirecting to dashboard...');
+        
+        // Short delay before redirect for better UX
+        setTimeout(() => {
+          navigate('/admin/dashboard');
+        }, 1000);
       }
     } catch (error) {
       console.error('Login error:', error);
-      toast.error(error.response?.data?.message || 'Login failed');
+      
+      // Dismiss loading toast
+      toast.dismiss(loadingToast);
+      
+      // Detailed error handling
+      if (error.response) {
+        const statusCode = error.response.status;
+        const errorMessage = error.response.data.message || `Error ${statusCode}`;
+        
+        // Handle specific status codes
+        if (statusCode === 401) {
+          toast.error('Invalid email or password');
+        } else if (statusCode === 403) {
+          toast.error('Your account is not authorized');
+        } else {
+          toast.error(errorMessage);
+        }
+        
+        console.log('Error data:', error.response.data);
+      } else if (error.request) {
+        toast.error('No response from server. Please try again later.');
+        console.log('Error request:', error.request);
+      } else {
+        toast.error('Error setting up request: ' + error.message);
+        console.log('Error message:', error.message);
+      }
     } finally {
       setLoading(false);
     }
