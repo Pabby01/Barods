@@ -972,6 +972,8 @@
   padding: 25px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;
+  overflow: hidden;
+  width: 100%;
 }
 
 .agent-card2:hover {
@@ -1031,45 +1033,55 @@
   flex-direction: column;
   gap: 12px;
   margin-top: 20px;
+  padding: 0;
+  width: 100%;
 }
 
 .contact-button2 {
   width: 100%;
-  padding: 12px 20px;
+  padding: 12px 15px;
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.contact-button2 svg {
+  font-size: 16px;
 }
 
 .contact-button2.whatsapp {
   background: linear-gradient(135deg, #25D366, #128C7E);
   color: white;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
-}
-
-.contact-button2.whatsapp:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.15);
 }
 
 .contact-button2.email {
   background: linear-gradient(135deg, #519a14, #417c10);
   color: white;
-  box-shadow: 0 4px 15px rgba(81, 154, 20, 0.2);
+  box-shadow: 0 4px 15px rgba(81, 154, 20, 0.15);
+}
+
+/* Reduce shadow intensity on hover */
+.contact-button2:hover {
+  transform: translateY(-2px);
+}
+
+.contact-button2.whatsapp:hover {
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.2);
 }
 
 .contact-button2.email:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(81, 154, 20, 0.3);
+  box-shadow: 0 6px 20px rgba(81, 154, 20, 0.2);
 }
 
 .schedule-tour-card {
