@@ -20,16 +20,32 @@ const AdminProperties = () => {
   const fetchProperties = async () => {
     try {
       const token = localStorage.getItem('AdminToken');
-      const response = await axios.get('https://barods-global.onrender.com/api/v1/admin/properties', {
-        headers: { Authorization: `Bearer ${token}` }
+      if (!token) {
+        toast.error('Please login to continue');
+        return;
+      }
+
+      const response = await axios.get('https://barods-global.onrender.com/api/v1/admin/view/all/properties', {
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
 
       if (response.data.success) {
-        setProperties(response.data.properties);
+        setProperties(response.data.properties || []);
+      } else {
+        setProperties([]);
+        toast.error(response.data.message || 'Failed to load properties');
       }
     } catch (error) {
       console.error('Error fetching properties:', error);
+      if (error.response?.status === 401) {
+        toast.error('Session expired. Please login again.');
+        return;
+      }
       toast.error('Failed to load properties');
+      setProperties([]);
     } finally {
       setLoading(false);
     }

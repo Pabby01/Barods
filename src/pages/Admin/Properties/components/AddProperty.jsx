@@ -139,6 +139,13 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Area</label>
             <select name="area" value={formData.area} onChange={handleChange}>
               <option value="">Area</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              
               {/* Add area options */}
             </select>
           </div>
@@ -147,6 +154,13 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>State</label>
             <select name="state" value={formData.state} onChange={handleChange}>
               <option value="">Select category</option>
+              <option value="Lagos">Lagos</option>
+              <option value="Abuja">Abuja</option>
+              <option value="Kano">Kano</option>
+              <option value="Abuja">Abuja</option>
+              <option value="Abuja">Abuja</option>
+              <option value="Abuja">Abuja</option>  
+
               {/* Add state options */}
             </select>
           </div>
@@ -157,6 +171,10 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Status</label>
             <select name="status" value={formData.status} onChange={handleChange}>
               <option value="">Select Status</option>
+              <option value="Available">Available</option>
+              <option value="Sold">Sold</option>
+              <option value="leased">Leased</option>
+
               {/* Add status options */}
             </select>
           </div>
@@ -165,6 +183,10 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Type</label>
             <select name="type" value={formData.type} onChange={handleChange}>
               <option value="">Select Type</option>
+              <option value="Apartment">Apartment</option>
+              <option value="House">House</option>
+              <option value="Land">Land</option>
+              <option value="Flat">Flat</option>
               {/* Add type options */}
             </select>
           </div>
@@ -173,6 +195,8 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Category</label>
             <select name="category" value={formData.category} onChange={handleChange}>
               <option value="">Select category</option>
+              <option value="for rent">For Rent</option>
+              <option value="for sale">For Sale</option>
               {/* Add category options */}
             </select>
           </div>
@@ -183,6 +207,8 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Currency</label>
             <select name="currency" value={formData.currency} onChange={handleChange}>
               <option value="">Select Status</option>
+              <option value="USD">USD</option>
+              <option value="NGN">NGN</option>
               {/* Add currency options */}
             </select>
           </div>
@@ -191,6 +217,13 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Price</label>
             <select name="price" value={formData.price} onChange={handleChange}>
               <option value="">Select Type</option>
+              <option value="1000000">1000000</option>
+              <option value="2000000">2000000</option>
+              <option value="3000000">3000000</option>
+              <option value="4000000">4000000</option>
+              <option value="5000000">5000000</option>
+              <option value="6000000">6000000</option>
+              
               {/* Add price options */}
             </select>
           </div>
@@ -199,6 +232,8 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Payment Frequency</label>
             <select name="paymentFrequency" value={formData.paymentFrequency} onChange={handleChange}>
               <option value="">Select category</option>
+              <option value="Per Annum">Per Annum</option>
+              <option value="Per Month">Per Month</option>
               {/* Add payment frequency options */}
             </select>
           </div>
@@ -209,6 +244,13 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Bedroom</label>
             <select name="bedrooms" value={formData.bedrooms} onChange={handleChange}>
               <option value="">Select Status</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              
               {/* Add bedroom options */}
             </select>
           </div>
@@ -217,6 +259,12 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Bathroom</label>
             <select name="bathrooms" value={formData.bathrooms} onChange={handleChange}>
               <option value="">Select Type</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
               {/* Add bathroom options */}
             </select>
           </div>
@@ -225,6 +273,12 @@ const AddProperty = ({ onClose, onSuccess }) => {
             <label>Toilet</label>
             <select name="toilets" value={formData.toilets} onChange={handleChange}>
               <option value="">Select category</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
               {/* Add toilet options */}
             </select>
           </div>

@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "./HotDeals.css";
 
 const HotDeals = () => {
   const [favorites, setFavorites] = useState({});
+  const navigate = useNavigate();
 
   const hotDeals = [
     {
@@ -54,9 +56,7 @@ const HotDeals = () => {
   };
 
   const viewPropertyDetails = (id) => {
-    console.log(`Viewing property details for ID: ${id}`);
-    // Navigation logic would go here
-    // e.g., history.push(`/property/${id}`);
+    navigate(`/property-ID`);
   };
 
   return (
