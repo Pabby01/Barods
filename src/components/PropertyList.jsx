@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { Heart, Maximize } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 import "./PropertyList.css";
 
 const properties = [
@@ -73,13 +74,33 @@ const properties = [
 ];
 
 const PropertyList = () => {
+  const navigate = useNavigate();
+  const [favorites, setFavorites] = useState({});
+
+  const viewPropertyDetails = (id) => {
+    navigate(`/property-ID`);
+  };
+
+  const toggleFavorite = (e, id) => {
+    e.stopPropagation(); // Prevent card click when clicking favorite button
+    setFavorites(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
   return (
     <div className="property-list-container">
       <h2 className="section-title2">Recent Properties</h2>
 
       <div className="property-grid2">
         {properties.map((property) => (
-          <div key={property.id} className="property-card2">
+          <div 
+            key={property.id} 
+            className="property-card2"
+            onClick={() => viewPropertyDetails(property.id)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="property-image-wrapper">
               <img
                 src={property.image}
@@ -87,10 +108,23 @@ const PropertyList = () => {
                 className="property-image5"
               />
               <div className="image-overlay">
-                <button className="image-button">
-                  <Heart size={18} />
+                <button 
+                  className="image-button"
+                  onClick={(e) => toggleFavorite(e, property.id)}
+                >
+                  <Heart 
+                    size={18} 
+                    fill={favorites[property.id] ? "#ff0000" : "none"}
+                    stroke={favorites[property.id] ? "#ff0000" : "currentColor"}
+                  />
                 </button>
-                <button className="image-button">
+                <button 
+                  className="image-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // Handle maximize/view image functionality here
+                  }}
+                >
                   <Maximize size={18} />
                 </button>
               </div>
