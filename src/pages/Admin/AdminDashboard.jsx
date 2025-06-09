@@ -116,7 +116,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('AdminToken');
-    navigate('/');
+    navigate('/admin');
   };
 
   // Click outside handlers

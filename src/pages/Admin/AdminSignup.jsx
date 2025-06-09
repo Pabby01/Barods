@@ -7,13 +7,10 @@ import './AdminLogin.css';
 
 const AdminSignup = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -34,41 +31,50 @@ const AdminSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match');
-      return;
-    }
-    
     setLoading(true);
 
+    // Show loading toast
+    const loadingToast = toast.loading('Creating account...');
+
     try {
-      // Get existing admin token if available (for authorization)
-      const token = localStorage.getItem('AdminToken');
+      // Create the request payload exactly as expected by the API
+      const requestData = {
+        email: formData.email,
+        password: formData.password
+      };
+
+      console.log('Sending request with data:', requestData);
+      
+      // Get the admin token for authorization
+      const adminToken = localStorage.getItem('AdminToken');
+      
+      if (!adminToken) {
+        toast.dismiss(loadingToast);
+        toast.error('Admin authorization required. Please login first.');
+        setLoading(false);
+        navigate('/admin');
+        return;
+      }
       
       const response = await axios.post(
         'https://barods-global.onrender.com/api/v1/admin/signup',
-        {
-          name: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-        },
+        requestData,
         {
           headers: {
             'Content-Type': 'application/json',
-            // Include authorization if token exists (might be required for admin creation)
-            ...(token && { 'Authorization': `Bearer ${token}` })
-          },
+            'Authorization': `Bearer ${adminToken}`
+          }
         }
       );
+
+      // Dismiss loading toast
+      toast.dismiss(loadingToast);
 
       if (response.data.success) {
         toast.success('Admin account created successfully!');
         // Store token if provided in response
         if (response.data.token) {
           localStorage.setItem('AdminToken', response.data.token);
-          localStorage.setItem('adminName', response.data.admin?.fullName || formData.fullName);
           localStorage.setItem('adminEmail', response.data.admin?.email || formData.email);
           navigate('/admin/dashboard'); // Redirect to dashboard if token provided
         } else {
@@ -76,29 +82,36 @@ const AdminSignup = () => {
         }
       }
     } catch (error) {
+      // Dismiss loading toast
+      toast.dismiss(loadingToast);
+      
       console.error('Signup error:', error);
       
-      // Detailed error handling
+      // Detailed error handling with more specific messages
       if (error.response) {
         const statusCode = error.response.status;
-        const errorMessage = error.response.data.message || `Error ${statusCode}`;
+        const errorData = error.response.data;
+        
+        console.log('Error response data:', errorData);
         
         // Handle specific status codes
-        if (statusCode === 403) {
-          toast.error('Permission denied. You may need admin privileges to create new admin accounts.');
+        if (statusCode === 400) {
+          // Extract specific validation errors if available
+          const errorMessage = errorData.message || 'Invalid request format. Please check your input.';
+          toast.error(errorMessage);
+        } else if (statusCode === 403) {
+          toast.error('Permission denied. You need admin privileges to create new admin accounts.');
+          // Redirect to login if not authorized
+          navigate('/admin');
         } else if (statusCode === 409) {
           toast.error('An account with this email already exists.');
         } else {
-          toast.error(errorMessage);
+          toast.error(errorData.message || `Error ${statusCode}: Signup failed`);
         }
-        
-        console.log('Error data:', error.response.data);
       } else if (error.request) {
         toast.error('No response from server. Please try again later.');
-        console.log('Error request:', error.request);
       } else {
         toast.error('Error setting up request: ' + error.message);
-        console.log('Error message:', error.message);
       }
     } finally {
       setLoading(false);
@@ -119,19 +132,6 @@ const AdminSignup = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label htmlFor="fullName">Full Name</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-              placeholder="Enter your full name"
-            />
-          </div>
-
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -163,28 +163,6 @@ const AdminSignup = () => {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <div className="password-input">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                placeholder="Confirm your password"
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
           </div>

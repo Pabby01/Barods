@@ -32,7 +32,13 @@ const AdminLayout = ({ children }) => {
   ];
 
   const handleLogout = () => {
+    // Clear all admin-related data from localStorage
     localStorage.removeItem('AdminToken');
+    localStorage.removeItem('adminName');
+    localStorage.removeItem('adminEmail');
+    // Any other admin-related data that might be stored
+    
+    // Navigate to login page
     navigate('/admin');
   };
 
