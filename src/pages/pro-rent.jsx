@@ -1,121 +1,90 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart, FaSearch, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { FaHeart, FaSearch, FaWhatsapp } from "react-icons/fa";
 import "./Properties.css";
+
+const sampleProperties = [
+  {
+    id: 1,
+    title: "Diamond Family Home",
+    location: "235 Johnson Rd, Kate Lagos",
+    price: "₦12,000,000",
+    beds: 3,
+    baths: 2,
+    area: "375 sqft",
+    image: "/images/Recent-1.png"
+  },
+  {
+    id: 2,
+    title: "Mountainview Villa",
+    location: "456 Laroshdale Rd, Kari Lagos",
+    price: "₦12,000,000",
+    beds: 4,
+    baths: 2,
+    area: "450 sqft",
+    image: "/images/Recent-1.png"
+  },
+  {
+    id: 3,
+    title: "Seaside Cottage",
+    location: "236 Johnson Rd, Kari Lagos",
+    price: "₦12,000,000",
+    beds: 3,
+    baths: 3,
+    area: "425 sqft",
+    image: "/images/Recent-1.png"
+  },
+  // ...add the rest of your sample properties here
+];
 
 const Properties2 = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  
-  // Sample property data
-  const properties = [
-    {
-      id: 1,
-      title: "Diamond Family Home",
-      location: "235 Johnson Rd, Kate Lagos",
-      price: "₦12,000,000",
-      beds: 3,
-      baths: 2,
-      area: "375 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 2,
-      title: "Mountainview Villa",
-      location: "456 Laroshdale Rd, Kari Lagos",
-      price: "₦12,000,000",
-      beds: 4,
-      baths: 2,
-      area: "450 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 3,
-      title: "Seaside Cottage",
-      location: "236 Johnson Rd, Kari Lagos",
-      price: "₦12,000,000",
-      beds: 3,
-      baths: 3,
-      area: "425 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 4,
-      title: "Diamond Family Home",
-      location: "235 Johnson Rd, Kate Lagos",
-      price: "₦12,000,000",
-      beds: 3,
-      baths: 2,
-      area: "375 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 5,
-      title: "Mountainview Villa",
-      location: "456 Laroshdale Rd, Kari Lagos",
-      price: "₦12,000,000",
-      beds: 4,
-      baths: 2,
-      area: "450 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 6,
-      title: "Seaside Cottage",
-      location: "236 Johnson Rd, Kari Lagos",
-      price: "₦12,000,000",
-      beds: 3,
-      baths: 3,
-      area: "425 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 7,
-      title: "Diamond Family Home",
-      location: "235 Johnson Rd, Kate Lagos",
-      price: "₦12,000,000",
-      beds: 3,
-      baths: 2,
-      area: "375 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 8,
-      title: "Mountainview Villa",
-      location: "456 Laroshdale Rd, Kari Lagos",
-      price: "₦12,000,000",
-      beds: 4,
-      baths: 2,
-      area: "450 sqft",
-      image: "/images/Recent-1.png"
-    },
-    {
-      id: 9,
-      title: "Seaside Cottage",
-      location: "236 Johnson Rd, Kari Lagos",
-      price: "₦12,000,000",
-      beds: 3,
-      baths: 3,
-      area: "425 sqft",
-      image: "/images/Recent-1.png"
-    }
-  ];
+  const [properties, setProperties] = useState(sampleProperties);
 
-  // Calculate displayed properties based on current page
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch("https://barods-global.onrender.com/api/v1/user/getAvailableforRent");
+        const data = await response.json();
+        if (data && Array.isArray(data.properties) && data.properties.length > 0) {
+          const mapped = data.properties.map((item, idx) => ({
+            id: item._id || idx + 1,
+            title: item.Title || "Untitled Property",
+            location: item.Location || item.location || "No location",
+            price: item.Price
+              ? (typeof item.Price === "number"
+                  ? `₦${item.Price.toLocaleString()}`
+                  : `₦${item.Price}`)
+              : "₦0",
+            beds: item.Bedroom || item.beds || 0,
+            baths: item.Bathroom || item.baths || 0,
+            area: item.Area || item.area || "",
+            image: (item.Image && item.Image[0]) || item.image || "/images/Recent-1.png"
+          }));
+          setProperties(mapped);
+        } else {
+          setProperties(sampleProperties);
+        }
+      } catch (error) {
+        setProperties(sampleProperties);
+      }
+    };
+    fetchProperties();
+     
+  }, []);
+
+  // Pagination logic
   const propertiesPerPage = 9;
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
   const currentProperties = properties.slice(indexOfFirstProperty, indexOfLastProperty);
-  
-  // Change page handler
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
-  // Calculate total pages
   const totalPages = Math.ceil(properties.length / propertiesPerPage);
-  
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="properties-page">
-      
       {/* Hero Banner */}
       <div className="properties-banner">
         <div className="overlay"></div>
@@ -198,10 +167,8 @@ const Properties2 = () => {
         </div>
       </div>
       
-      
-      
       {/* WhatsApp Button */}
-     <a href="https://wa.me/+2349020250260" className="whatsapp-button">
+      <a href="https://wa.me/+2349020250260" className="whatsapp-button">
         <FaWhatsapp size={24} />
       </a>
     </div>

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { FaSearch, FaWhatsapp } from "react-icons/fa";
+import axios from "axios";
 import "./HeroSection.css";
 
 const HeroSection = () => {
@@ -10,21 +11,27 @@ const HeroSection = () => {
   const [bedrooms, setBedrooms] = useState("Any");
   const [priceRange, setPriceRange] = useState("Any");
 
-  const handleSearch = () => {
-    // Collect all search parameters
-    const searchParams = {
-      type: activeTab, // sale, rent, or shortlet
-      query: searchQuery,
-      propertyType,
-      bedrooms,
-      priceRange
-    };
-    
-    console.log("Search params:", searchParams);
-    // Here you would typically:
-    // 1. Call an API with these parameters
-    // 2. Update Redux/Context state
-    // 3. Navigate to search results page
+  const handleSearch = async () => {
+    // Build query params based on selected filters
+    const params = {};
+    if (propertyType !== "All types") params.Type = propertyType;
+    if (bedrooms !== "Any") params.Bedroom = bedrooms.replace("+", "");
+    if (priceRange !== "Any") {
+      const [min, max] = priceRange.split("-");
+      params.Price = max ? max.replace("+", "") : min;
+    }
+    if (searchQuery) params.Location = searchQuery;
+
+    try {
+      const response = await axios.get("https://barods-global.onrender.com/properties/search", {
+        params
+      });
+      // You can update state here to display results, for now we'll log it:
+      console.log("Search results:", response.data);
+      // Example: setSearchResults(response.data.properties);
+    } catch (error) {
+      console.error("Search error:", error);
+    }
   };
 
   return (
