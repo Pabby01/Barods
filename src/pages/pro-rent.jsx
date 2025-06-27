@@ -52,11 +52,14 @@ const Properties2 = () => {
             id: item._id || idx + 1,
             title: item.Title || "Untitled Property",
             location: item.Location || item.location || "No location",
-            price: item.Price
-              ? (typeof item.Price === "number"
-                  ? `₦${item.Price.toLocaleString()}`
-                  : `₦${item.Price}`)
-              : "₦0",
+            price:
+              item.Price && typeof item.Price === "object" && item.Price.$numberDecimal
+                ? `₦${Number(item.Price.$numberDecimal).toLocaleString()}`
+                : item.Price && typeof item.Price === "number"
+                ? `₦${item.Price.toLocaleString()}`
+                : item.Price && typeof item.Price === "string"
+                ? `₦${item.Price}`
+                : "₦0",
             beds: item.Bedroom || item.beds || 0,
             baths: item.Bathroom || item.baths || 0,
             area: item.Area || item.area || "",
