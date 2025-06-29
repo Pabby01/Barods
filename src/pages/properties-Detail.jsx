@@ -3,13 +3,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FaWhatsapp, FaEnvelope, FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaChevronLeft, FaChevronRight, FaPlay, FaPause, FaTimes } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './PropertyView.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import propertiesData from "../data/properties.json";
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -87,15 +88,15 @@ Modal.propTypes = {
 };
 
 const PropertyView = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const [property, setProperty] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
   const [calculatorValues, setCalculatorValues] = useState({
-    principalAmount: 12000000,
-    downPayment: 2400000,
+    principalAmount: 0,
+    downPayment: 0,
     interestRate: 5,
     loanTerm: 30,
     propertyTax: 5000,
@@ -113,18 +114,45 @@ const PropertyView = () => {
     mobileNumber: '',
     email: '',
     subject: 'General Enquiries',
-    message: `Hello, I am interested in Diamond Family Home, 374, Johnson Ave, Ikoyi Lagos, and would love to make further enquiries.`
+    message: ''
   });
+
+  useEffect(() => {
+    // Find the property with matching slug
+    const propertyData = propertiesData.properties.find(p => p.slug === slug);
+    if (propertyData) {
+      setProperty(propertyData);
+      // Initialize calculator with property price
+      setCalculatorValues(prev => ({
+        ...prev,
+        principalAmount: propertyData.price.current,
+        downPayment: propertyData.price.current * 0.2 // 20% down payment
+      }));
+      // Initialize message with property details
+      setMessageFormData(prev => ({
+        ...prev,
+        message: `Hello, I am interested in ${propertyData.title}, ${propertyData.location.address}, ${propertyData.location.area} ${propertyData.location.city}, and would love to make further enquiries.`
+      }));
+    } else {
+      // Handle property not found
+      navigate('/properties');
+      toast.error("Property not found");
+    }
+  }, [slug]);
+
+  if (!property) {
+    return <div>Loading...</div>;
+  }
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? sampleProperty.images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? property.images.length - 1 : prevIndex - 1
     );
   };
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) => 
-      prevIndex === sampleProperty.images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === property.images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -172,7 +200,7 @@ const PropertyView = () => {
     e.preventDefault();
     const subject = encodeURIComponent(messageFormData.subject);
     const body = encodeURIComponent(messageFormData.message);
-    window.open(`mailto:${sampleProperty.agent.email}?subject=${subject}&body=${body}`, '_blank');
+    window.open(`mailto:${property.agent.email}?subject=${subject}&body=${body}`, '_blank');
     handleCloseModals();
     toast.success("Opening email client...");
   };
@@ -184,7 +212,7 @@ const PropertyView = () => {
       return;
     }
 
-    const subject = encodeURIComponent(`Tour Request: ${sampleProperty.title}`);
+    const subject = encodeURIComponent(`Tour Request: ${property.title}`);
     const body = encodeURIComponent(
       `Tour Request Details:\n\n` +
       `Name: ${tourFormData.name}\n` +
@@ -192,11 +220,11 @@ const PropertyView = () => {
       `Date: ${tourFormData.date}\n` +
       `Time: ${tourFormData.time}\n` +
       `Message: ${tourFormData.message}\n\n` +
-      `Property: ${sampleProperty.title}\n` +
-      `Address: ${sampleProperty.address}`
+      `Property: ${property.title}\n` +
+      `Address: ${property.location.address}, ${property.location.area} ${property.location.city}`
     );
 
-    window.open(`mailto:${sampleProperty.agent.email}?subject=${subject}&body=${body}`, '_blank');
+    window.open(`mailto:${property.agent.email}?subject=${subject}&body=${body}`, '_blank');
     toast.success("Tour request sent successfully!");
     setTourFormData({
       name: '',
@@ -239,105 +267,32 @@ const PropertyView = () => {
 
   const mortgageDetails = calculateMortgage();
 
-  // Sample property data (you would fetch this from your API)
-  const sampleProperty = {
-    id: 1,
-    title: "Diamond Family Home",
-    address: "374, Johnson Ave, Ajah Lagos",
-    price: "₦12,000,000",
-    agent: {
-      name: "Alabi Ogundare",
-      phone: "+234 902 025 0260",
-      email: "alabi@barodsglobal.com",
-      image: "/images/team-1.png",
-      description: "Hello! I would love to show you this beautiful property. I am committed to providing exceptional service and finding the perfect home for you."
-    },
-    beds: 3,
-    baths: 3,
-    area: "300 sqm",
-    description: `Welcome to your dream residence! A stunning family villa is a 3-bedroom Apartment perfect for a modern family. Located in a central hub, Lagos, which boasts many convenient amenities. This property offers a perfect blend of sophistication and modern functionality.
-
-Step inside to discover expansive living spaces adorned with luxurious finishes, high ceilings, and wall-to-wall windows. The main living area flows seamlessly into a gourmet kitchen, featuring state-of-the-art appliances, custom cabinetry, and elegant granite countertops. The master suite is a tranquil retreat with a spa-like bathroom designed to rejuvenate your senses.
-
-Each of the generously sized bedrooms are en-suite with spacious, comfortable walk-in closets. The shared areas are thoughtfully designed to improve open flow between spaces. The house also has a small cinema room and a private study.
-
-You'll especially be won't over at the ground level of this magnificent neighborhood. Here, there's easy access to schools, shopping centers, and recreational facilities. With 24/7 security, gated parking, and a comprehensive building management system, this house proves to be a haven of elegant living.
-
-Because this rare opportunity to own a piece of Lagos's finest properties. Tour their home today!`,
-    images: [
-      "/images/Recent-1.png",
-      "/images/Recent-2.png",
-      "/images/Recent-3.png",
-      "/images/Recent-1.png"
-    ],
-    virtualTourUrl: "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW",
-    location: {
-      latitude: 6.6018,
-      longitude: 3.3515 // Coordinates for Ogun State
-    },
-    amenities: [
-      "24/7 Power supply",
-      "24hrs Security",
-      "CCTV Camera",
-      "Ultra-modern facility",
-      "24hrs Water supply",
-      "Ultra-modern facility"
-    ],
-    relatedProperties: [
-      {
-        id: 2,
-        title: "Diamond Family Home",
-        location: "374, Johnson Ave, Ajah Lagos",
-        price: "₦12,000,000",
-        image: "/images/Recent-1.png",
-        beds: 3,
-        baths: 3,
-        area: "300 sqm"
-      },
-      {
-        id: 3,
-        title: "Mountain View Villa",
-        location: "374, Johnson Ave, Ajah Lagos",
-        price: "₦12,000,000",
-        image: "/images/Recent-2.png",
-        beds: 3,
-        baths: 3,
-        area: "300 sqm"
-      },
-      {
-        id: 4,
-        title: "Seaside Cottage",
-        location: "374, Johnson Ave, Ajah Lagos",
-        price: "₦12,000,000",
-        image: "/images/Recent-3.png",
-        beds: 3,
-        baths: 3,
-        area: "300 sqm"
-      }
-    ]
-  };
+  // Get related properties (excluding current property)
+  const relatedProperties = propertiesData.properties
+    .filter(p => p.id !== property.id)
+    .slice(0, 3); // Get first 3 related properties
 
   return (
     <div className="property-view-container">
       {/* Property Header */}
       <div className="property-header">
-        <h1>{sampleProperty.title}</h1>
+        <h1>{property.title}</h1>
         <p className="property-address">
-          <FaMapMarkerAlt /> {sampleProperty.address}
+          <FaMapMarkerAlt /> {property.location.address}, {property.location.area} {property.location.city}
         </p>
         <div className="property-quick-info">
-          <span>{sampleProperty.beds} Beds</span>
-          <span>{sampleProperty.baths} Baths</span>
-          <span>{sampleProperty.area}</span>
+          <span>{property.features.beds} Beds</span>
+          <span>{property.features.baths} Baths</span>
+          <span>{property.features.area.size} {property.features.area.unit}</span>
         </div>
-        <div className="property-price">{sampleProperty.price}</div>
+        <div className="property-price">{property.price.formatted.current}</div>
       </div>
 
       {/* Image Gallery */}
       <div className="property-gallery">
         <div className="main-image-container">
           <img
-            src={sampleProperty.images[currentImageIndex]}
+            src={property.images[currentImageIndex]}
             alt={`Property view ${currentImageIndex + 1}`}
             className="main-image"
           />
@@ -349,7 +304,7 @@ Because this rare opportunity to own a piece of Lagos's finest properties. Tour 
           </button>
         </div>
         <div className="thumbnail-container">
-          {sampleProperty.images.map((image, index) => (
+          {property.images.map((image, index) => (
             <img
               key={index}
               src={image}
@@ -366,14 +321,14 @@ Because this rare opportunity to own a piece of Lagos's finest properties. Tour 
           {/* Overview Section */}
           <section className="property-section">
             <h3>Overview</h3>
-            <p>{sampleProperty.description}</p>
+            <p>{property.fullDescription || property.description}</p>
           </section>
 
           {/* Amenities Section */}
           <section className="property-section">
             <h3>Amenities</h3>
             <div className="amenities-grid">
-              {sampleProperty.amenities.map((amenity, index) => (
+              {property.amenities.map((amenity, index) => (
                 <div key={index} className="amenity-item">
                   <span className="amenity-icon">✓</span>
                   {amenity}
@@ -387,7 +342,7 @@ Because this rare opportunity to own a piece of Lagos's finest properties. Tour 
             <h3>Virtual Tour</h3>
             <div className="virtual-tour-container">
               <iframe
-                src={sampleProperty.virtualTourUrl}
+                src={property.virtualTourUrl}
                 title="Virtual Tour"
                 width="100%"
                 height="400"
@@ -407,22 +362,22 @@ Because this rare opportunity to own a piece of Lagos's finest properties. Tour 
                   height: '400px'
                 }}
                 center={{
-                  lat: sampleProperty.location.latitude,
-                  lng: sampleProperty.location.longitude
+                  lat: property.location.coordinates.latitude,
+                  lng: property.location.coordinates.longitude
                 }}
                 zoom={15}
               >
                 <Marker
                   position={{
-                    lat: sampleProperty.location.latitude,
-                    lng: sampleProperty.location.longitude
+                    lat: property.location.coordinates.latitude,
+                    lng: property.location.coordinates.longitude
                   }}
                 />
               </GoogleMap>
             </LoadScript>
           </section>
 
-          {/* Mortgage Calculator */}
+          {/* Mortgage Calculator Section */}
           <section className="property-section">
             <h3>Mortgage Calculator</h3>
             <div className="mortgage-calculator">
@@ -507,12 +462,12 @@ Because this rare opportunity to own a piece of Lagos's finest properties. Tour 
           {/* Agent Information */}
           <div className="agent-card2">
             <div className="agent-header2">
-              <img src={sampleProperty.agent.image} alt={sampleProperty.agent.name} className="agent-image2" />
+              <img src={property.agent.image} alt={property.agent.name} className="agent-image2" />
               <div className="agent-info2">
-                <h3>{sampleProperty.agent.name}</h3>
-                <p className="agent-about2">About: {sampleProperty.agent.description}</p>
-                <p className="agent-contact2">Phone: {sampleProperty.agent.phone}</p>
-                <p className="agent-contact2">Mail: {sampleProperty.agent.email}</p>
+                <h3>{property.agent.name}</h3>
+                <p className="agent-about2">About: {property.agent.description}</p>
+                <p className="agent-contact2">Phone: {property.agent.phone}</p>
+                <p className="agent-contact2">Mail: {property.agent.email}</p>
               </div>
             </div>
             <div className="agent-actions2">
@@ -683,18 +638,18 @@ Because this rare opportunity to own a piece of Lagos's finest properties. Tour 
       <section className="related-properties">
         <h3>Related Properties</h3>
         <div className="related-properties-grid">
-          {sampleProperty.relatedProperties.map((property) => (
-            <div key={property.id} className="related-property-card">
-              <img src={property.image} alt={property.title} />
+          {relatedProperties.map((relatedProperty) => (
+            <div key={relatedProperty.id} className="related-property-card" onClick={() => navigate(`/property/${relatedProperty.slug}`)}>
+              <img src={relatedProperty.images[0]} alt={relatedProperty.title} />
               <div className="related-property-info">
-                <h3>{property.title}</h3>
-                <p className="location">{property.location}</p>
+                <h3>{relatedProperty.title}</h3>
+                <p className="location">{relatedProperty.location.address}, {relatedProperty.location.area}</p>
                 <div className="features">
-                  <span>{property.beds} Beds</span>
-                  <span>{property.baths} Baths</span>
-                  <span>{property.area}</span>
+                  <span>{relatedProperty.features.beds} Beds</span>
+                  <span>{relatedProperty.features.baths} Baths</span>
+                  <span>{relatedProperty.features.area.size} {relatedProperty.features.area.unit}</span>
                 </div>
-                <div className="price">{property.price}</div>
+                <div className="price">{relatedProperty.price.formatted.current}</div>
               </div>
             </div>
           ))}

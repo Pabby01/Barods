@@ -1,0 +1,178 @@
+{
+  "properties": [
+    {
+      "id": 1,
+      "slug": "diamond-family-home-ajah",
+      "title": "Diamond Family Home",
+      "location": {
+        "address": "374, Johnson Ave",
+        "area": "Ajah",
+        "city": "Lagos",
+        "coordinates": {
+          "latitude": 6.6018,
+          "longitude": 3.3515
+        }
+      },
+      "price": {
+        "current": 12000000,
+        "original": 20000000,
+        "discount": 20,
+        "formatted": {
+          "current": "₦12,000,000",
+          "original": "₦20,000,000"
+        }
+      },
+      "features": {
+        "beds": 3,
+        "baths": 3,
+        "area": {
+          "size": 300,
+          "unit": "sqm"
+        }
+      },
+      "images": [
+        "/images/Recent-1.png",
+        "/images/Recent-2.png",
+        "/images/Recent-3.png"
+      ],
+      "isHotDeal": true,
+      "propertyType": "Family Home",
+      "status": "For Sale",
+      "description": "Welcome to your dream residence! A stunning family villa is a 3-bedroom Apartment perfect for a modern family. Located in a central hub, Lagos, which boasts many convenient amenities. This property offers a perfect blend of sophistication and modern functionality.",
+      "fullDescription": "Welcome to your dream residence! A stunning family villa is a 3-bedroom Apartment perfect for a modern family. Located in a central hub, Lagos, which boasts many convenient amenities. This property offers a perfect blend of sophistication and modern functionality.\n\nStep inside to discover expansive living spaces adorned with luxurious finishes, high ceilings, and wall-to-wall windows. The main living area flows seamlessly into a gourmet kitchen, featuring state-of-the-art appliances, custom cabinetry, and elegant granite countertops. The master suite is a tranquil retreat with a spa-like bathroom designed to rejuvenate your senses.\n\nEach of the generously sized bedrooms are en-suite with spacious, comfortable walk-in closets. The shared areas are thoughtfully designed to improve open flow between spaces. The house also has a small cinema room and a private study.",
+      "amenities": [
+        "24/7 Power supply",
+        "24hrs Security",
+        "CCTV Camera",
+        "Ultra-modern facility",
+        "24hrs Water supply",
+        "Parking Space"
+      ],
+      "agent": {
+        "id": 1,
+        "name": "Alabi Ogundare",
+        "phone": "+234 902 025 0260",
+        "email": "alabi@barodsglobal.com",
+        "image": "/images/team-1.png",
+        "description": "Hello! I would love to show you this beautiful property. I am committed to providing exceptional service and finding the perfect home for you."
+      },
+      "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+    },
+    {
+      "id": 2,
+      "slug": "mountain-view-villa-ikoyi",
+      "title": "Mountain View Villa",
+      "location": {
+        "address": "15 Paradise Street",
+        "area": "Ikoyi",
+        "city": "Lagos",
+        "coordinates": {
+          "latitude": 6.5244,
+          "longitude": 3.4777
+        }
+      },
+      "price": {
+        "current": 15000000,
+        "original": 25000000,
+        "discount": 40,
+        "formatted": {
+          "current": "₦15,000,000",
+          "original": "₦25,000,000"
+        }
+      },
+      "features": {
+        "beds": 4,
+        "baths": 4,
+        "area": {
+          "size": 450,
+          "unit": "sqm"
+        }
+      },
+      "images": [
+        "/images/Recent-2.png",
+        "/images/Recent-1.png",
+        "/images/Recent-3.png"
+      ],
+      "isHotDeal": true,
+      "propertyType": "Villa",
+      "status": "For Sale",
+      "description": "Luxurious villa with breathtaking views of the city skyline. This 4-bedroom masterpiece combines modern architecture with comfortable living spaces.",
+      "fullDescription": "Luxurious villa with breathtaking views of the city skyline. This 4-bedroom masterpiece combines modern architecture with comfortable living spaces.\n\nThe property features an open-concept living area, gourmet kitchen with premium appliances, and a private infinity pool. Each bedroom includes an en-suite bathroom and walk-in closet.\n\nThe master suite offers a private balcony with panoramic views, perfect for enjoying morning coffee or evening relaxation. The outdoor space includes a landscaped garden and entertainment area.",
+      "amenities": [
+        "Infinity Pool",
+        "Smart Home System",
+        "24/7 Security",
+        "Private Garden",
+        "Double Garage",
+        "Home Theater"
+      ],
+      "agent": {
+        "id": 2,
+        "name": "Sarah Johnson",
+        "phone": "+234 803 123 4567",
+        "email": "sarah@barodsglobal.com",
+        "image": "/images/team-lead.png",
+        "description": "With over 10 years of experience in luxury real estate, I specialize in helping clients find their perfect premium property."
+      },
+      "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+    },
+    {
+      "id": 3,
+      "slug": "seaside-cottage-lekki",
+      "title": "Seaside Cottage",
+      "location": {
+        "address": "7B Ocean View Road",
+        "area": "Lekki Phase 1",
+        "city": "Lagos",
+        "coordinates": {
+          "latitude": 6.4281,
+          "longitude": 3.4219
+        }
+      },
+      "price": {
+        "current": 18000000,
+        "original": 30000000,
+        "discount": 40,
+        "formatted": {
+          "current": "₦18,000,000",
+          "original": "₦30,000,000"
+        }
+      },
+      "features": {
+        "beds": 5,
+        "baths": 4,
+        "area": {
+          "size": 500,
+          "unit": "sqm"
+        }
+      },
+      "images": [
+        "/images/Recent-3.png",
+        "/images/Recent-1.png",
+        "/images/Recent-2.png"
+      ],
+      "isHotDeal": true,
+      "propertyType": "Cottage",
+      "status": "For Sale",
+      "description": "Beautiful beachfront cottage with direct access to the ocean. Features spacious living areas, modern amenities, and stunning ocean views from every room.",
+      "fullDescription": "Beautiful beachfront cottage with direct access to the ocean. Features spacious living areas, modern amenities, and stunning ocean views from every room.\n\nThis 5-bedroom property offers the perfect blend of luxury and coastal living. The main floor features an open-concept living space with floor-to-ceiling windows, gourmet kitchen, and expansive deck for outdoor entertaining.\n\nThe master suite occupies the entire upper floor, complete with a private balcony, spa-like bathroom, and walk-in closet. The lower level includes a home office, media room, and direct access to the private beach.",
+      "amenities": [
+        "Private Beach Access",
+        "Ocean View",
+        "Outdoor Kitchen",
+        "Solar Power",
+        "Smart Security",
+        "Wine Cellar"
+      ],
+      "agent": {
+        "id": 3,
+        "name": "Michael Chen",
+        "phone": "+234 705 987 6543",
+        "email": "michael@barodsglobal.com",
+        "image": "/images/team-male.png",
+        "description": "Specialized in waterfront properties, I'm here to help you find your perfect beachside home."
+      },
+      "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+    }
+  ]
+}
