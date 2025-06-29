@@ -16,7 +16,7 @@ const PropertyList = () => {
   }, []);
 
   const viewPropertyDetails = (slug) => {
-    navigate(`/property/${slug}`);
+    navigate(`/properties/${slug}`);
   };
 
   const toggleFavorite = (e, id) => {
@@ -35,67 +35,66 @@ const PropertyList = () => {
         {properties.map((property) => (
           <div 
             key={property.id} 
-            className="property-card2"
-            onClick={() => viewPropertyDetails(property.slug)}
-            style={{ cursor: 'pointer' }}
+            className="property-card"
           >
-            <div className="property-image-wrapper">
-              <img
-                src={property.images[0]}
-                alt={property.title}
-                className="property-image5"
-              />
-              <div className="image-overlay">
-                <button 
-                  className="image-button"
-                  onClick={(e) => toggleFavorite(e, property.id)}
-                >
-                  <Heart 
-                    size={18} 
-                    fill={favorites[property.id] ? "#ff0000" : "none"}
-                    stroke={favorites[property.id] ? "#ff0000" : "currentColor"}
-                  />
-                </button>
-                <button 
-                  className="image-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Handle maximize/view image functionality here
-                  }}
-                >
-                  <Maximize size={18} />
-                </button>
-              </div>
-              <div className="price-tag">
-                {property.price.formatted.current}
-              </div>
-            </div>
-
-            <div className="property-info">
-              <div className="property-location">
-                {property.location.address}, {property.location.area} {property.location.city}
-              </div>
-              <h3 className="property-title">{property.title}</h3>
-
-              <div className="property-features">
-                <div className="feature">
-                  <span className="feature-value">{property.features.beds}</span> Beds
+            <Link to={`/properties/${property.slug}`} className="property-link">
+              <div className="property-image-wrapper">
+                <img
+                  src={property.images[0]}
+                  alt={property.title}
+                  className="property-image5"
+                />
+                <div className="image-overlay">
+                  <button 
+                    className="image-button"
+                    onClick={(e) => toggleFavorite(e, property.id)}
+                  >
+                    <Heart 
+                      size={18} 
+                      fill={favorites[property.id] ? "#ff0000" : "none"}
+                      stroke={favorites[property.id] ? "#ff0000" : "currentColor"}
+                    />
+                  </button>
+                  <button 
+                    className="image-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Handle maximize/view image functionality here
+                    }}
+                  >
+                    <Maximize size={18} />
+                  </button>
                 </div>
-                <div className="feature-divider" />
-                <div className="feature">
-                  <span className="feature-value">{property.features.baths}</span> Baths
-                </div>
-                <div className="feature-divider" />
-                <div className="feature">
-                  <span className="feature-value">{property.features.area.size} {property.features.area.unit}</span>
+                <div className="price-tag">
+                  {property.price.formatted.current}
                 </div>
               </div>
 
-              <div className="property-footer">
-                <div className="sale-tag">{property.status}</div>
-                <Link to={`/properties/${property.slug || property.id}`} className="view-details-link">View Details</Link>
+              <div className="property-info">
+                <div className="property-location">
+                  {property.location.address}, {property.location.area} {property.location.city}
+                </div>
+                <h3 className="property-title">{property.title}</h3>
+
+                <div className="property-features">
+                  <div className="feature">
+                    <span className="feature-value">{property.features.beds}</span> Beds
+                  </div>
+                  <div className="feature-divider" />
+                  <div className="feature">
+                    <span className="feature-value">{property.features.baths}</span> Baths
+                  </div>
+                  <div className="feature-divider" />
+                  <div className="feature">
+                    <span className="feature-value">{property.features.area.size} {property.features.area.unit}</span>
+                  </div>
+                </div>
+
+                <div className="property-footer">
+                  <div className="sale-tag">{property.status}</div>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>

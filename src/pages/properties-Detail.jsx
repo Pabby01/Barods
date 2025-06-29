@@ -88,7 +88,7 @@ Modal.propTypes = {
 };
 
 const PropertyView = () => {
-  const { slug } = useParams();
+  const { slugOrId } = useParams();
   const navigate = useNavigate();
   const [property, setProperty] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -119,7 +119,7 @@ const PropertyView = () => {
 
   useEffect(() => {
     // Find the property with matching slug
-    const propertyData = propertiesData.properties.find(p => p.slug === slug);
+    const propertyData = propertiesData.properties.find(p => p.slug === slugOrId);
     if (propertyData) {
       setProperty(propertyData);
       // Initialize calculator with property price
@@ -138,7 +138,7 @@ const PropertyView = () => {
       navigate('/properties');
       toast.error("Property not found");
     }
-  }, [slug]);
+  }, [slugOrId]);
 
   if (!property) {
     return <div>Loading...</div>;

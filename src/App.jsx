@@ -68,7 +68,7 @@ const AppContent = () => {
         <Route path="/agents" element={<AgentsPage />} />
         <Route path="/agent-ID" element={<AgentDetailPage />} />
         <Route path="/property-ID" element={<PropertyView />} />
-        <Route path="/properties/:slugOrId" element={<PropertyView />} /> {/* Add this dynamic route for property details */}
+        <Route path="/properties/:slugOrId" element={<PropertyView />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/Architectural" element={<ArchitecturalLandingPage />} />
         <Route path="/become-agent" element={<Login />} />

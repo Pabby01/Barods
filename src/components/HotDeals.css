@@ -130,7 +130,7 @@
 .original-price {
   font-size: 16px;
   color: #999;
-  text-decoration: line-through;
+  text-decoration: line-through !important;
 }
 
 .property-features {

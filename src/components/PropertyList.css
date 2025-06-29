@@ -75,7 +75,7 @@
   bottom: -307px;
   right: 15px;
   background: #519a14;
-  color: white;
+  color: white!important;
   padding: 8px 12px;
   border-radius: 5px;
   font-weight: 600;
@@ -133,11 +133,17 @@
 .sale-tag {
   display: inline-block;
   background: #212529;
-  color: white;
+  color: white!important;
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 13px;
   font-weight: 500;
+}
+
+.property-link,
+.property-link * {
+  text-decoration: none !important;
+  color: inherit;
 }
 
 @media (max-width: 768px) {
