@@ -2,8 +2,8 @@
   "properties": [
     {
       "id": 1,
-      "slug": "Gorgeous-Family-Home",
-      "title": "Gorgeous Family Home",
+      "slug": "Gorgeous-Bungalow",
+      "title": "Gorgeous Bungalow",
       "location": {
         "address": "Obiwale Street, Ologuneru–Eleyele, Ibadan",
         "area": "Ibadan",
@@ -65,51 +65,56 @@
     },
     {
       "id": 2,
-      "slug": "mountain-view-villa-ikoyi",
-      "title": "Mountain View Villa",
+      "slug": "olomore-bungalow-abeokuta",
+      "title": "Olomore Bungalow",
       "location": {
         "address": "15 Paradise Street",
-        "area": "Ikoyi",
-        "city": "Lagos",
+        "area": "Abeokuta",
+        "city": "Ogun",
         "coordinates": {
           "latitude": 6.5244,
           "longitude": 3.4777
         }
       },
       "price": {
-        "current": 15000000,
-        "original": 25000000,
+        "current": 25000000,
+        "original": 30000000,
         "discount": 40,
         "formatted": {
-          "current": "₦15,000,000",
-          "original": "₦25,000,000"
+          "current": "₦25,000,000",
+          "original": "₦30,000,000"
         }
       },
       "features": {
-        "beds": 4,
-        "baths": 4,
+        "beds": 3,
+        "baths": 3,
         "area": {
           "size": 450,
           "unit": "sqm"
         }
       },
       "images": [
-        "/images/Recent-2.png",
-        "/images/Recent-1.png",
-        "/images/Recent-3.png"
+        "/images/prop/sp3.jpg",
+        "/images/prop/sp2.jpg",
+        "/images/prop/sp1.jpg",
+        "/images/prop/sp4.jpg",
+        "/images/prop/sp5.jpg"
       ],
-      "isHotDeal": true,
+      "isHotDeal": false,
       "propertyType": "Villa",
       "status": "For Sale",
-      "description": "Luxurious villa with breathtaking views of the city skyline. This 4-bedroom masterpiece combines modern architecture with comfortable living spaces.",
-      "fullDescription": "Luxurious villa with breathtaking views of the city skyline. This 4-bedroom masterpiece combines modern architecture with comfortable living spaces.\n\nThe property features an open-concept living area, gourmet kitchen with premium appliances, and a private infinity pool. Each bedroom includes an en-suite bathroom and walk-in closet.\n\nThe master suite offers a private balcony with panoramic views, perfect for enjoying morning coffee or evening relaxation. The outdoor space includes a landscaped garden and entertainment area.",
+      "description": "Located in the heart of Olomore Housing Estate, Abeokuta, this property offers a functional and comfortable living space ideal for families or investors. It consists of a 3-bedroom bungalow and a 2-bedroom boys' quarters (BQ) suitable for rental income, guest use, or extended family accommodation.",
+      "fullDescription": "Located in the heart of Olomore Housing Estate, Abeokuta, this property offers a functional and comfortable living space ideal for families or investors. It consists of a 3-bedroom bungalow and a 2-bedroom boys' quarters (BQ) suitable for rental income, guest use, or extended family accommodation. \n\nProperty Features \n\nMain House (3 Bedrooms):\n\n✅All rooms are ensuite\n\n✅Tiled floors and decent fittings\n\n✅Living room and dining area\n\n✅Kitchen with cabinets\n\n✅Compound is gated and partly interlocked.\n\nBoys' Quarters (2 Bedrooms):\n\n✅2 self-contained rooms\n\n✅Can serve as guest rooms, rental space, or for family use\n\n✅Located in a developed part of Olomore Housing Estate\n\n✅Good access road\n\n✅Quiet and residential environment\n\nDon’t miss out of this straightforward buy, perfect for personal use or as a long-term investment.",
       "amenities": [
-        "Infinity Pool",
-        "Smart Home System",
-        "24/7 Security",
-        "Private Garden",
-        "Double Garage",
-        "Home Theater"
+        "All rooms are ensuite",
+        "Tiled floors and decent fittings",
+        "Living room and dining area",
+        "Kitchen with cabinets",
+        "Compound is gated and partly interlocked",
+        "Quiet and residential environment",
+        "Good access road",
+        "Solar Power",
+        "Smart Security"
       ],
       "agent": {
         "id": 2,
