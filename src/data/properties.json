@@ -119,7 +119,7 @@
       "agent": {
         "id": 2,
         "name": "Sarah Johnson",
-        "phone": "+234 803 123 4567",
+        "phone": "+234 802 228 8806",
         "email": "sarah@barodsglobal.com",
         "image": "/images/team-lead.png",
         "description": "With over 10 years of experience in luxury real estate, I specialize in helping clients find their perfect premium property."
@@ -128,6 +128,66 @@
     },
     {
       "id": 3,
+      "slug": "exquisite-bungalow-abokuta",
+      "title": "Exquisite Bungalow",
+      "location": {
+        "address": "Laderin Housing Estate, Abeokuta",
+        "area": "Abeokuta",
+        "city": "Ogun",
+        "coordinates": {
+          "latitude": 6.4281,
+          "longitude": 3.4219
+        }
+      },
+      "price": {
+        "current": 70000000,
+        "original": 80000000,
+        "discount": 40,
+        "formatted": {
+          "current": "₦70,000,000",
+          "original": "₦80,000,000"
+        }
+      },
+      "features": {
+        "beds": 5,
+        "baths": 4,
+        "area": {
+          "size": 500,
+          "unit": "sqm"
+        }
+      },
+      "images": [
+        "/images/prop/cp1.jpg",
+        "/images/prop/cp2.jpg",
+        "/images/prop/cp3.jpg",
+        "/images/prop/cp4.jpg",
+        "/images/prop/cp5.jpg"
+      ],
+      "isHotDeal": false,
+      "propertyType": "Bungalow",
+      "status": "For Sale",
+      "description": "Welcome to this beautifully designed, fully detached 3-bedroom bungalow located within the prestigious Laderin Housing Estate, one of the most secure and well-planned government estates in Abeokuta. This elegant home offers modern architecture, spacious interiors, and functional luxury—ideal for families, retirees, or investors seeking a serene yet strategic location.",
+      "fullDescription": "Welcome to this beautifully designed, fully detached 3-bedroom bungalow located within the prestigious Laderin Housing Estate, one of the most secure and well-planned government estates in Abeokuta. This elegant home offers modern architecture, spacious interiors, and functional luxury—ideal for families, retirees, or investors seeking a serene yet strategic location.",
+      "amenities": [
+        "Private Beach Access",
+        "Ocean View",
+        "Outdoor Kitchen",
+        "Solar Power",
+        "Smart Security",
+        "Wine Cellar"
+      ],
+      "agent": {
+        "id": 3,
+        "name": "Michael Chen",
+        "phone": "+234 705 987 6543",
+        "email": "michael@barodsglobal.com",
+        "image": "/images/team-male.png",
+        "description": "Specialized in waterfront properties, I'm here to help you find your perfect beachside home."
+      },
+      "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+    },
+    {
+      "id": 4,
       "slug": "seaside-cottage-lekki",
       "title": "Seaside Cottage",
       "location": {
@@ -175,7 +235,7 @@
         "Wine Cellar"
       ],
       "agent": {
-        "id": 3,
+        "id": 4,
         "name": "Michael Chen",
         "phone": "+234 705 987 6543",
         "email": "michael@barodsglobal.com",
