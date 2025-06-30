@@ -2,24 +2,24 @@
   "properties": [
     {
       "id": 1,
-      "slug": "diamond-family-home-ajah",
-      "title": "Diamond Family Home",
+      "slug": "Gorgeous-Family-Home",
+      "title": "Gorgeous Family Home",
       "location": {
-        "address": "374, Johnson Ave",
-        "area": "Ajah",
-        "city": "Lagos",
+        "address": "Obiwale Street, Ologuneru–Eleyele, Ibadan",
+        "area": "Ibadan",
+        "city": "OYO",
         "coordinates": {
           "latitude": 6.6018,
           "longitude": 3.3515
         }
       },
       "price": {
-        "current": 12000000,
-        "original": 20000000,
+        "current": 60000000,
+        "original": 70000000,
         "discount": 20,
         "formatted": {
-          "current": "₦12,000,000",
-          "original": "₦20,000,000"
+          "current": "₦60,000,000",
+          "original": "₦70,000,000"
         }
       },
       "features": {
@@ -31,22 +31,27 @@
         }
       },
       "images": [
-        "/images/Recent-1.png",
-        "/images/Recent-2.png",
-        "/images/Recent-3.png"
+        "/images/prop/rp1.jpg",
+        "/images/prop/rp2.jpg",
+        "/images/prop/rp3.jpg",
+        "/images/prop/rp4.jpg",
+        "/images/prop/rp5.jpg",
+        "/images/prop/rp6.jpg"
+        
       ],
-      "isHotDeal": true,
+      "isHotDeal": false,
       "propertyType": "Family Home",
       "status": "For Sale",
-      "description": "Welcome to your dream residence! A stunning family villa is a 3-bedroom Apartment perfect for a modern family. Located in a central hub, Lagos, which boasts many convenient amenities. This property offers a perfect blend of sophistication and modern functionality.",
-      "fullDescription": "Welcome to your dream residence! A stunning family villa is a 3-bedroom Apartment perfect for a modern family. Located in a central hub, Lagos, which boasts many convenient amenities. This property offers a perfect blend of sophistication and modern functionality.\n\nStep inside to discover expansive living spaces adorned with luxurious finishes, high ceilings, and wall-to-wall windows. The main living area flows seamlessly into a gourmet kitchen, featuring state-of-the-art appliances, custom cabinetry, and elegant granite countertops. The master suite is a tranquil retreat with a spa-like bathroom designed to rejuvenate your senses.\n\nEach of the generously sized bedrooms are en-suite with spacious, comfortable walk-in closets. The shared areas are thoughtfully designed to improve open flow between spaces. The house also has a small cinema room and a private study.",
+      "description": "Gorgeously finished 3-Bedroom Bungalow (with a BQ) powered by solar energy Payment Plan: 3 months allowed (50% initial deposit)NET PRICE: ₦60,000,000 (Non-Negotiable) Location: Obiwale Street, Ologuneru–Eleyele, Ibadan. Document; ✅Registered Survey ✅Approved Building Plan ✅Deed of Assignment.",
+      "fullDescription": "Gorgeously finished 3-Bedroom Bungalow (with a BQ) powered by solar energy Payment Plan: 3 months allowed (50% initial deposit)NET PRICE: ₦60,000,000 (Non-Negotiable) Location: Obiwale Street, Ologuneru–Eleyele, Ibadan. Document; ✅Registered Survey ✅Approved Building Plan ✅Deed of Assignment.",
       "amenities": [
         "24/7 Power supply",
         "24hrs Security",
         "CCTV Camera",
         "Ultra-modern facility",
         "24hrs Water supply",
-        "Parking Space"
+        "Parking Space",
+        "Serene environment"
       ],
       "agent": {
         "id": 1,
