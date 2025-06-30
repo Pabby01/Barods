@@ -26,7 +26,7 @@ const HotDeals = () => {
   };
 
   const viewPropertyDetails = (slug) => {
-    navigate(`/property/${slug}`);
+    navigate(`/properties/${slug}`);
   };
 
   return (
