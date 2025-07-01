@@ -324,6 +324,79 @@
         "description": "Specialized in waterfront properties, I'm here to help you find your perfect beachside home."
       },
       "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+    },
+    {
+      "id": 6,
+      "slug": "exclusive-duplex",
+      "title": "EXCLUSIVE DUPLEX",
+      "location": {
+        "address": "KEMTA HOUSING ESTATE",
+        "area": "Abeokuta",
+        "city": "Ogun",
+        "coordinates": {
+          "latitude": 6.4281,
+          "longitude": 3.4219
+        }
+      },
+      "price": {
+        "current": 150000000,
+        "original": 160000000,
+        "discount": 40,
+        "formatted": {
+          "current": "₦150,000,000",
+          "original": "₦160,000,000"
+        }
+      },
+      "features": {
+        "beds": 4,
+        "baths": 4,
+        "area": {
+          "size": 260,
+          "unit": "sqm"
+        }
+      },
+      "images": [
+        "/images/prop/jc1.jpg",
+        "/images/prop/jc2.jpg",
+        "/images/prop/jc3.jpg",
+        "/images/prop/jc4.jpg",
+        "/images/prop/jc5.jpg",
+        "/images/prop/jc6.jpg",
+        "/images/prop/jc7.jpg",
+        "/images/prop/jc8.jpg",
+        "/images/prop/jc9.jpg",
+        "/images/prop/jc10.jpg",
+        "/images/prop/jc11.jpg",
+        "/images/prop/jc12.jpg"
+      ],
+      "isHotDeal": true,
+      "showInPropertyList": false,
+      "propertyType": "Hostel",
+      "status": "For Sale",
+      "description": "Here is an outstanding investment prospect with the potential for substantial returns, this exquisite hostel is strategically positioned on a sprawling four-plot estate within a sought-after student enclave. Merely two-minute drive from the renowned Federal University of Agriculture, Abeokuta (FUNAAB), it stands as an ideal opportunity for astute investors in pursuit of substantial financial gains.",
+      "fullDescription": "Here is an outstanding investment prospect with the potential for substantial returns, this exquisite hostel is strategically positioned on a sprawling four-plot estate within a sought-after student enclave. Merely two-minute drive from the renowned Federal University of Agriculture, Abeokuta (FUNAAB), it stands as an ideal opportunity for astute investors in pursuit of substantial financial gains.",
+      "amenities": [
+        "3 Spacious Bedrooms",
+        "Visitors' Toilet ",
+        "Modern Kitchen ",
+        "All-Round Tiling",
+        "Stylish POP Ceilings and Lighting",
+        "Gated Compound", 
+        "Ample Parking Space",
+        "Perimeter Fencing",  
+        "Borehole Water System",
+        "Spacious Compound",
+        "Clean Drainage System"
+      ],
+      "agent": {
+        "id": 6,
+        "name": "Michael Chen",
+        "phone": "+234 705 987 6543",
+        "email": "michael@barodsglobal.com",
+        "image": "/images/team-male.png",
+        "description": "Specialized in waterfront properties, I'm here to help you find your perfect beachside home."
+      },
+      "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
     }
   ]
 }
