@@ -190,55 +190,133 @@
     },
     {
       "id": 4,
-      "slug": "seaside-cottage-lekki",
-      "title": "Seaside Cottage",
+      "slug": "mega-hostel-funaab",
+      "title": "Mega Hostel",
       "location": {
-        "address": "7B Ocean View Road",
-        "area": "Lekki Phase 1",
-        "city": "Lagos",
+        "address": "FUNAAB, Alabata, Abeokuta",
+        "area": "Abeokuta",
+        "city": "Ogun",
         "coordinates": {
           "latitude": 6.4281,
           "longitude": 3.4219
         }
       },
       "price": {
-        "current": 18000000,
-        "original": 30000000,
+        "current": 150000000,
+        "original": 180000000,
         "discount": 40,
         "formatted": {
-          "current": "₦18,000,000",
-          "original": "₦30,000,000"
+          "current": "₦150,000,000",
+          "original": "₦180,000,000"
         }
       },
       "features": {
-        "beds": 5,
-        "baths": 4,
+        "beds": 32,
+        "baths": 32,
         "area": {
-          "size": 500,
+          "size": 2600,
           "unit": "sqm"
         }
       },
       "images": [
-        "/images/Recent-3.png",
-        "/images/Recent-1.png",
-        "/images/Recent-2.png"
+        "/images/prop/fp1.jpg",
+        "/images/prop/fp2.jpg",
+        "/images/prop/fp3.jpg",
+        "/images/prop/fp4.jpg",
+        "/images/prop/fp5.jpg",
+        "/images/prop/fp6.jpg"
       ],
       "isHotDeal": true,
       "showInPropertyList": false,
-      "propertyType": "Cottage",
+      "propertyType": "Hostel",
       "status": "For Sale",
-      "description": "Beautiful beachfront cottage with direct access to the ocean. Features spacious living areas, modern amenities, and stunning ocean views from every room.",
-      "fullDescription": "Beautiful beachfront cottage with direct access to the ocean. Features spacious living areas, modern amenities, and stunning ocean views from every room.\n\nThis 5-bedroom property offers the perfect blend of luxury and coastal living. The main floor features an open-concept living space with floor-to-ceiling windows, gourmet kitchen, and expansive deck for outdoor entertaining.\n\nThe master suite occupies the entire upper floor, complete with a private balcony, spa-like bathroom, and walk-in closet. The lower level includes a home office, media room, and direct access to the private beach.",
+      "description": "Here is an outstanding investment prospect with the potential for substantial returns, this exquisite hostel is strategically positioned on a sprawling four-plot estate within a sought-after student enclave. Merely two-minute drive from the renowned Federal University of Agriculture, Abeokuta (FUNAAB), it stands as an ideal opportunity for astute investors in pursuit of substantial financial gains.",
+      "fullDescription": "Here is an outstanding investment prospect with the potential for substantial returns, this exquisite hostel is strategically positioned on a sprawling four-plot estate within a sought-after student enclave. Merely two-minute drive from the renowned Federal University of Agriculture, Abeokuta (FUNAAB), it stands as an ideal opportunity for astute investors in pursuit of substantial financial gains.",
       "amenities": [
-        "Private Beach Access",
-        "Ocean View",
-        "Outdoor Kitchen",
-        "Solar Power",
-        "Smart Security",
-        "Wine Cellar"
+        "A Room Self all ensuite",
+        "Close proximity to FUNAAB",
+        "High Yield Investment",
+        "Fenced and Gated",
+        "All rooms tiled & painted",
+        "Well Paved and Spacious Compound", 
+        "Water station with enough storage capacity",
+        "Serene Environment",  
+        "Metal barbed wire fence with double leaf gate",
+        "Generator house with dedicated Generator",
+        " Water supply"
       ],
       "agent": {
         "id": 4,
+        "name": "Michael Chen",
+        "phone": "+234 705 987 6543",
+        "email": "michael@barodsglobal.com",
+        "image": "/images/team-male.png",
+        "description": "Specialized in waterfront properties, I'm here to help you find your perfect beachside home."
+      },
+      "virtualTourUrl": "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+    },
+    {
+      "id": 5,
+      "slug": "exquisite-bungalow",
+      "title": "Exquisite Bungalow",
+      "location": {
+        "address": "Ibara Orile / Oke Ata Axis",
+        "area": "Abeokuta North",
+        "city": "Ogun",
+        "coordinates": {
+          "latitude": 6.4281,
+          "longitude": 3.4219
+        }
+      },
+      "price": {
+        "current": 40000000,
+        "original": 60000000,
+        "discount": 40,
+        "formatted": {
+          "current": "₦40,000,000",
+          "original": "₦60,000,000"
+        }
+      },
+      "features": {
+        "beds": 3,
+        "baths": 3,
+        "area": {
+          "size": 260,
+          "unit": "sqm"
+        }
+      },
+      "images": [
+        "/images/prop/jp1.jpg",
+        "/images/prop/jp2.jpg",
+        "/images/prop/jp3.jpg",
+        "/images/prop/jp4.jpg",
+        "/images/prop/jp5.jpg",
+        "/images/prop/jp6.jpg",
+        "/images/prop/jp7.jpg",
+        "/images/prop/jp8.jpg",
+        "/images/prop/jp9.jpg"
+      ],
+      "isHotDeal": true,
+      "showInPropertyList": false,
+      "propertyType": "Hostel",
+      "status": "For Sale",
+      "description": "Here is an outstanding investment prospect with the potential for substantial returns, this exquisite hostel is strategically positioned on a sprawling four-plot estate within a sought-after student enclave. Merely two-minute drive from the renowned Federal University of Agriculture, Abeokuta (FUNAAB), it stands as an ideal opportunity for astute investors in pursuit of substantial financial gains.",
+      "fullDescription": "Here is an outstanding investment prospect with the potential for substantial returns, this exquisite hostel is strategically positioned on a sprawling four-plot estate within a sought-after student enclave. Merely two-minute drive from the renowned Federal University of Agriculture, Abeokuta (FUNAAB), it stands as an ideal opportunity for astute investors in pursuit of substantial financial gains.",
+      "amenities": [
+        "3 Spacious Bedrooms",
+        "Visitors' Toilet ",
+        "Modern Kitchen ",
+        "All-Round Tiling",
+        "Stylish POP Ceilings and Lighting",
+        "Gated Compound", 
+        "Ample Parking Space",
+        "Perimeter Fencing",  
+        "Borehole Water System",
+        "Spacious Compound",
+        "Clean Drainage System"
+      ],
+      "agent": {
+        "id": 5,
         "name": "Michael Chen",
         "phone": "+234 705 987 6543",
         "email": "michael@barodsglobal.com",
