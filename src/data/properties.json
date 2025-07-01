@@ -37,9 +37,9 @@
         "/images/prop/rp4.jpg",
         "/images/prop/rp5.jpg",
         "/images/prop/rp6.jpg"
-        
       ],
       "isHotDeal": false,
+      "showInPropertyList": true,
       "propertyType": "Family Home",
       "status": "For Sale",
       "description": "Gorgeously finished 3-Bedroom Bungalow (with a BQ) powered by solar energy Payment Plan: 3 months allowed (50% initial deposit)NET PRICE: ₦60,000,000 (Non-Negotiable) Location: Obiwale Street, Ologuneru–Eleyele, Ibadan. Document; ✅Registered Survey ✅Approved Building Plan ✅Deed of Assignment.",
@@ -101,6 +101,7 @@
         "/images/prop/sp5.jpg"
       ],
       "isHotDeal": false,
+      "showInPropertyList": true,
       "propertyType": "Villa",
       "status": "For Sale",
       "description": "Located in the heart of Olomore Housing Estate, Abeokuta, this property offers a functional and comfortable living space ideal for families or investors. It consists of a 3-bedroom bungalow and a 2-bedroom boys' quarters (BQ) suitable for rental income, guest use, or extended family accommodation.",
@@ -164,6 +165,7 @@
         "/images/prop/cp5.jpg"
       ],
       "isHotDeal": false,
+      "showInPropertyList": true,
       "propertyType": "Bungalow",
       "status": "For Sale",
       "description": "Welcome to this beautifully designed, fully detached 3-bedroom bungalow located within the prestigious Laderin Housing Estate, one of the most secure and well-planned government estates in Abeokuta. This elegant home offers modern architecture, spacious interiors, and functional luxury—ideal for families, retirees, or investors seeking a serene yet strategic location.",
@@ -222,6 +224,7 @@
         "/images/Recent-2.png"
       ],
       "isHotDeal": true,
+      "showInPropertyList": false,
       "propertyType": "Cottage",
       "status": "For Sale",
       "description": "Beautiful beachfront cottage with direct access to the ocean. Features spacious living areas, modern amenities, and stunning ocean views from every room.",

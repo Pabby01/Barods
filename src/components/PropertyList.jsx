@@ -27,12 +27,15 @@ const PropertyList = () => {
     }));
   };
 
+  // Filter properties to show only those marked for PropertyList
+  const filteredProperties = properties.filter(property => property.showInPropertyList);
+
   return (
     <div className="property-list-container">
       <h2 className="section-title2">Recent Properties</h2>
 
       <div className="property-grid2">
-        {properties.map((property) => (
+        {filteredProperties.map((property) => (
           <div 
             key={property.id} 
             className="property-card"
