@@ -35,9 +35,25 @@ export default function Properties3() {
     bathrooms: "",
     toilets: "",
     parking: "",
-    amenities: {},
+    amenities: {
+      power: false,
+      water: false,
+      security: false,
+      furnished: false,
+      parking: false,
+      gym: false,
+      pool: false,
+      internet: false,
+      ac: false,
+      elevator: false,
+      pet: false,
+      cctv: false,
+      cleaning: false,
+      playground: false,
+      others: false,
+    },
     description: "",
-    images: [], // Initialize as an empty array
+    images: [],
   });
   
   const [loginForm, setLoginForm] = useState({
@@ -353,10 +369,40 @@ export default function Properties3() {
     }
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const amenitiesList = [
+    { key: 'power', label: '24Hrs Power Supply' },
+    { key: 'water', label: 'Water' },
+    { key: 'security', label: 'Security' },
+    { key: 'furnished', label: 'Furnished' },
+    { key: 'parking', label: 'Parking' },
+    { key: 'gym', label: 'Gym' },
+    { key: 'pool', label: 'Swimming Pool' },
+    { key: 'internet', label: 'Internet' },
+    { key: 'ac', label: 'Air Conditioning' },
+    { key: 'elevator', label: 'Elevator' },
+    { key: 'pet', label: 'Pet Friendly' },
+    { key: 'cctv', label: 'CCTV' },
+    { key: 'cleaning', label: 'Cleaning' },
+    { key: 'playground', label: 'Playground' },
+    { key: 'others', label: 'Others' },
+  ];
+
+  const handleAmenityChange = (key) => {
+    setPropertyForm((prev) => ({
+      ...prev,
+      amenities: {
+        ...prev.amenities,
+        [key]: !prev.amenities[key],
+      },
+    }));
+  };
+
   const renderPropertyForm = () => (
-    <form onSubmit={handleSaveChanges} className="property-form">
-      {/* Title */}
-      <div className="form-group">
+    <form onSubmit={handleSaveChanges} className="property-form property-form-grid">
+      <div className="form-section">
+        <label>Title</label>
         <input
           type="text"
           placeholder="Title"
@@ -365,9 +411,8 @@ export default function Properties3() {
         />
         {errors.title && <p className="error-message">{errors.title}</p>}
       </div>
-
-      {/* Street */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Street</label>
         <input
           type="text"
           placeholder="Street"
@@ -376,9 +421,8 @@ export default function Properties3() {
         />
         {errors.street && <p className="error-message">{errors.street}</p>}
       </div>
-
-      {/* Area */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Area</label>
         <input
           type="text"
           placeholder="Area"
@@ -387,9 +431,8 @@ export default function Properties3() {
         />
         {errors.area && <p className="error-message">{errors.area}</p>}
       </div>
-
-      {/* State */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>State</label>
         <input
           type="text"
           placeholder="State"
@@ -398,9 +441,8 @@ export default function Properties3() {
         />
         {errors.state && <p className="error-message">{errors.state}</p>}
       </div>
-
-      {/* Status */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Status</label>
         <select
           value={propertyForm.status}
           onChange={(e) => setPropertyForm({ ...propertyForm, status: e.target.value })}
@@ -412,9 +454,8 @@ export default function Properties3() {
         </select>
         {errors.status && <p className="error-message">{errors.status}</p>}
       </div>
-
-      {/* Type */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Type</label>
         <select
           value={propertyForm.type}
           onChange={(e) => setPropertyForm({ ...propertyForm, type: e.target.value })}
@@ -426,9 +467,8 @@ export default function Properties3() {
         </select>
         {errors.type && <p className="error-message">{errors.type}</p>}
       </div>
-
-      {/* Category */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Category</label>
         <select
           value={propertyForm.category}
           onChange={(e) => setPropertyForm({ ...propertyForm, category: e.target.value })}
@@ -439,9 +479,8 @@ export default function Properties3() {
         </select>
         {errors.category && <p className="error-message">{errors.category}</p>}
       </div>
-
-      {/* Currency */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Currency</label>
         <select
           value={propertyForm.currency}
           onChange={(e) => setPropertyForm({ ...propertyForm, currency: e.target.value })}
@@ -452,9 +491,8 @@ export default function Properties3() {
         </select>
         {errors.currency && <p className="error-message">{errors.currency}</p>}
       </div>
-
-      {/* Price */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Price</label>
         <input
           type="number"
           placeholder="Price"
@@ -463,9 +501,8 @@ export default function Properties3() {
         />
         {errors.price && <p className="error-message">{errors.price}</p>}
       </div>
-
-      {/* Payment Frequency */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Payment Frequency</label>
         <select
           value={propertyForm.paymentFrequency}
           onChange={(e) =>
@@ -479,9 +516,8 @@ export default function Properties3() {
         </select>
         {errors.paymentFrequency && <p className="error-message">{errors.paymentFrequency}</p>}
       </div>
-
-      {/* Bedrooms */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Bedrooms</label>
         <input
           type="number"
           placeholder="Bedrooms"
@@ -490,9 +526,8 @@ export default function Properties3() {
         />
         {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
       </div>
-
-      {/* Bathrooms */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Bathrooms</label>
         <input
           type="number"
           placeholder="Bathrooms"
@@ -501,9 +536,8 @@ export default function Properties3() {
         />
         {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
       </div>
-
-      {/* Toilets */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Toilets</label>
         <input
           type="number"
           placeholder="Toilets"
@@ -512,9 +546,8 @@ export default function Properties3() {
         />
         {errors.toilets && <p className="error-message">{errors.toilets}</p>}
       </div>
-
-      {/* Parking */}
-      <div className="form-group">
+      <div className="form-section">
+        <label>Parking Spaces</label>
         <input
           type="number"
           placeholder="Parking Spaces"
@@ -523,9 +556,8 @@ export default function Properties3() {
         />
         {errors.parking && <p className="error-message">{errors.parking}</p>}
       </div>
-
-      {/* Description */}
-      <div className="form-group">
+      <div className="form-section form-section-wide">
+        <label>Description</label>
         <textarea
           placeholder="Description"
           value={propertyForm.description}
@@ -533,20 +565,37 @@ export default function Properties3() {
         />
         {errors.description && <p className="error-message">{errors.description}</p>}
       </div>
-
-      {/* Images */}
-      <div className="form-group">
+      <div className="form-section form-section-wide">
+        <label>Images</label>
         <input className="put" type="file" multiple onChange={handleImageUpload} />
         {errors.images && <p className="error-message">{errors.images}</p>}
       </div>
-
-      {/* Buttons */}
-      <button type="submit">{view === "add" ? "Add Property" : "Save Changes"}</button>
-      <button type="button" onClick={() => setView("list")}>
-        Cancel
-      </button>
+      <div className="form-section form-section-wide amenities-section">
+        <label>Amenities</label>
+        <div className="amenities-grid">
+          {amenitiesList.map((amenity) => (
+            <label key={amenity.key} className="amenity-checkbox">
+              <input
+                type="checkbox"
+                checked={propertyForm.amenities[amenity.key]}
+                onChange={() => handleAmenityChange(amenity.key)}
+              />
+              {amenity.label}
+            </label>
+          ))}
+        </div>
+      </div>
+      <div className="form-section form-section-wide form-buttons">
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (view === "add" ? "Adding..." : "Saving...") : (view === "add" ? "Add Property" : "Save Changes")}
+        </button>
+        <button type="button" onClick={() => setView("list")} disabled={isSubmitting}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
+  // (Removed duplicate code block from previous form rendering)
 
   const fetchAgentData = async () => {
     try {
