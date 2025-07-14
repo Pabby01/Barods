@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import placeholderData from "../data/properties.json"; // fallback data
+import propertiesData from "../data/properties.json";
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -119,49 +119,11 @@ const PropertyView = () => {
   });
 
   useEffect(() => {
-    const fetchProperty = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `https://barods-global.onrender.com/api/v1/user/property?id=${slugOrId}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch property");
-        const data = await response.json();
-
-        // If API returns property, merge with placeholder for missing fields
-        if (data && data.property) {
-          // Find a placeholder property for fallback fields
-          const fallback = placeholderData.properties?.[0] || {};
-          // Merge API property with fallback
-          const merged = { ...fallback, ...data.property };
-
-          // For nested fields, merge deeply if needed
-          merged.location = { ...fallback.location, ...data.property.location };
-          merged.features = { ...fallback.features, ...data.property.features };
-          merged.price = { ...fallback.price, ...data.property.price };
-          merged.agent = { ...fallback.agent, ...data.property.agent };
-          merged.images = data.property.images?.length
-            ? data.property.images
-            : fallback.images;
-
-          setProperty(merged);
-        } else {
-          throw new Error("Property not found");
-        }
-      } catch (error) {
-        // On error, fallback to placeholder and show toast
-        toast.error(error.message || "Could not load property details");
-        // Try to find by id in placeholder data
-        const fallback =
-          placeholderData.properties?.find((p) => p.id === slugOrId) ||
-          placeholderData.properties?.[0];
-        setProperty(fallback);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperty();
+    // Find property by slug in local JSON
+    const found = propertiesData.properties.find(
+      (p) => p.slug === slugOrId
+    );
+    setProperty(found || null);
   }, [slugOrId]);
 
   useEffect(() => {
@@ -180,7 +142,6 @@ const PropertyView = () => {
     }
   }, [property]);
 
-  if (loading) return <div>Loading...</div>;
   if (!property) return <div>Property not found.</div>;
 
   const handlePrevImage = () => {
@@ -307,7 +268,7 @@ const PropertyView = () => {
   const mortgageDetails = calculateMortgage();
 
   // Get related properties (excluding current property)
-  const relatedProperties = placeholderData.properties
+  const relatedProperties = propertiesData.properties
     .filter(p => p.id !== property.id)
     .slice(0, 3); // Get first 3 related properties
 

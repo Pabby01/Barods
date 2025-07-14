@@ -16,7 +16,7 @@ const PropertyList = () => {
   }, []);
 
   const viewPropertyDetails = (slug) => {
-    navigate(`/properties/${slug}`);
+    navigate(`/property/${slug}`);
   };
 
   const toggleFavorite = (e, id) => {
@@ -40,7 +40,7 @@ const PropertyList = () => {
             key={property.id} 
             className="property-card"
           >
-            <Link to={`/properties/${property.slug}`} className="property-link">
+            <Link to={`/property/${property.slug}`} className="property-link">
               <div className="property-image-wrapper">
                 <img
                   src={property.images[0]}

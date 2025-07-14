@@ -26,7 +26,7 @@ const HotDeals = () => {
   };
 
   const viewPropertyDetails = (slug) => {
-    navigate(`/properties/${slug}`);
+    navigate(`/property/${slug}`);
   };
 
   return (
@@ -36,12 +36,9 @@ const HotDeals = () => {
         
         <div className="hot-deals-grid">
           {hotDeals.map((deal) => (
-            <div className="property-card" key={deal.id}>
-              <Link to={`/properties/${deal.slug}`} className="property-link">
-                <div 
-                  className="property-cards"
-                  onClick={() => viewPropertyDetails(deal.slug)}
-                >
+            <Link to={`/property/${deal.slug}`} className="property-link" key={deal.id}>
+              <div className="property-card">
+                <div className="property-cards">
                   <div className="property-image-containers">
                     <img src={deal.images[0]} alt={deal.title} className="property-image17" />
                     <div className="discount-badge">{deal.price.discount}% off</div>
@@ -80,11 +77,11 @@ const HotDeals = () => {
                         <span>{deal.features.area.size} {deal.features.area.unit}</span>
                       </div>
                     </div>
-                    <Link to={`/property/${deal.slug || deal.id}`}>View Details</Link>
+                    <Link to={`/property/${deal.slug}`}>View Details</Link>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
