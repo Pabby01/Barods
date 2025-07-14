@@ -15,7 +15,7 @@ import Properties2 from "./pages/pro-rent";
 import AgentsPage from "./pages/Agentspage"; 
 import AgentDetailPage from "./pages/Agent-Details";
 import FAQPage from "./pages/FAQ";
-import PropertyView from "./pages/properties-Detail";
+import PropertyView from './pages/properties-Detail';
 import BlogDetailPage from "./pages/Blogdetailpage";
 import EventsGallery from "./pages/Event";
 import ArchitecturalLandingPage from "./pages/Architect"; 
@@ -34,6 +34,7 @@ import AdminProperties from './pages/Admin/Properties/AdminProperties';
 import AdminAgents from "./pages/Admin/Agents/AdminAgents";
 import ForgotPassword2 from "./pages/ForgotPassword";
 import AdminSignup from "./pages/Admin/AdminSignup";
+import Prodetails from "./pages/pro-details";
 
 const App = () => {
   return (
@@ -67,8 +68,8 @@ const AppContent = () => {
         <Route path="/rent" element={<Properties2 />} />
         <Route path="/agents" element={<AgentsPage />} />
         <Route path="/agent-ID" element={<AgentDetailPage />} />
-        <Route path="/property-ID" element={<PropertyView />} />
-        <Route path="/properties/:slugOrId" element={<PropertyView />} />
+        <Route path="/property/:slugOrId" element={<PropertyView />} />
+        <Route path="/property2/:slugOrId" element={<Prodetails />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/Architectural" element={<ArchitecturalLandingPage />} />
         <Route path="/become-agent" element={<Login />} />

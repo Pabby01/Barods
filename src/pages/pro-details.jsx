@@ -87,7 +87,7 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const PropertyView = () => {
+const Prodetails = () => {
   const { slugOrId } = useParams();
   const navigate = useNavigate();
   const [property, setProperty] = useState(null);
@@ -125,33 +125,75 @@ const PropertyView = () => {
         const response = await fetch(
           `https://barods-global.onrender.com/api/v1/user/property?id=${slugOrId}`
         );
-        if (!response.ok) throw new Error("Failed to fetch property");
         const data = await response.json();
+        console.log("API property details response:", data);
 
-        // If API returns property, merge with placeholder for missing fields
-        if (data && data.property) {
-          // Find a placeholder property for fallback fields
-          const fallback = placeholderData.properties?.[0] || {};
-          // Merge API property with fallback
-          const merged = { ...fallback, ...data.property };
+        if (response.ok && data && data.property) {
+          // Map API property to UI structure
+          const apiProp = data.property;
+          const mapped = {
+            id: apiProp._id,
+            title: apiProp.Title || apiProp.title || "Untitled Property",
+            description: apiProp.Description || apiProp.description || "",
+            fullDescription: apiProp.Description || apiProp.description || "",
+            images: apiProp.Image || [],
+            amenities: Array.isArray(apiProp.Amenities)
+              ? apiProp.Amenities
+              : typeof apiProp.Amenities === "string"
+              ? apiProp.Amenities.split(",")
+              : [],
+            price: {
+              current:
+                apiProp.Price && typeof apiProp.Price === "object" && apiProp.Price.$numberDecimal
+                  ? Number(apiProp.Price.$numberDecimal)
+                  : typeof apiProp.Price === "number"
+                  ? apiProp.Price
+                  : Number(apiProp.Price) || 0,
+              formatted: {
+                current:
+                  apiProp.Price && typeof apiProp.Price === "object" && apiProp.Price.$numberDecimal
+                    ? `₦${Number(apiProp.Price.$numberDecimal).toLocaleString()}`
+                    : typeof apiProp.Price === "number"
+                    ? `₦${apiProp.Price.toLocaleString()}`
+                    : typeof apiProp.Price === "string"
+                    ? `₦${apiProp.Price}`
+                    : "₦0"
+              }
+            },
+            location: {
+              address: apiProp.StreetAddress || "",
+              area: apiProp.Area || "",
+              city: apiProp.State || "",
+              coordinates: {
+                latitude: apiProp.latitude || 6.5244, // fallback Lagos
+                longitude: apiProp.longitude || 3.3792
+              }
+            },
+            features: {
+              beds: apiProp.Bedroom || 0,
+              baths: apiProp.Bathroom || 0,
+              area: {
+                size: apiProp.Area || "",
+                unit: "sqm"
+              }
+            },
+            agent: {
+              name: apiProp.postedBy?.fullName || "Barods Agent",
+              phone: apiProp.postedBy?.phone || "+234 000 000 0000",
+              email: apiProp.postedBy?.email || "info@barodsglobal.com",
+              image: "/images/team-1.png",
+              description: "Contact us for more details."
+            },
+            virtualTourUrl: apiProp.virtualTourUrl || "https://www.youtube.com/embed/OYmtXRAcMfg?si=Vv2_Ux631-QjSJsW"
+          };
 
-          // For nested fields, merge deeply if needed
-          merged.location = { ...fallback.location, ...data.property.location };
-          merged.features = { ...fallback.features, ...data.property.features };
-          merged.price = { ...fallback.price, ...data.property.price };
-          merged.agent = { ...fallback.agent, ...data.property.agent };
-          merged.images = data.property.images?.length
-            ? data.property.images
-            : fallback.images;
-
-          setProperty(merged);
+          setProperty(mapped);
         } else {
-          throw new Error("Property not found");
+          throw new Error(data?.message || "Property not found");
         }
       } catch (error) {
-        // On error, fallback to placeholder and show toast
         toast.error(error.message || "Could not load property details");
-        // Try to find by id in placeholder data
+        // Fallback to placeholder
         const fallback =
           placeholderData.properties?.find((p) => p.id === slugOrId) ||
           placeholderData.properties?.[0];
@@ -698,4 +740,4 @@ const PropertyView = () => {
   );
 };
 
-export default PropertyView;
+export default Prodetails;

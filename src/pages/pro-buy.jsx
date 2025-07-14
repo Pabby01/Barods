@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaSearch, FaWhatsapp } from "react-icons/fa";
 import axios from "axios";
 import "./Properties.css";
@@ -101,6 +101,7 @@ const sampleProperties = [
 const Properties = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [properties, setProperties] = useState(sampleProperties);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -205,7 +206,7 @@ const Properties = () => {
                   </div>
                 </div>
                 <div className="property-price-container">
-                  <Link to={`/property-ID`} className="for-sale-btn">
+                  <Link to={`/property2/${property.id}`} className="for-sale-btn">
                     Buy Now
                   </Link>
                   <span className="property-price">{property.price}</span>
