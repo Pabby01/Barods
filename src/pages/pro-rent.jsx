@@ -146,7 +146,7 @@ const Properties2 = () => {
                   </div>
                 </div>
                 <div className="property-price-container">
-                  <Link  to={`/property-ID`} className="for-sale-btn">
+                  <Link to={`/property2/${property.id}`} className="for-sale-btn">
                     Rent Now
                   </Link>
                   <span className="property-price">{property.price}</span>
