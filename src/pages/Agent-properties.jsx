@@ -702,9 +702,9 @@ export default function Properties3() {
       let requestUrl = `${API_BASE_URL}${ENDPOINTS.CREATE_PROPERTY}`;
 
       if (view === "edit") {
-        requestMethod = 'put';
-        requestUrl = `${API_BASE_URL}${ENDPOINTS.UPDATE_PROPERTY}`;
-        formData.append("_id", editPropertyId);
+        formData.delete("_id"); // Ensure _id is not sent in formData for updates
+        requestMethod = 'patch';
+        requestUrl = `${API_BASE_URL}${ENDPOINTS.UPDATE_PROPERTY}/${editPropertyId}`;
       }
 
       const response = await axios({
@@ -759,7 +759,12 @@ export default function Properties3() {
       console.log("Error details:", {
         status: error.response?.status,
         data: error.response?.data,
-        headers: error.response?.headers
+        message: error.message, // Add Axios error message
+        config: error.config, // Add request config
+        response: error.response, // Add full response object
+        headers: {
+          ...(error.response?.headers || {}) // Spread response headers if they exist
+        }
       });
 
       let errorMessage = view === "add" ? "Failed to create property" : "Failed to update property";
