@@ -39,8 +39,8 @@ const PropertyList = () => {
           <div 
             key={property.id} 
             className="property-card"
+            onClick={() => viewPropertyDetails(property.slug)}
           >
-            <Link to={`/property/${property.slug}`} className="property-link">
               <div className="property-image-wrapper">
                 <img
                   src={property.images[0]}
@@ -97,7 +97,6 @@ const PropertyList = () => {
                   <div className="sale-tag">{property.status}</div>
                 </div>
               </div>
-            </Link>
           </div>
         ))}
       </div>

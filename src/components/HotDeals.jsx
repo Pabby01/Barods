@@ -36,8 +36,8 @@ const HotDeals = () => {
         
         <div className="hot-deals-grid">
           {hotDeals.map((deal) => (
-            <Link to={`/property/${deal.slug}`} className="property-link" key={deal.id}>
-              <div className="property-card">
+              <div className="property-card" key={deal.id} onClick={() => viewPropertyDetails(deal.slug)}>
+
                 <div className="property-cards">
                   <div className="property-image-containers">
                     <img src={deal.images[0]} alt={deal.title} className="property-image17" />
@@ -77,11 +77,10 @@ const HotDeals = () => {
                         <span>{deal.features.area.size} {deal.features.area.unit}</span>
                       </div>
                     </div>
-                    <Link to={`/property/${deal.slug}`}>View Details</Link>
+                    <button onClick={() => viewPropertyDetails(deal.slug)}>View Details</button>
                   </div>
                 </div>
               </div>
-            </Link>
           ))}
         </div>
       </div>

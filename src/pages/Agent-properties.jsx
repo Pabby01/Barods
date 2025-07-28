@@ -35,23 +35,7 @@ export default function Properties3() {
     bathrooms: "",
     toilets: "",
     parking: "",
-    amenities: {
-      power: false,
-      water: false,
-      security: false,
-      furnished: false,
-      parking: false,
-      gym: false,
-      pool: false,
-      internet: false,
-      ac: false,
-      elevator: false,
-      pet: false,
-      cctv: false,
-      cleaning: false,
-      playground: false,
-      others: false,
-    },
+    amenities: {},
     description: "",
     images: [],
   });
@@ -68,6 +52,8 @@ export default function Properties3() {
     image: null,
     id: null
   });
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [propertyToDeleteId, setPropertyToDeleteId] = useState(null);
   const navigate = useNavigate();
 
   const fetchProperties = async () => {
@@ -115,7 +101,7 @@ export default function Properties3() {
   const ENDPOINTS = {
     GET_PROPERTIES: "/getproperties",
     CREATE_PROPERTY: "/postproperties",
-    UPDATE_PROPERTY: "/editProperties", // Make sure this matches exactly
+    UPDATE_PROPERTY: "/editproperties",
     DELETE_PROPERTY: "/deleteproperty"
   };
 
@@ -218,6 +204,23 @@ export default function Properties3() {
     </div>
   );
 
+  const renderDeleteConfirmationModal = () => {
+    if (!showDeleteConfirm) return null;
+
+    return (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h3>Confirm Deletion</h3>
+          <p>Are you sure you want to delete this property? This action cannot be undone.</p>
+          <div className="modal-actions">
+            <button className="btn-cancel" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+            <button className="btn-delete" onClick={confirmDelete}>Delete</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderPropertyList = () => {
     if (!Array.isArray(properties) || properties.length === 0) {
       return renderEmptyState();
@@ -286,12 +289,19 @@ export default function Properties3() {
       parking: property.parking || "",
       description: property.Description || "",
       images: property.Image || [],
+      amenities: property.Amenities || {},
     });
     setView("edit");
   };
 
-  const handleDelete = async (propertyId) => {
-    if (!propertyId) {
+  const handleDelete = (propertyId) => {
+    setPropertyToDeleteId(propertyId);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = async () => {
+    setShowDeleteConfirm(false);
+    if (!propertyToDeleteId) {
       toast.error("Invalid property ID");
       return;
     }
@@ -303,16 +313,10 @@ export default function Properties3() {
         return;
       }
 
-      const isConfirmed = window.confirm(
-        "Are you sure you want to delete this property?"
-      );
-      
-      if (!isConfirmed) return;
-
       const loadingToastId = toast.loading("Deleting property...");
 
       const response = await axios.delete(
-        `${API_BASE_URL}${ENDPOINTS.DELETE_PROPERTY}/${propertyId}`,
+        `${API_BASE_URL}${ENDPOINTS.DELETE_PROPERTY}/${propertyToDeleteId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -324,8 +328,8 @@ export default function Properties3() {
 
       if (response.status === 200) {
         // Update local state
-        setProperties(prev => prev.filter(p => p._id !== propertyId));
-        setFilteredProperties(prev => prev.filter(p => p._id !== propertyId));
+        setProperties(prev => prev.filter(p => p._id !== propertyToDeleteId));
+        setFilteredProperties(prev => prev.filter(p => p._id !== propertyToDeleteId));
         toast.success("Property deleted successfully!");
       }
     } catch (error) {
@@ -334,6 +338,8 @@ export default function Properties3() {
         error.response?.data?.message || 
         "Failed to delete property"
       );
+    } finally {
+      setPropertyToDeleteId(null);
     }
   };
 
@@ -634,7 +640,8 @@ export default function Properties3() {
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
-    const loadingToastId = toast.loading("Creating property...");
+    setIsSubmitting(true);
+    const loadingToastId = toast.loading(view === "add" ? "Creating property..." : "Saving changes...");
 
     try {
       const token = localStorage.getItem("Token");
@@ -644,7 +651,6 @@ export default function Properties3() {
         return;
       }
 
-      // Validate form before submission
       if (!validateForm()) {
         toast.dismiss(loadingToastId);
         toast.error("Please fill in all required fields");
@@ -653,28 +659,35 @@ export default function Properties3() {
 
       const formData = new FormData();
 
-      // Match the exact field names from the API documentation
       formData.append("Title", propertyForm.title.trim());
       formData.append("StreetAddress", propertyForm.street.trim());
       formData.append("Area", propertyForm.area.trim());
-      formData.append("Currency", propertyForm.currency || "NGN"); // Default to NGN
+      formData.append("Currency", propertyForm.currency || "NGN");
       formData.append("Price", propertyForm.price.toString());
       formData.append("Bedroom", propertyForm.bedrooms.toString());
       formData.append("Bathroom", propertyForm.bathrooms.toString());
       formData.append("State", propertyForm.state.trim());
-      formData.append("Status", propertyForm.status || "Available"); // Default to Available
+      formData.append("Status", propertyForm.status || "Available");
       formData.append("Type", propertyForm.type);
       formData.append("Category", propertyForm.category);
       formData.append("Toilet", propertyForm.toilets.toString());
       formData.append("parking", propertyForm.parking.toString());
       formData.append("Description", propertyForm.description.trim());
-      formData.append("Amenities", "water,others"); // Default amenities as shown in API example
+      formData.append("PaymentFrequency", propertyForm.paymentFrequency || "");
+
+      const selectedAmenities = Object.keys(propertyForm.amenities)
+        .filter(key => propertyForm.amenities[key])
+        .join(',');
+      formData.append("Amenities", selectedAmenities);
 
       // Handle images - make sure they're Files
       if (propertyForm.images?.length > 0) {
-        propertyForm.images.forEach((image, index) => {
+        propertyForm.images.forEach((image) => {
           if (image instanceof File) {
             formData.append("image", image);
+          } else if (typeof image === 'string') {
+            // If it's an existing image (URL), append it as a string
+            formData.append("existingImages", image);
           }
         });
       }
@@ -685,9 +698,18 @@ export default function Properties3() {
         console.log(`${pair[0]}: ${typeof pair[1] === 'object' ? 'File' : pair[1]}`);
       }
 
+      let requestMethod = 'post';
+      let requestUrl = `${API_BASE_URL}${ENDPOINTS.CREATE_PROPERTY}`;
+
+      if (view === "edit") {
+        requestMethod = 'put';
+        requestUrl = `${API_BASE_URL}${ENDPOINTS.UPDATE_PROPERTY}`;
+        formData.append("_id", editPropertyId);
+      }
+
       const response = await axios({
-        method: 'post',
-        url: `${API_BASE_URL}/postproperties`,
+        method: requestMethod,
+        url: requestUrl,
         data: formData,
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -704,7 +726,7 @@ export default function Properties3() {
       toast.dismiss(loadingToastId);
 
       if (response.data) {
-        toast.success("Property created successfully!");
+        toast.success(view === "add" ? "Property created successfully!" : "Property updated successfully!");
         
         // Reset form
         setPropertyForm({
@@ -729,27 +751,29 @@ export default function Properties3() {
 
         // Refresh properties list
         await fetchProperties();
-        
-        // Return to list view
         setView("list");
       }
     } catch (error) {
       toast.dismiss(loadingToastId);
-      console.error("Error creating property:", error);
+      console.error(view === "add" ? "Error creating property:" : "Error updating property:", error);
       console.log("Error details:", {
         status: error.response?.status,
         data: error.response?.data,
         headers: error.response?.headers
       });
 
-      let errorMessage = "Failed to create property";
+      let errorMessage = view === "add" ? "Failed to create property" : "Failed to update property";
       if (error.response?.data?.msg) {
         errorMessage = error.response.data.msg;
       } else if (error.response?.status === 500) {
         errorMessage = "Server error - please try again later";
+      } else if (error.response?.status === 400) {
+        errorMessage = error.response.data.message || "Bad Request. Please check your input.";
       }
 
       toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -1084,6 +1108,7 @@ export default function Properties3() {
           )}
         </div>
       </div>
+      {renderDeleteConfirmationModal()}
     </>
   );
 }
