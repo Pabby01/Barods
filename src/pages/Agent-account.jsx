@@ -17,6 +17,12 @@ const ENDPOINTS = {
   CHANGE_PASSWORD: "/change-password"
 };
 
+// New endpoints for patch updates
+const PATCH_ENDPOINTS = {
+  UPDATE_PROFILE_PIC: "/update-profile-pic",
+  UPDATE_EMAIL: "/update/email"
+};
+
 const AccountPage = () => {
   const [userInfo, setUserInfo] = useState({
     accountId: "",
@@ -137,6 +143,80 @@ const AccountPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // New: Patch only profile picture
+  const updateProfilePicture = async () => {
+    try {
+      const token = localStorage.getItem("Token");
+      if (!token) {
+        toast.error("Not authenticated");
+        return;
+      }
+      if (!userInfo.profileImage || !(userInfo.profileImage instanceof File)) {
+        toast.error("Please select an image to upload");
+        return;
+      }
+      const formData = new FormData();
+      // Ensure the field name matches backend expectation
+      formData.append("profileImage", userInfo.profileImage);
+
+      const response = await axios.patch(
+        `${API_BASE_URL}${PATCH_ENDPOINTS.UPDATE_PROFILE_PIC}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      if (response.data?.success) {
+        toast.success("Profile picture updated successfully!");
+        fetchAgentData();
+      } else {
+        throw new Error(response.data?.message || "Failed to update profile picture");
+      }
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+      console.error("Error response:", error.response?.data);
+      toast.error(error.response?.data?.message || "Failed to update profile picture");
+    }
+  };
+
+  // New: Patch only email
+  const updateEmail = async () => {
+    try {
+      const token = localStorage.getItem("Token");
+      if (!token) {
+        toast.error("Not authenticated");
+        return;
+      }
+      if (!userInfo.email) {
+        toast.error("Please enter a valid email");
+        return;
+      }
+      const response = await axios.patch(
+        `${API_BASE_URL}${PATCH_ENDPOINTS.UPDATE_EMAIL}`,
+        { email: userInfo.email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      if (response.data?.success) {
+        toast.success("Email updated successfully!");
+        fetchAgentData();
+      } else {
+        throw new Error(response.data?.message || "Failed to update email");
+      }
+    } catch (error) {
+      console.error("Error updating email:", error);
+      console.error("Error response:", error.response?.data);
+      toast.error(error.response?.data?.message || "Failed to update email");
+    }
+  };
+
   // Update the saveChanges function
   const saveChanges = async () => {
     if (!validateProfile()) {
@@ -252,7 +332,7 @@ const AccountPage = () => {
 
   const handleLogout = () => {
     // Clear the token from localStorage
-    localStorage.removeItem("userToken");
+    localStorage.removeItem("Token");
 
     // Show a success notification
     toast.success("Logged out successfully!");
@@ -653,6 +733,9 @@ const AccountPage = () => {
                   onChange={handleInfoChange}
                 />
                 {errors.email && <p className="error-message">{errors.email}</p>}
+                <button className="save-button" onClick={updateEmail} style={{marginTop: "8px"}}>
+                  Update Email <FaArrowRight className="button-icon" />
+                </button>
               </div>
 
               <div className="form-group">
@@ -685,6 +768,9 @@ const AccountPage = () => {
                   />
                 </div>
                 <p className="help-text">Max size: 5MB. Accepted formats: JPG, PNG</p>
+                <button className="save-button" onClick={updateProfilePicture} style={{marginTop: "8px"}}>
+                  Update Profile Picture <FaArrowRight className="button-icon" />
+                </button>
               </div>
 
               <button className="save-button" onClick={saveChanges}>
