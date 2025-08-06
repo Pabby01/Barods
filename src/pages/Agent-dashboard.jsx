@@ -157,18 +157,41 @@ const Dashboard = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("Token");
-      const response = await axios.get(`${API_BASE_URL}/dashboard`, {
+
+      // Fetch sales summary
+      const summaryRes = await axios.get(`https://barods-global.onrender.com/api/v1/agent/summary`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
 
-      if (response.data.success) {
-        setDashboardData(response.data.data);
-      } else {
-        throw new Error(response.data.message || "Failed to fetch dashboard data");
+      // Fetch sales trend
+      const trendRes = await axios.get(`https://barods-global.onrender.com/api/v1/agent/trend`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const summaryOk = summaryRes?.data?.success !== false;
+      const trendOk = trendRes?.data?.success !== false;
+
+      const next = { ...dashboardData };
+      if (summaryOk) {
+        const d = summaryRes.data.data || {};
+        next.totalListings = d.totalListings ?? next.totalListings;
+        next.closedDeals = d.closedDeals ?? next.closedDeals;
+        next.conversionRate = d.conversionRate ?? next.conversionRate;
+        next.averageSalesPrice = d.averageSalesPrice ?? next.averageSalesPrice;
       }
+      if (trendOk) {
+        const t = trendRes.data.data || [];
+        // Expecting [{ month: 'January', sales: 123 }, ...]
+        next.salesTrend = Array.isArray(t) ? t : next.salesTrend;
+      }
+
+      setDashboardData(next);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
       toast.error("Failed to load dashboard data");
